@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sit_in_the_cafeteria/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/components/my_textfield.dart';
+import 'package:sit_in_the_cafeteria/pages/sign_up_page.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
-
-  final TextEditingController _usernameController = useTextEditingController(); // ユーザー名
-  final TextEditingController _passwordController = useTextEditingController(); // パスワード
+class LoginPage extends HookWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // コントローラー
+    final TextEditingController usernameController = useTextEditingController(); // ユーザー名
+    final TextEditingController passwordController = useTextEditingController(); // パスワード
+
     return Scaffold(
-      resizeToAvoidBottomInset: false, // キーボードが出ても画面がリサイズされない
+      body: GestureDetector(
+        // 画面をタップでキーボードを閉じる
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        behavior: HitTestBehavior.opaque,
 
-      body: Center(
-        child: GestureDetector(
-          // 画面をタップでキーボードを閉じる
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          behavior: HitTestBehavior.opaque,
-
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -40,15 +40,15 @@ class LoginPage extends StatelessWidget {
                 height: 45,
               ),
 
-              // ユーザー名入植欄
-              MyTextfield(controller: _usernameController, labelText: 'ユーザー名'),
+              // ユーザー名入力欄
+              MyTextfield(controller: usernameController, labelText: 'ユーザー名'),
 
               const SizedBox(
                 height: 30,
               ),
 
               // パスワード入力欄
-              MyTextfield(controller: _passwordController, labelText: 'パスワード', isPassword: true),
+              MyTextfield(controller: passwordController, labelText: 'パスワード', isPassword: true),
 
               const SizedBox(
                 height: 60,
