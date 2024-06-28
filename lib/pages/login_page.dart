@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sit_in_the_cafeteria/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/components/my_textfield.dart';
-import 'package:sit_in_the_cafeteria/constant/my_color.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  final TextEditingController _usernameController = TextEditingController(); // ユーザー名
-  final TextEditingController _passwordController = TextEditingController(); // パスワード
+  final TextEditingController _usernameController = useTextEditingController(); // ユーザー名
+  final TextEditingController _passwordController = useTextEditingController(); // パスワード
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class LoginPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               // タイトル
-              const Text(
+              Text(
                 "学食スワローズ",
                 style: TextStyle(
                   fontSize: 34,
                   fontWeight: FontWeight.bold,
-                  color: MyColor.text,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
 
