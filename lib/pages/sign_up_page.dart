@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sit_in_the_cafeteria/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/components/my_textfield.dart';
-import 'package:sit_in_the_cafeteria/pages/sign_up_page.dart';
+import 'package:sit_in_the_cafeteria/pages/login_page.dart';
 
-class LoginPage extends HookWidget {
-  const LoginPage({super.key});
+class SignUpPage extends HookWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     // コントローラー
     final TextEditingController usernameController = useTextEditingController(); // ユーザー名
+    final TextEditingController studentIDController = useTextEditingController(); // 学籍番号
     final TextEditingController passwordController = useTextEditingController(); // パスワード
+    final TextEditingController confirmPasswordController = useTextEditingController(); // 確認用パスワード
 
     return Scaffold(
       body: GestureDetector(
@@ -37,41 +39,57 @@ class LoginPage extends HookWidget {
               ),
 
               const SizedBox(
-                height: 45,
+                height: 25,
               ),
 
               // ユーザー名入力欄
               MyTextfield(controller: usernameController, labelText: 'ユーザー名'),
 
               const SizedBox(
-                height: 30,
+                height: 15,
+              ),
+
+              // 学籍番号入力欄
+              MyTextfield(controller: studentIDController, labelText: '学籍番号'),
+
+              const SizedBox(
+                height: 15,
               ),
 
               // パスワード入力欄
               MyTextfield(controller: passwordController, labelText: 'パスワード', isPassword: true),
 
               const SizedBox(
+                height: 15,
+              ),
+
+              // 確認パスワード入力欄
+              MyTextfield(controller: confirmPasswordController, labelText: 'パスワード (確認用)', isPassword: true),
+
+              const SizedBox(
                 height: 60,
               ),
 
-              // ログインボタン
+              // 新規登録ボタン
               MyButton(
                 onPressed: () {
-                  // ログイン処理
+                  // 新規登録処理
+
+                  // 画面遷移
                 },
-                child: const Text("ログイン"),
+                child: const Text("新規登録"),
               ),
 
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
 
-              // アカウントを作成する場合の新規登録画面への遷移ボタン
+              // アカウントを既に持っている場合のログイン画面への遷移ボタン
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "アカウントを持っていない場合",
+                    "すでにアカウントをお持ちの方",
                     style: TextStyle(
                       fontSize: 12,
                       color: Theme.of(context).colorScheme.secondary,
@@ -83,10 +101,10 @@ class LoginPage extends HookWidget {
                   GestureDetector(
                     onTap: () {
                       // ログイン画面に遷移
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SignUpPage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LoginPage()));
                     },
                     child: Text(
-                      "新規作成",
+                      "ログイン",
                       style: TextStyle(
                         fontSize: 12,
                         color: Theme.of(context).colorScheme.primary,
