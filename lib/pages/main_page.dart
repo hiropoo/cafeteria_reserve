@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
 import 'package:sit_in_the_cafeteria/notifiers/bottom_nav_index_notifier.dart';
 import 'package:sit_in_the_cafeteria/pages/home_page.dart';
 import 'package:sit_in_the_cafeteria/pages/location_send_page.dart';
 import 'package:sit_in_the_cafeteria/pages/my_page.dart';
+import 'package:sit_in_the_cafeteria/providers/page_controller_provider.dart';
 
-class MainPage extends HookConsumerWidget {
+class MainPage extends ConsumerWidget {
   const MainPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = usePageController();
+    final pageController = ref.watch(pageControllerProvider);
     final bottomNavIndex = ref.watch(bottomNavIndexProvider);
     final notifier = ref.read(bottomNavIndexProvider.notifier);
 
     return Scaffold(
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(), // ページスワイプを無効にする
         controller: pageController,
         children: const [
           // ホーム画面
@@ -30,6 +32,8 @@ class MainPage extends HookConsumerWidget {
         ],
         onPageChanged: (index) => notifier.changeIndex(index),
       ),
+
+      drawer: const MyDrawer(),
 
       // bottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(

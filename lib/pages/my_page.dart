@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
@@ -9,6 +10,7 @@ class MyPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Page'),
       ),
+      drawer: const MyDrawer(),
       body: const Center(
         child: Text('My Page'),
       ),

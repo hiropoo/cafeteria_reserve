@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/components/my_drawer_tile.dart';
+import 'package:sit_in_the_cafeteria/notifiers/bottom_nav_index_notifier.dart';
+import 'package:sit_in_the_cafeteria/providers/page_controller_provider.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends ConsumerWidget {
   const MyDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pageController = ref.watch(pageControllerProvider);
+    final pageIndexNotifier = ref.watch(bottomNavIndexProvider.notifier);
+
     return Drawer(
       child: Column(
         children: [
@@ -33,6 +39,36 @@ class MyDrawer extends StatelessWidget {
             icon: Icons.home,
             onTap: () {
               Navigator.pop(context);
+              Future.delayed(const Duration(milliseconds: 250), () {
+                pageIndexNotifier.changeIndex(0);
+                pageController.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+              });
+            },
+          ),
+
+          // 位置情報を送信
+          MyDrawerTile(
+            title: '位置情報',
+            icon: Icons.location_on,
+            onTap: () {
+              Navigator.pop(context);
+              Future.delayed(const Duration(milliseconds: 250), () {
+                pageIndexNotifier.changeIndex(1);
+                pageController.animateToPage(1, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+              });
+            },
+          ),
+
+          // マイページ
+          MyDrawerTile(
+            title: 'マイページ',
+            icon: Icons.person,
+            onTap: () {
+              Navigator.pop(context);
+              Future.delayed(const Duration(milliseconds: 250), () {
+                pageIndexNotifier.changeIndex(2);
+                pageController.animateToPage(2, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+              });
             },
           ),
 
@@ -45,23 +81,7 @@ class MyDrawer extends StatelessWidget {
             },
           ),
 
-          // 位置情報を送信
-          MyDrawerTile(
-            title: '位置情報',
-            icon: Icons.location_on,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-
-          // マイページ
-          MyDrawerTile(
-            title: 'マイページ',
-            icon: Icons.location_on,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+          const Spacer(),
 
           // 設定
           MyDrawerTile(
@@ -71,8 +91,6 @@ class MyDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-
-          const Spacer(),
 
           // ログアウト
           MyDrawerTile(
@@ -84,7 +102,7 @@ class MyDrawer extends StatelessWidget {
           ),
 
           const SizedBox(
-            height: 45,
+            height: 20,
           )
         ],
       ),

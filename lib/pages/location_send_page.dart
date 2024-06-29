@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sit_in_the_cafeteria/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
 import 'package:sit_in_the_cafeteria/components/seat.dart';
-import 'package:sit_in_the_cafeteria/constant/my_color.dart';
 
 class LocationSendPage extends StatelessWidget {
   const LocationSendPage({super.key});
@@ -11,12 +10,22 @@ class LocationSendPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColor.appBar,
-        title: Center(
-          child: Text(
-            "位置情報を送信",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          "位置情報を送信",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        centerTitle: true,
+        // ドロワーメニューを開くボタン
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
         ),
       ),
       drawer: const MyDrawer(),
