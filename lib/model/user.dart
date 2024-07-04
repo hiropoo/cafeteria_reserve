@@ -13,6 +13,5 @@ class User with _$User {
     required String userID,
     required List<Friend> friendList,
     required bool hasReservation,
-    required Reservation reservation,
   }) = _User;
 }

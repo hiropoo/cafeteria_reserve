@@ -22,7 +22,6 @@ mixin _$User {
   String get userID => throw _privateConstructorUsedError;
   List<Friend> get friendList => throw _privateConstructorUsedError;
   bool get hasReservation => throw _privateConstructorUsedError;
-  Reservation get reservation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -39,10 +38,7 @@ abstract class $UserCopyWith<$Res> {
       int studentID,
       String userID,
       List<Friend> friendList,
-      bool hasReservation,
-      Reservation reservation});
-
-  $ReservationCopyWith<$Res> get reservation;
+      bool hasReservation});
 }
 
 /// @nodoc
@@ -64,7 +60,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? userID = null,
     Object? friendList = null,
     Object? hasReservation = null,
-    Object? reservation = null,
   }) {
     return _then(_value.copyWith(
       userName: null == userName
@@ -91,19 +86,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.hasReservation
           : hasReservation // ignore: cast_nullable_to_non_nullable
               as bool,
-      reservation: null == reservation
-          ? _value.reservation
-          : reservation // ignore: cast_nullable_to_non_nullable
-              as Reservation,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ReservationCopyWith<$Res> get reservation {
-    return $ReservationCopyWith<$Res>(_value.reservation, (value) {
-      return _then(_value.copyWith(reservation: value) as $Val);
-    });
   }
 }
 
@@ -120,11 +103,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       int studentID,
       String userID,
       List<Friend> friendList,
-      bool hasReservation,
-      Reservation reservation});
-
-  @override
-  $ReservationCopyWith<$Res> get reservation;
+      bool hasReservation});
 }
 
 /// @nodoc
@@ -143,7 +122,6 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? userID = null,
     Object? friendList = null,
     Object? hasReservation = null,
-    Object? reservation = null,
   }) {
     return _then(_$UserImpl(
       userName: null == userName
@@ -170,10 +148,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.hasReservation
           : hasReservation // ignore: cast_nullable_to_non_nullable
               as bool,
-      reservation: null == reservation
-          ? _value.reservation
-          : reservation // ignore: cast_nullable_to_non_nullable
-              as Reservation,
     ));
   }
 }
@@ -187,8 +161,7 @@ class _$UserImpl implements _User {
       required this.studentID,
       required this.userID,
       required final List<Friend> friendList,
-      required this.hasReservation,
-      required this.reservation})
+      required this.hasReservation})
       : _friendList = friendList;
 
   @override
@@ -209,12 +182,10 @@ class _$UserImpl implements _User {
 
   @override
   final bool hasReservation;
-  @override
-  final Reservation reservation;
 
   @override
   String toString() {
-    return 'User(userName: $userName, password: $password, studentID: $studentID, userID: $userID, friendList: $friendList, hasReservation: $hasReservation, reservation: $reservation)';
+    return 'User(userName: $userName, password: $password, studentID: $studentID, userID: $userID, friendList: $friendList, hasReservation: $hasReservation)';
   }
 
   @override
@@ -232,21 +203,12 @@ class _$UserImpl implements _User {
             const DeepCollectionEquality()
                 .equals(other._friendList, _friendList) &&
             (identical(other.hasReservation, hasReservation) ||
-                other.hasReservation == hasReservation) &&
-            (identical(other.reservation, reservation) ||
-                other.reservation == reservation));
+                other.hasReservation == hasReservation));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      userName,
-      password,
-      studentID,
-      userID,
-      const DeepCollectionEquality().hash(_friendList),
-      hasReservation,
-      reservation);
+  int get hashCode => Object.hash(runtimeType, userName, password, studentID,
+      userID, const DeepCollectionEquality().hash(_friendList), hasReservation);
 
   @JsonKey(ignore: true)
   @override
@@ -262,8 +224,7 @@ abstract class _User implements User {
       required final int studentID,
       required final String userID,
       required final List<Friend> friendList,
-      required final bool hasReservation,
-      required final Reservation reservation}) = _$UserImpl;
+      required final bool hasReservation}) = _$UserImpl;
 
   @override
   String get userName;
@@ -277,8 +238,6 @@ abstract class _User implements User {
   List<Friend> get friendList;
   @override
   bool get hasReservation;
-  @override
-  Reservation get reservation;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
