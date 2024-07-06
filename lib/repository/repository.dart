@@ -3,12 +3,20 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:sit_in_the_cafeteria/notifiers/user_notifier.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sit_in_the_cafeteria/model/user.dart';
+
+part 'repository.g.dart';
+
+@riverpod
+Repository repository(RepositoryRef ref) => const Repository();
 
 class Repository {
   static const String _serverIP = "localhost";
   static const int _serverPort = 12345;
   static Socket? _socket;
+
+  const Repository();
 
   /* サーバとの接続メソッド */
   Future connect() async {
