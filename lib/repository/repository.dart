@@ -40,7 +40,6 @@ class Repository {
       // サーバにrequestを送信
       debugPrint('sending request: $request');
       _socket!.add(utf8.encode("$request\n"));
-      _socket!.flush();
 
       // サーバからのresponseを受信
       final completer = Completer<String>();
@@ -49,6 +48,7 @@ class Repository {
         response += utf8.decode(data);
         if (response.endsWith('\n')) {
           completer.complete(response);
+          debugPrint('received response: $response');
         }
       });
 
@@ -65,12 +65,12 @@ class Repository {
    * request -> "login userName password"
    * response -> "success userID studentID" or "failure message"
    */
-  Future<bool> login({required String userID, required String password}) async {
+  Future<User?> login({required String userName, required String password}) async {
     debugPrint('login method called');
 
     // サーバに通信してログイン処理を行う
     await connect();
-    final response = await request("login $userID $password");
+    final response = await request("login $userName $password");
 
     final List<String> responseList = response.split(" ");
 
@@ -78,7 +78,7 @@ class Repository {
     if (responseList.first == "failure") {
       final message = responseList[1];
       debugPrint('login failed : $message');
-      return false;
+      return null;
     }
     // ログイン成功時
     else if (responseList.first == "success") {
@@ -87,11 +87,14 @@ class Repository {
 
       debugPrint('login success');
 
-      // ユーザ情報を更新
-      final userNotifier = UserNotifier();
-      userNotifier.updateUserIDAndStudentID(userID: userID, studentID: studentID);
-
-      return true;
+      return User(
+        userName: '',
+        password: '',
+        studentID: studentID,
+        userID: userID,
+        friendList: [],
+        hasReservation: false,
+      );
     } else {
       debugPrint('unknown response from server');
       return Future.error('unknown response from server');
