@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:sit_in_the_cafeteria/constant/form_category.dart';
+import 'package:sit_in_the_cafeteria/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/utils/string_extensions.dart';
 
-class MyTextfield extends HookWidget {
+class MyTextFormField extends HookWidget {
   final TextEditingController controller; // コントローラー
-  final String labelText; // ラベル
+  final TextEditingController? passwordController; // パスワードのコントローラー (確認用)
   final bool isPassword; // パスワードかどうか
+  final FormCategory formCategory; // フォームのカテゴリー
 
-  const MyTextfield({
+  const MyTextFormField({
     super.key,
     required this.controller,
-    required this.labelText,
+    this.passwordController,
+    required this.formCategory,
     this.isPassword = false,
   });
 
@@ -19,14 +24,62 @@ class MyTextfield extends HookWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: isPassword && isObscure.value,
         style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.secondary),
+        onEditingComplete: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+
+        validator: (value) {
+          switch (formCategory) {
+            case FormCategory.username:
+              if (value == null || value.isEmpty) {
+                return Strings.usernameEmpty;
+              } else if (value.contains(" ") || value.contains("　")) {
+                return Strings.usernameSpace;
+              } else if (!value.isValidAlphanumeric()) {
+                return Strings.usernameNotAlphanumeric;
+              }
+              break;
+
+            case FormCategory.password:
+              if (value == null || value.isEmpty) {
+                return Strings.passwordEmpty;
+              } else if (value.contains(" ") || value.contains("　")) {
+                return Strings.passwordSpace;
+              }
+              break;
+
+            case FormCategory.studentID:
+              if (value == null || value.isEmpty) {
+                return Strings.studentIDEmpty;
+              } else if (value.contains(" ") || value.contains("　")) {
+                return Strings.studentIDSpace;
+              }
+              break;
+
+            case FormCategory.confirmPassword:
+              if (value == null || value.isEmpty) {
+                return Strings.confirmPasswordEmpty;
+              } else if (value.contains(" ") || value.contains("　")) {
+                return Strings.passwordSpace;
+              } else if (value != passwordController!.text) {
+                return 'パスワードが一致しません';
+              }
+              break;
+          }
+          return null;
+        },
 
         // テキストフィールドのデザイン
         decoration: InputDecoration(
-          labelText: labelText,
+          labelText: switch (formCategory) {
+            FormCategory.username => Strings.username,
+            FormCategory.password => Strings.password,
+            FormCategory.studentID => Strings.studentID,
+            FormCategory.confirmPassword => Strings.confirmPassword,
+          },
           labelStyle: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.secondary),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),

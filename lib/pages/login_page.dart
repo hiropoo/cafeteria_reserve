@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sit_in_the_cafeteria/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/components/my_textfield.dart';
+import 'package:sit_in_the_cafeteria/constant/form_category.dart';
 import 'package:sit_in_the_cafeteria/pages/sign_up_page.dart';
 
 class LoginPage extends HookWidget {
@@ -13,15 +14,13 @@ class LoginPage extends HookWidget {
     final TextEditingController usernameController = useTextEditingController(); // ユーザー名
     final TextEditingController passwordController = useTextEditingController(); // パスワード
 
-    return Scaffold(
-      body: GestureDetector(
-        // 画面をタップでキーボードを閉じる
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        behavior: HitTestBehavior.opaque,
+    final formKey = GlobalKey<FormState>();
 
-        child: Center(
+    return Scaffold(
+      body: Center(
+        child: Form(
+          key: formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -41,14 +40,21 @@ class LoginPage extends HookWidget {
               ),
 
               // ユーザー名入力欄
-              MyTextfield(controller: usernameController, labelText: 'ユーザー名'),
+              MyTextFormField(
+                controller: usernameController,
+                formCategory: FormCategory.username,
+              ),
 
               const SizedBox(
                 height: 30,
               ),
 
               // パスワード入力欄
-              MyTextfield(controller: passwordController, labelText: 'パスワード', isPassword: true),
+              MyTextFormField(
+                controller: passwordController,
+                isPassword: true,
+                formCategory: FormCategory.password,
+              ),
 
               const SizedBox(
                 height: 60,
@@ -58,6 +64,7 @@ class LoginPage extends HookWidget {
               MyButton(
                 onPressed: () {
                   // ログイン処理
+                  if (formKey.currentState!.validate()) {}
                 },
                 child: const Text("ログイン"),
               ),
