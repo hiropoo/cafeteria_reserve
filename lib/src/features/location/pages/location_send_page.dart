@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sit_in_the_cafeteria/components/my_button.dart';
-import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
-import 'package:sit_in_the_cafeteria/components/seat.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/components/seat.dart';
 
 class LocationSendPage extends StatelessWidget {
   const LocationSendPage({super.key});

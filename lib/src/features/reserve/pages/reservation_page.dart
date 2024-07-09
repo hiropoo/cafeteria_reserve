@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ReservationPage extends StatelessWidget {
+  const ReservationPage({super.key});
 
   @override
   Widget build(BuildContext context) {

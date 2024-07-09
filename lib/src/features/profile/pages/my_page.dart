@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});

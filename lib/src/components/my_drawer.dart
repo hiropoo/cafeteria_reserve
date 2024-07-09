@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sit_in_the_cafeteria/components/my_drawer_tile.dart';
-import 'package:sit_in_the_cafeteria/notifiers/bottom_nav_index_notifier.dart';
-import 'package:sit_in_the_cafeteria/providers/page_controller_provider.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_drawer_tile.dart';
+import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/router/page_controller_provider.dart';
 
 class MyDrawer extends ConsumerWidget {
   const MyDrawer({super.key});
