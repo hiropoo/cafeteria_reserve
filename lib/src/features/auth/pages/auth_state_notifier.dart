@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sit_in_the_cafeteria/auth/auth_state.dart';
-import 'package:sit_in_the_cafeteria/notifiers/user_notifier.dart';
-import 'package:sit_in_the_cafeteria/repository/repository.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/auth_state.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/user_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/data/auth_repository.dart';
 
 part 'auth_state_notifier.g.dart';
 

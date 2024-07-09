@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sit_in_the_cafeteria/components/my_drawer.dart';
-import 'package:sit_in_the_cafeteria/notifiers/bottom_nav_index_notifier.dart';
-import 'package:sit_in_the_cafeteria/pages/home_page.dart';
-import 'package:sit_in_the_cafeteria/pages/location_send_page.dart';
-import 'package:sit_in_the_cafeteria/pages/my_page.dart';
-import 'package:sit_in_the_cafeteria/providers/page_controller_provider.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/location_send_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
+import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/router/page_controller_provider.dart';
 
 class MainPage extends ConsumerWidget {
   const MainPage({super.key});
@@ -22,7 +22,7 @@ class MainPage extends ConsumerWidget {
         controller: pageController,
         children: const [
           // ホーム画面
-          HomePage(),
+          ReservationPage(),
 
           // 位置情報送信画面
           LocationSendPage(),

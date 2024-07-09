@@ -4,19 +4,19 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sit_in_the_cafeteria/model/user.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/user.dart';
 
-part 'repository.g.dart';
+part 'auth_repository.g.dart';
 
 @riverpod
-Repository repository(RepositoryRef ref) => const Repository();
+AuthRepository repository(AuthRepositoryRef ref) => const AuthRepository();
 
-class Repository {
+class AuthRepository {
   static const String _serverIP = "localhost";
   static const int _serverPort = 12345;
   static Socket? _socket;
 
-  const Repository();
+  const AuthRepository();
 
   /* サーバとの接続メソッド */
   Future connect() async {

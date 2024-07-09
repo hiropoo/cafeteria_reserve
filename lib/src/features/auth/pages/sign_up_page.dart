@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:sit_in_the_cafeteria/components/my_button.dart';
-import 'package:sit_in_the_cafeteria/components/my_textfield.dart';
-import 'package:sit_in_the_cafeteria/constant/form_category.dart';
-import 'package:sit_in_the_cafeteria/pages/login_page.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
+import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
 
 class SignUpPage extends HookWidget {
   const SignUpPage({super.key});

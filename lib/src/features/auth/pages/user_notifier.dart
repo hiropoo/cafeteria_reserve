@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sit_in_the_cafeteria/model/user.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/user.dart';
 
 part 'user_notifier.g.dart';
 

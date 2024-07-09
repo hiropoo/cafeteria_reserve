@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sit_in_the_cafeteria/auth/auth_state.dart';
-import 'package:sit_in_the_cafeteria/auth/auth_state_notifier.dart';
-import 'package:sit_in_the_cafeteria/pages/login_page.dart';
-import 'package:sit_in_the_cafeteria/pages/main_page.dart';
-import 'package:sit_in_the_cafeteria/pages/sign_up_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/auth_state.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
+import 'package:sit_in_the_cafeteria/src/main_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/sign_up_page.dart';
 
 class BasePage extends ConsumerWidget {
   const BasePage({super.key});

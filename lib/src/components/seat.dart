@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sit_in_the_cafeteria/constant/my_color.dart';
+import 'package:sit_in_the_cafeteria/src/constant/my_color.dart';
 
 class SeatPage extends StatelessWidget {
   const SeatPage({super.key});

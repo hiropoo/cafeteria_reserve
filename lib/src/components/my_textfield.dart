@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:sit_in_the_cafeteria/constant/form_category.dart';
-import 'package:sit_in_the_cafeteria/constant/strings.dart';
-import 'package:sit_in_the_cafeteria/utils/string_extensions.dart';
+import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/src/utils/string_extensions.dart';
 
 class MyTextFormField extends HookWidget {
   final TextEditingController controller; // コントローラー

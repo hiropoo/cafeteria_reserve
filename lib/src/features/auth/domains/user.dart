@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sit_in_the_cafeteria/model/friend.dart';
-import 'package:sit_in_the_cafeteria/model/reservation.dart';
+import 'package:sit_in_the_cafeteria/src/features/profile/domain/friend.dart';
+import 'package:sit_in_the_cafeteria/src/features/reserve/domain/reservation.dart';
 
 part 'user.freezed.dart';
 

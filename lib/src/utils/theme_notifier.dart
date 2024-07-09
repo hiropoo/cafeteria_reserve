@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sit_in_the_cafeteria/constant/my_theme.dart';
+import 'package:sit_in_the_cafeteria/src/constant/my_theme.dart';
 
 part 'theme_notifier.g.dart';
 
