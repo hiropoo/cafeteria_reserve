@@ -6,15 +6,16 @@ part of 'auth_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$repositoryHash() => r'e7e649c2a535e12346865933ac4ad46f8d0997ec';
+String _$authRepositoryHash() => r'caa8a3997f54def2308917b6b8477ba7beb2bc2d';
 
-/// See also [repository].
-@ProviderFor(repository)
-final repositoryProvider = AutoDisposeProvider<AuthRepository>.internal(
-  repository,
-  name: r'repositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$repositoryHash,
+/// See also [authRepository].
+@ProviderFor(authRepository)
+final authRepositoryProvider = AutoDisposeProvider<AuthRepository>.internal(
+  authRepository,
+  name: r'authRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$authRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

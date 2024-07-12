@@ -17,12 +17,17 @@ class UserNotifier extends _$UserNotifier {
     );
   }
 
+  // ユーザー名、パスワード、学籍番号、ユーザIDを更新
+  void updateAll({required String userName, required String password, required int studentID, required String userID}) {
+    state = state.copyWith(userName: userName, password: password, studentID: studentID, userID: userID);
+  }
+
   // ユーザ名とパスワードを更新
   void updateUserNameAndPassword({required String userName, required String password}) {
     state = state.copyWith(userName: userName, password: password);
   }
 
-  // ユーザIDを更新
+  // ユーザIDと学籍番号を更新
   void updateUserIDAndStudentID({required String userID, required int studentID}) {
     state = state.copyWith(userID: userID);
   }

@@ -9,7 +9,7 @@ import 'package:sit_in_the_cafeteria/src/features/auth/domains/user.dart';
 part 'auth_repository.g.dart';
 
 @riverpod
-AuthRepository repository(AuthRepositoryRef ref) => const AuthRepository();
+AuthRepository authRepository(AuthRepositoryRef ref) => const AuthRepository();
 
 class AuthRepository {
   static const String _serverIP = "localhost";
@@ -69,7 +69,6 @@ class AuthRepository {
   }
 
   /* ログイン処理
-   * ログイン成功時にはtrueを返す
    * request -> "login userName password"
    * response -> "success userID studentID" or "failure message"
    */
