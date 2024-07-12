@@ -30,7 +30,7 @@ class ReservationPage extends StatelessWidget {
 
       // 位置情報を送信する画面
       body: const Center(
-        child: Text("Home Page"),
+        child: Text("Reservation Page"),
       ),
     );
   }

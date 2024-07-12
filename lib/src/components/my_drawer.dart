@@ -75,7 +75,7 @@ class MyDrawer extends ConsumerWidget {
           // 予約
           MyDrawerTile(
             title: '予約情報',
-            icon: Icons.calendar_today,
+            icon: Icons.event_note,
             onTap: () {
               Navigator.pop(context);
             },

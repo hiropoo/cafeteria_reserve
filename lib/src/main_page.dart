@@ -21,7 +21,7 @@ class MainPage extends ConsumerWidget {
         physics: const NeverScrollableScrollPhysics(), // ページスワイプを無効にする
         controller: pageController,
         children: const [
-          // ホーム画面
+          // 予約画面
           ReservationPage(),
 
           // 位置情報送信画面
@@ -38,10 +38,10 @@ class MainPage extends ConsumerWidget {
       // bottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          // ホーム
+          // 予約
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'ホーム',
+            icon: Icon(Icons.event_note),
+            label: '予約',
           ),
 
           // 位置情報
