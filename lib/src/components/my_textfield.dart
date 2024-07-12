@@ -103,6 +103,16 @@ class MyTextFormField extends HookWidget {
             ),
           ),
 
+          errorStyle: const TextStyle(color: Colors.red), // エラーメッセージの色
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red), // エラー時のボーダーの色
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          focusedErrorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red), // エラー時にフォーカスされたボーダーの色
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+
           // 目のマーク
           suffixIcon: isPassword
               ? Padding(
