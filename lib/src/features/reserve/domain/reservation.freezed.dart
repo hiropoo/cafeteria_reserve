@@ -19,8 +19,8 @@ mixin _$Reservation {
   DateTime get startTime => throw _privateConstructorUsedError;
   DateTime get endTime => throw _privateConstructorUsedError;
   int get cafeNum => throw _privateConstructorUsedError;
-  List<int> get seatNum => throw _privateConstructorUsedError;
-  List<String> get members => throw _privateConstructorUsedError;
+  List<int> get seatNumbers => throw _privateConstructorUsedError;
+  List<List<String>> get members => throw _privateConstructorUsedError;
   bool get isArrived => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,8 +38,8 @@ abstract class $ReservationCopyWith<$Res> {
       {DateTime startTime,
       DateTime endTime,
       int cafeNum,
-      List<int> seatNum,
-      List<String> members,
+      List<int> seatNumbers,
+      List<List<String>> members,
       bool isArrived});
 }
 
@@ -59,7 +59,7 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
     Object? startTime = null,
     Object? endTime = null,
     Object? cafeNum = null,
-    Object? seatNum = null,
+    Object? seatNumbers = null,
     Object? members = null,
     Object? isArrived = null,
   }) {
@@ -76,14 +76,14 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
           ? _value.cafeNum
           : cafeNum // ignore: cast_nullable_to_non_nullable
               as int,
-      seatNum: null == seatNum
-          ? _value.seatNum
-          : seatNum // ignore: cast_nullable_to_non_nullable
+      seatNumbers: null == seatNumbers
+          ? _value.seatNumbers
+          : seatNumbers // ignore: cast_nullable_to_non_nullable
               as List<int>,
       members: null == members
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<List<String>>,
       isArrived: null == isArrived
           ? _value.isArrived
           : isArrived // ignore: cast_nullable_to_non_nullable
@@ -104,8 +104,8 @@ abstract class _$$ReservationImplCopyWith<$Res>
       {DateTime startTime,
       DateTime endTime,
       int cafeNum,
-      List<int> seatNum,
-      List<String> members,
+      List<int> seatNumbers,
+      List<List<String>> members,
       bool isArrived});
 }
 
@@ -123,7 +123,7 @@ class __$$ReservationImplCopyWithImpl<$Res>
     Object? startTime = null,
     Object? endTime = null,
     Object? cafeNum = null,
-    Object? seatNum = null,
+    Object? seatNumbers = null,
     Object? members = null,
     Object? isArrived = null,
   }) {
@@ -140,14 +140,14 @@ class __$$ReservationImplCopyWithImpl<$Res>
           ? _value.cafeNum
           : cafeNum // ignore: cast_nullable_to_non_nullable
               as int,
-      seatNum: null == seatNum
-          ? _value._seatNum
-          : seatNum // ignore: cast_nullable_to_non_nullable
+      seatNumbers: null == seatNumbers
+          ? _value._seatNumbers
+          : seatNumbers // ignore: cast_nullable_to_non_nullable
               as List<int>,
       members: null == members
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<List<String>>,
       isArrived: null == isArrived
           ? _value.isArrived
           : isArrived // ignore: cast_nullable_to_non_nullable
@@ -163,10 +163,10 @@ class _$ReservationImpl implements _Reservation {
       {required this.startTime,
       required this.endTime,
       required this.cafeNum,
-      required final List<int> seatNum,
-      required final List<String> members,
+      required final List<int> seatNumbers,
+      required final List<List<String>> members,
       required this.isArrived})
-      : _seatNum = seatNum,
+      : _seatNumbers = seatNumbers,
         _members = members;
 
   @override
@@ -175,17 +175,17 @@ class _$ReservationImpl implements _Reservation {
   final DateTime endTime;
   @override
   final int cafeNum;
-  final List<int> _seatNum;
+  final List<int> _seatNumbers;
   @override
-  List<int> get seatNum {
-    if (_seatNum is EqualUnmodifiableListView) return _seatNum;
+  List<int> get seatNumbers {
+    if (_seatNumbers is EqualUnmodifiableListView) return _seatNumbers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_seatNum);
+    return EqualUnmodifiableListView(_seatNumbers);
   }
 
-  final List<String> _members;
+  final List<List<String>> _members;
   @override
-  List<String> get members {
+  List<List<String>> get members {
     if (_members is EqualUnmodifiableListView) return _members;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_members);
@@ -196,7 +196,7 @@ class _$ReservationImpl implements _Reservation {
 
   @override
   String toString() {
-    return 'Reservation(startTime: $startTime, endTime: $endTime, cafeNum: $cafeNum, seatNum: $seatNum, members: $members, isArrived: $isArrived)';
+    return 'Reservation(startTime: $startTime, endTime: $endTime, cafeNum: $cafeNum, seatNumbers: $seatNumbers, members: $members, isArrived: $isArrived)';
   }
 
   @override
@@ -208,7 +208,8 @@ class _$ReservationImpl implements _Reservation {
                 other.startTime == startTime) &&
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.cafeNum, cafeNum) || other.cafeNum == cafeNum) &&
-            const DeepCollectionEquality().equals(other._seatNum, _seatNum) &&
+            const DeepCollectionEquality()
+                .equals(other._seatNumbers, _seatNumbers) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
             (identical(other.isArrived, isArrived) ||
                 other.isArrived == isArrived));
@@ -220,7 +221,7 @@ class _$ReservationImpl implements _Reservation {
       startTime,
       endTime,
       cafeNum,
-      const DeepCollectionEquality().hash(_seatNum),
+      const DeepCollectionEquality().hash(_seatNumbers),
       const DeepCollectionEquality().hash(_members),
       isArrived);
 
@@ -236,8 +237,8 @@ abstract class _Reservation implements Reservation {
       {required final DateTime startTime,
       required final DateTime endTime,
       required final int cafeNum,
-      required final List<int> seatNum,
-      required final List<String> members,
+      required final List<int> seatNumbers,
+      required final List<List<String>> members,
       required final bool isArrived}) = _$ReservationImpl;
 
   @override
@@ -247,9 +248,9 @@ abstract class _Reservation implements Reservation {
   @override
   int get cafeNum;
   @override
-  List<int> get seatNum;
+  List<int> get seatNumbers;
   @override
-  List<String> get members;
+  List<List<String>> get members;
   @override
   bool get isArrived;
   @override
