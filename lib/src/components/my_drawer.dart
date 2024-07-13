@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer_tile.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/page_controller_provider.dart';
 
@@ -97,7 +99,10 @@ class MyDrawer extends ConsumerWidget {
             title: 'ログアウト',
             icon: Icons.logout,
             onTap: () {
-              Navigator.pop(context);
+              final repositoryNotifier = ref.read(authStateNotifierProvider.notifier);
+              repositoryNotifier.logout();
+
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
             },
           ),
 
