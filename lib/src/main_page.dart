@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/location_send_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/location_base_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
@@ -25,7 +25,7 @@ class MainPage extends ConsumerWidget {
           ReservationPage(),
 
           // 位置情報送信画面
-          LocationSendPage(),
+          LocationBasePage(),
 
           // マイページ画面
           MyPage(),

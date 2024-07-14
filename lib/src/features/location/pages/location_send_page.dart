@@ -1,41 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
-import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_page.dart';
 
-class LocationSendPage extends StatelessWidget {
+class LocationSendPage extends HookConsumerWidget {
   const LocationSendPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        title: Text(
-          "位置情報を送信",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        // ドロワーメニューを開くボタン
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
-      ),
-      drawer: const MyDrawer(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locationState = ref.watch(locationStateNotifierProvider);
+    final locationStateNotifier = ref.read(locationStateNotifierProvider.notifier);
 
+    return Scaffold(
       // 位置情報を送信する画面
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -107,9 +86,14 @@ class LocationSendPage extends StatelessWidget {
 
               // 位置情報を送信するボタン
               MyButton(
-                onPressed: () {},
-                child: const Text(
-                  "位置情報を送信",
+                onPressed: () async {
+                  // 位置情報を更新
+                  locationStateNotifier.updateArrived();
+                },
+                child: locationState.when(
+                  data: (_) => const Text('位置情報を送信'),
+                  error: (e, _) => const Text('位置情報を送信'),
+                  loading: () => const CircularProgressIndicator(),
                 ),
               ),
             ],
