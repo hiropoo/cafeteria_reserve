@@ -21,9 +21,6 @@ class AuthStateNotifier extends _$AuthStateNotifier {
     final studentID = prefs.getInt('studentID'); // 学籍番号
     final loggedIn = prefs.getBool('loggedIn') ?? false; // ログイン状態
 
-    // テスト用
-    // const userName = null;
-
     // ログイン情報がローカルにない場合
     if (userName == null || userID == null || password == null || studentID == null) {
       return AuthState.signUp;
@@ -95,5 +92,13 @@ class AuthStateNotifier extends _$AuthStateNotifier {
     state = const AsyncValue.data(AuthState.loggedIn); // ログイン状態にする
 
     return true;
+  }
+
+  // ログアウト処理
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('loggedIn', false);
+
+    state = const AsyncValue.data(AuthState.loggedOut); // ログアウト状態にする
   }
 }
