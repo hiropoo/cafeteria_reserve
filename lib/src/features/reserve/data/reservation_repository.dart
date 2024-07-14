@@ -15,16 +15,16 @@ class ReservationRepository extends Repository {
   /// request -> "fetchReservation userID"
   /// response -> "success userID:userName,userID:userName,... cafeNum seatNum startTime endTime went"
   Future<Reservation?> fetchReservation({required String userID}) async {
-    debugPrint('getReservation method called');
+    debugPrint('fetchReservation method called');
 
     // サーバから予約情報を取得
     await connect();
-    final response = await request("getReservation $userID");
+    final response = await request("fetchReservation $userID");
 
     final List<String> responseList = response.split(" ");
 
     if (responseList.first == "failure") {
-      final message = responseList[1];
+      debugPrint('fetchReservation failed : ${responseList[1]}');
       return null;
     } else if (responseList.first == "success") {
       return Reservation.fromResponse(responseList);
