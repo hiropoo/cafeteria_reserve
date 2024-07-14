@@ -3,7 +3,7 @@ import 'package:sit_in_the_cafeteria/src/features/auth/domains/user.dart';
 
 part 'user_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class UserNotifier extends _$UserNotifier {
   @override
   User build() {
