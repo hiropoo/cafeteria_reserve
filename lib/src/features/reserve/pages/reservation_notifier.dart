@@ -26,9 +26,7 @@ class ReservationNotifier extends _$ReservationNotifier {
 
 @riverpod
 Reservation? reservation(ReservationRef ref) {
-  return ref.watch(reservationNotifierProvider).when(
+  return ref.watch(reservationNotifierProvider).whenOrNull(
         data: (reservation) => reservation,
-        error: (_, __) => null,
-        loading: () => null,
       );
 }
