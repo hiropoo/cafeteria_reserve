@@ -9,33 +9,38 @@ part 'location_state_notifier.g.dart';
 @riverpod
 class LocationStateNotifier extends _$LocationStateNotifier {
   @override
-  Future<LocationState> build() async {
-    final reservation = await ref.watch(reservationNotifierProvider.future);
-
-    if (reservation == null) {
-      return LocationState.noReservation;
-    } else {
-      return LocationState.locationNotSent;
-    }
+  FutureOr<LocationState> build() async {
+    return LocationState.locationNotSent;
   }
 
   // '位置情報を送信'ボタンが押された時の処理
-  // updateArrived()は時間や位置情報が正しければ、サーバに到着情報を送信し、成功した場合はLocationStateをLocationState.locationSentに更新する
-  // // 失敗した場合はLocationState.errorを返す
+  // updateArrived()は時間や位置情報が正しければ、サーバに到着情報を送信し、成功した場合はLocationStateを更新する
   Future<void> updateArrived() async {
     state = const AsyncLoading();
 
     final locationService = ref.read(locationServiceProvider);
 
     final user = ref.read(userNotifierProvider);
-    final reservation = await ref.read(reservationNotifierProvider.future);
+    final reservation = ref.read(reservationProvider);
 
-    final result = await locationService.updateArrived(userID: user.userID, cafeNum: reservation!.cafeNum);
+    final locationState = await locationService.updateArrived(userID: user.userID, cafeNum: reservation!.cafeNum);
 
-    if (result) {
-      state = const AsyncData(LocationState.locationSent);
-    } else {
-      state = const AsyncData(LocationState.error);
+    switch (locationState) {
+      case LocationState.locationSent:
+        state = const AsyncData(LocationState.locationSent);
+        break;
+      case LocationState.timeError:
+        state = const AsyncData(LocationState.timeError);
+        break;
+      case LocationState.locationError:
+        state = const AsyncData(LocationState.locationError);
+        break;
+      case LocationState.connectionError:
+        state = const AsyncData(LocationState.connectionError);
+        break;
+      case LocationState.locationNotSent:
+        state = const AsyncData(LocationState.locationNotSent);
+        break;
     }
   }
 }
