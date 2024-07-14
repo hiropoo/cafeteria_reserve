@@ -13,7 +13,7 @@ class LocationRepository extends Repository {
   /// 時間内に学食に到着していたことをサーバに送信する処理
   /// request -> "updateArrived userID cafeNum"
   /// response -> "success" or "failure message"
-  Future<bool> updateArrived({required String userID, required int cafeNum}) async {
+  Future<bool> sendArrived({required String userID, required int cafeNum}) async {
     debugPrint('updateArrived method called');
 
     // サーバに到着情報を送信
