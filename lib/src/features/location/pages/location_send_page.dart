@@ -18,6 +18,30 @@ class LocationSendPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final errorMessage = useState<String>(" ");
+
+    ref.listen<AsyncValue<LocationState>>(locationStateNotifierProvider, (prev, state) {
+      state.when(
+        data: (state) {
+          switch (state) {
+            case LocationState.timeError:
+              errorMessage.value = Strings.timeError;
+              break;
+            case LocationState.locationError:
+              errorMessage.value = Strings.locationError;
+              break;
+            case LocationState.connectionError:
+              errorMessage.value = Strings.connectionError;
+              break;
+            default:
+              errorMessage.value = " ";
+          }
+        },
+        loading: () => errorMessage.value = " ",
+        error: (e, _) => errorMessage.value = " ",
+      );
+    });
+
     final locationState = ref.watch(locationStateNotifierProvider);
     final locationStateNotifier = ref.read(locationStateNotifierProvider.notifier);
     final reservation = ref.watch(reservationProvider);
@@ -110,6 +134,16 @@ class LocationSendPage extends HookConsumerWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
+              // エラーメッセージ表示部分
+              if (errorMessage.value.isNotEmpty)
+                Text(
+                  errorMessage.value,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 12,
+                  ),
+                ),
 
               // 位置情報を送信するボタン
               MyButton(

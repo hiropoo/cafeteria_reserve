@@ -16,6 +16,8 @@ class LocationRepository extends Repository {
   Future<bool> sendArrived({required String userID, required int cafeNum}) async {
     debugPrint('updateArrived method called');
 
+    await Future.delayed(const Duration(seconds: 1));
+
     // サーバに到着情報を送信
     await connect();
     final response = await request("updateArrived $userID $cafeNum");
@@ -23,8 +25,10 @@ class LocationRepository extends Repository {
     final List<String> responseList = response.split(" ");
 
     if (responseList.first == "failure") {
-      final message = responseList[1];
-      return Future.error('updateArrived failed : $message');
+      final message = responseList.sublist(1).join(" ");
+      debugPrint('updateArrived failed : $message');
+
+      return false;
     } else if (responseList.first == "success") {
       return true;
     } else {
