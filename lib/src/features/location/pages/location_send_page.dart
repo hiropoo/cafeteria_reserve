@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 
 class LocationSendPage extends HookConsumerWidget {
+  static final _dateFormatter = DateFormat('yyyy/MM/dd');
+  static final _timeFormatter = DateFormat('HH:mm');
+
   const LocationSendPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locationState = ref.watch(locationStateNotifierProvider);
     final locationStateNotifier = ref.read(locationStateNotifierProvider.notifier);
+    final reservation = ref.watch(reservationProvider);
+
+    if (reservation == null) {
+      return const Scaffold(
+        body: Center(child: Text('予約情報が見つかりません')),
+      );
+    }
 
     return Scaffold(
-      // 位置情報を送信する画面
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Center(
@@ -36,17 +49,31 @@ class LocationSendPage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     // 予約した学食
-                    const LocationPageTile(header: '予約した学食', content: '第１食堂'),
+                    LocationPageTile(
+                      header: '予約した学食',
+                      content: reservation.cafeNum == 1 ? '第1食堂' : '第2食堂',
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // 予約日
+                    LocationPageTile(
+                      header: '予約日',
+                      content: _dateFormatter.format(reservation.startTime!),
+                    ),
 
                     const SizedBox(height: 10),
 
                     // 予約時間
-                    const LocationPageTile(header: '予約時間', content: '12:00 ~ 12:20'),
+                    LocationPageTile(
+                      header: '予約時間',
+                      content: '${_timeFormatter.format(reservation.startTime!)} ~ ${_timeFormatter.format(reservation.endTime!)}',
+                    ),
 
                     const SizedBox(height: 10),
 
                     // 予約した座席
-                    const LocationPageTile(header: '予約した座席', content: '12'),
+                    LocationPageTile(header: '予約した座席', content: reservation.seatNumbers.map((seatNum) => seatNum).join(', ')),
 
                     // 座席を確認
                     GestureDetector(
@@ -90,9 +117,8 @@ class LocationSendPage extends HookConsumerWidget {
                   // 位置情報を更新
                   locationStateNotifier.updateArrived();
                 },
-                child: locationState.when(
-                  data: (_) => const Text('位置情報を送信'),
-                  error: (e, _) => const Text('位置情報を送信'),
+                child: locationState.maybeWhen(
+                  orElse: () => const Text('位置情報を送信'),
                   loading: () => const CircularProgressIndicator(),
                 ),
               ),
