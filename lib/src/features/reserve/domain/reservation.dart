@@ -8,8 +8,8 @@ class Reservation with _$Reservation {
   static final DateFormat _formatter = DateFormat('yyyy-MM-dd-HH:mm:ss');
 
   const factory Reservation({
-    required DateTime startTime,
-    required DateTime endTime,
+    required DateTime? startTime,
+    required DateTime? endTime,
     required int cafeNum,
     required List<int> seatNumbers,
     required List<List<String>> members,

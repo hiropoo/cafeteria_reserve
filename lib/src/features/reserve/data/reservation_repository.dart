@@ -24,6 +24,9 @@ class ReservationRepository extends Repository {
     final List<String> responseList = response.split(" ");
 
     if (responseList.first == "failure") {
+      if(responseList[1] == "noData") {
+        return const Reservation(startTime: null, endTime: null, cafeNum: 0, seatNumbers: [], members: [], isArrived: false,);
+      }
       debugPrint('fetchReservation failed : ${responseList[1]}');
       return null;
     } else if (responseList.first == "success") {
