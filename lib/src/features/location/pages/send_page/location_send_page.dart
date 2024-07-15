@@ -6,8 +6,9 @@ import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/location_state_notifier.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/send_result_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/seat_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 
 class LocationSendPage extends HookConsumerWidget {
@@ -35,6 +36,16 @@ class LocationSendPage extends HookConsumerWidget {
               break;
             case LocationState.permissionError:
               errorMessage.value = Strings.permissionError;
+              break;
+
+            case LocationState.locationSent:
+              errorMessage.value = " ";
+
+              // 予約情報を削除
+              ref.read(reservationNotifierProvider.notifier).clear();
+
+              // ページ遷移
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SendResultPage()));
               break;
             default:
               errorMessage.value = " ";

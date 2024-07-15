@@ -18,10 +18,10 @@ class ReservationNotifier extends _$ReservationNotifier {
     return reservation;
   }
 
-  // isArrivedを更新する処理
-  // void updateIsArrived(bool isArrived) {
-  //   state = AsyncData(state.value!.copyWith(isArrived: isArrived));
-  // }
+  // 予約情報を削除
+  void clear() {
+    state = const AsyncData(null);
+  }
 }
 
 @riverpod

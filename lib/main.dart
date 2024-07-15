@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/utils/theme_notifier.dart';
-import 'package:sit_in_the_cafeteria/src/features/auth/pages/base_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_base_page.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -16,7 +16,7 @@ class MainApp extends HookConsumerWidget {
 
     return MaterialApp(
       theme: theme,
-      home: const BasePage(),
+      home: const AuthBasePage(),
     );
   }
 }

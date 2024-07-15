@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/location_send_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_send_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/domain/reservation_state.dart';
 
