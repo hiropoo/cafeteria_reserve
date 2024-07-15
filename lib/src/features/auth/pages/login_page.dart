@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
-import 'package:sit_in_the_cafeteria/src/features/auth/pages/sign_up_page.dart';
-import 'package:sit_in_the_cafeteria/src/main_page.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -39,8 +39,7 @@ class LoginPage extends HookConsumerWidget {
         switch (result) {
           // ログイン成功 -> メインページに遷移
           case true:
-            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const MainPage()));
-
+            context.go(AppRoute.location.name);
             break;
 
           // ログイン失敗 -> エラーメッセージを表示
@@ -146,8 +145,8 @@ class LoginPage extends HookConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // ログイン画面に遷移
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SignUpPage()));
+                      // 新規作成画面に遷移
+                      context.push('/${AppRoute.signUp.name}');
                     },
                     child: Text(
                       "新規作成",

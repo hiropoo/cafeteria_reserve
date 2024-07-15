@@ -20,4 +20,12 @@ class Strings {
   static const studentIDSpace = "学籍番号にスペースは使用できません";
   static const confirmPasswordEmpty = "確認用パスワードを入力してください";
   static const passwordMatch = "パスワードが一致しません";
+
+  // 位置情報送信メッセージ
+  static const String locationDescription = '''位置情報を送信して、予約の利用を証明してください。\n\n位置情報の送信は、予約開始時間の5分前から、予約終了時間の5分後まで可能です。
+                ''';
+  static const String timeError = '現在位置情報の送信はできません。';
+  static const String locationError = '予約した学食の近くにいることを確認してください。';
+  static const String connectionError = '通信エラーが発生しました。';
+  static const String permissionError = '位置情報の利用が許可されていません。';
 }

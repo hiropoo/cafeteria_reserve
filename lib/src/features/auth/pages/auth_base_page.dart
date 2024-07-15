@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/domains/auth_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
-import 'package:sit_in_the_cafeteria/src/main_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/sign_up_page.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
-class BasePage extends ConsumerWidget {
-  const BasePage({super.key});
+class AuthBasePage extends ConsumerWidget {
+  const AuthBasePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +33,9 @@ class BasePage extends ConsumerWidget {
             case AuthState.signUp:
               return const SignUpPage();
             case AuthState.loggedIn:
-              return const MainPage();
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.pushReplacement('/${AppRoute.location.name}');
+              });
           }
         },
       ),

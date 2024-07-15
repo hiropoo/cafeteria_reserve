@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_app_bar.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/location_send_page.dart';
-import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
-import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
-import 'package:sit_in_the_cafeteria/src/router/page_controller_provider.dart';
 
 class MainPage extends ConsumerWidget {
-  const MainPage({super.key});
+  final Widget child;
+
+  const MainPage({super.key, required this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = ref.watch(pageControllerProvider);
     final bottomNavIndex = ref.watch(bottomNavIndexProvider);
     final notifier = ref.read(bottomNavIndexProvider.notifier);
+    final List<MyAppBar> headers = <MyAppBar>[
+      const MyAppBar(title: '予約'),
+      const MyAppBar(title: '位置情報を送信'),
+      const MyAppBar(title: 'マイページ'),
+    ];
 
     return Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(), // ページスワイプを無効にする
-        controller: pageController,
-        children: const [
-          // 予約画面
-          ReservationPage(),
-
-          // 位置情報送信画面
-          LocationSendPage(),
-
-          // マイページ画面
-          MyPage(),
-        ],
-        onPageChanged: (index) => notifier.changeIndex(index),
-      ),
-
+      appBar: headers[bottomNavIndex],
       drawer: const MyDrawer(),
+
+      body: child,
 
       // bottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(
@@ -59,7 +51,17 @@ class MainPage extends ConsumerWidget {
         currentIndex: bottomNavIndex,
         onTap: (index) {
           notifier.changeIndex(index);
-          pageController.animateToPage(index, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+          switch (index) {
+            case 0:
+              context.replace('/${AppRoute.reservation.name}');
+              break;
+            case 1:
+              context.replace('/${AppRoute.location.name}');
+              break;
+            case 2:
+              context.replace('/${AppRoute.profile.name}');
+              break;
+          }
         },
       ),
     );
