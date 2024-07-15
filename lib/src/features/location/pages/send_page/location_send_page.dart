@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
@@ -10,6 +11,7 @@ import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/sen
 import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class LocationSendPage extends HookConsumerWidget {
   static final _dateFormatter = DateFormat('yyyy/MM/dd');
@@ -163,7 +165,11 @@ class LocationSendPage extends HookConsumerWidget {
               MyButton(
                 onPressed: () async {
                   // 位置情報を更新
-                  locationStateNotifier.updateArrived();
+                  final result = await locationStateNotifier.updateArrived();
+                  if (result && context.mounted) {
+                    // 位置情報送信に成功したことを表示する画面へ遷移
+                    context.pushReplacementNamed(AppRoute.sendResult.name);
+                  }
                 },
                 child: locationState.maybeWhen(
                   orElse: () => const Text('位置情報を送信'),

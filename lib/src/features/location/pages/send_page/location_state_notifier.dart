@@ -15,7 +15,7 @@ class LocationStateNotifier extends _$LocationStateNotifier {
 
   // '位置情報を送信'ボタンが押された時の処理
   // updateArrived()は時間や位置情報が正しければ、サーバに到着情報を送信し、成功した場合はLocationStateを更新する
-  Future<void> updateArrived() async {
+  Future<bool> updateArrived() async {
     state = const AsyncLoading();
 
     final locationService = ref.read(locationServiceProvider);
@@ -31,7 +31,7 @@ class LocationStateNotifier extends _$LocationStateNotifier {
     switch (locationState) {
       case LocationState.locationSent:
         state = const AsyncData(LocationState.locationSent);
-        break;
+        return true;
       case LocationState.timeError:
         state = const AsyncData(LocationState.timeError);
         break;
@@ -48,5 +48,6 @@ class LocationStateNotifier extends _$LocationStateNotifier {
         state = const AsyncData(LocationState.permissionError);
         break;
     }
+    return false;
   }
 }

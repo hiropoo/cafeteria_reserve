@@ -6,7 +6,7 @@ part 'bottom_nav_index_notifier.g.dart';
 class BottomNavIndex extends _$BottomNavIndex {
   @override
   int build() {
-    return 0;
+    return 1;
   }
 
   // add your methods to change data here

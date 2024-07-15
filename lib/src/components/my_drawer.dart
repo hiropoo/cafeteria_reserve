@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer_tile.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
-import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/page_controller_provider.dart';
 
@@ -41,10 +42,8 @@ class MyDrawer extends ConsumerWidget {
             icon: Icons.home,
             onTap: () {
               Navigator.pop(context);
-              Future.delayed(const Duration(milliseconds: 250), () {
-                pageIndexNotifier.changeIndex(0);
-                pageController.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
-              });
+              pageIndexNotifier.changeIndex(0);
+              context.replace('/${AppRoute.reservation.name}');
             },
           ),
 
@@ -54,10 +53,8 @@ class MyDrawer extends ConsumerWidget {
             icon: Icons.location_on,
             onTap: () {
               Navigator.pop(context);
-              Future.delayed(const Duration(milliseconds: 250), () {
-                pageIndexNotifier.changeIndex(1);
-                pageController.animateToPage(1, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
-              });
+              pageIndexNotifier.changeIndex(1);
+              context.replace('/${AppRoute.location.name}');
             },
           ),
 
@@ -67,10 +64,8 @@ class MyDrawer extends ConsumerWidget {
             icon: Icons.person,
             onTap: () {
               Navigator.pop(context);
-              Future.delayed(const Duration(milliseconds: 250), () {
-                pageIndexNotifier.changeIndex(2);
-                pageController.animateToPage(2, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
-              });
+              pageIndexNotifier.changeIndex(2);
+              context.replace('/${AppRoute.profile.name}');
             },
           ),
 
@@ -101,8 +96,7 @@ class MyDrawer extends ConsumerWidget {
             onTap: () {
               final repositoryNotifier = ref.read(authStateNotifierProvider.notifier);
               repositoryNotifier.logout();
-
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage()));
+              context.replace('/${AppRoute.login.name}');
             },
           ),
 

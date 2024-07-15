@@ -39,7 +39,7 @@ class LoginPage extends HookConsumerWidget {
         switch (result) {
           // ログイン成功 -> メインページに遷移
           case true:
-            context.go(AppRoute.main.name);
+            context.go(AppRoute.location.name);
             break;
 
           // ログイン失敗 -> エラーメッセージを表示
