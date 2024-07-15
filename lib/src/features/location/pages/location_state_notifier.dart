@@ -23,7 +23,10 @@ class LocationStateNotifier extends _$LocationStateNotifier {
     final user = ref.read(userNotifierProvider);
     final reservation = ref.read(reservationProvider);
 
-    final locationState = await locationService.updateArrived(userID: user.userID, cafeNum: reservation!.cafeNum);
+    final locationState = await locationService.updateArrived(
+      userID: user.userID,
+      reservation: reservation!,
+    );
 
     switch (locationState) {
       case LocationState.locationSent:
@@ -40,6 +43,9 @@ class LocationStateNotifier extends _$LocationStateNotifier {
         break;
       case LocationState.locationNotSent:
         state = const AsyncData(LocationState.locationNotSent);
+        break;
+      case LocationState.permissionError:
+        state = const AsyncData(LocationState.permissionError);
         break;
     }
   }

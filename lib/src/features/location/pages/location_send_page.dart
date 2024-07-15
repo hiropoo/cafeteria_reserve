@@ -33,6 +33,9 @@ class LocationSendPage extends HookConsumerWidget {
             case LocationState.connectionError:
               errorMessage.value = Strings.connectionError;
               break;
+            case LocationState.permissionError:
+              errorMessage.value = Strings.permissionError;
+              break;
             default:
               errorMessage.value = " ";
           }

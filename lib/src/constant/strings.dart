@@ -27,4 +27,5 @@ class Strings {
   static const String timeError = '現在位置情報の送信はできません。';
   static const String locationError = '予約した学食の近くにいることを確認してください。';
   static const String connectionError = '通信エラーが発生しました。';
+  static const String permissionError = '位置情報の利用が許可されていません。';
 }
