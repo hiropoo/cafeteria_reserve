@@ -111,9 +111,29 @@ class LoginPage extends HookConsumerWidget {
 
               // ログインボタン
               MyButton(
-                onPressed: () {
+                onPressed: () async {
                   // ログイン処理
-                  login(context);
+                  if (formKey.currentState!.validate()) {
+                    final username = usernameController.text;
+                    final password = passwordController.text;
+
+                    final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
+
+                    final bool result = await authStateNotifier.login(userName: username, password: password);
+
+                    switch (result) {
+                      // ログイン成功 -> メインページに遷移
+                      case true:
+                        if (context.mounted) context.pushReplacementNamed(AppRoute.location.name);
+                        break;
+
+                      // ログイン失敗 -> エラーメッセージを表示
+                      case false:
+                        errorMessage.value = "ユーザー名またはパスワードが間違っています。";
+
+                        break;
+                    }
+                  }
                 },
                 child: authState.when(
                   data: (_) => const Text('ログイン'),

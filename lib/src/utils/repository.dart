@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 class Repository {
-static const String _serverIP = "localhost";
+  static const String _serverIP = "192.168.2.105";
   static const int _serverPort = 12345;
   static Socket? _socket;
 
@@ -58,5 +58,4 @@ static const String _serverIP = "localhost";
       disconnect();
     }
   }
-
 }
