@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
-import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class SignUpPage extends HookWidget {
   const SignUpPage({super.key});
@@ -56,7 +57,7 @@ class SignUpPage extends HookWidget {
                 // 学籍番号入力欄
                 MyTextFormField(
                   controller: studentIDController,
-                  formCategory: FormCategory.username,
+                  formCategory: FormCategory.studentID,
                 ),
 
                 const SizedBox(
@@ -99,7 +100,7 @@ class SignUpPage extends HookWidget {
                 ),
 
                 const SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
 
                 // アカウントを既に持っている場合のログイン画面への遷移ボタン
@@ -119,7 +120,7 @@ class SignUpPage extends HookWidget {
                     GestureDetector(
                       onTap: () {
                         // ログイン画面に遷移
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LoginPage()));
+                        context.pop('/${AppRoute.login.name}');
                       },
                       child: Text(
                         "ログイン",
