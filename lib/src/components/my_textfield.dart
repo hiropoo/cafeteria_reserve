@@ -56,6 +56,8 @@ class MyTextFormField extends HookWidget {
                 return Strings.studentIDEmpty;
               } else if (value.contains(" ") || value.contains("　")) {
                 return Strings.studentIDSpace;
+              } else if (!value.isValidNumeric()) {
+                return Strings.studentIDNotNumeric;
               }
               break;
 
