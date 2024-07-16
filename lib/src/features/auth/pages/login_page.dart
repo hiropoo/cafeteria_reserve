@@ -26,30 +26,6 @@ class LoginPage extends HookConsumerWidget {
     // AuthState
     final authState = ref.watch(authStateNotifierProvider);
 
-    // ログイン処理
-    void login(context) async {
-      if (formKey.currentState!.validate()) {
-        final username = usernameController.text;
-        final password = passwordController.text;
-
-        final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
-
-        final bool result = await authStateNotifier.login(userName: username, password: password);
-
-        switch (result) {
-          // ログイン成功 -> メインページに遷移
-          case true:
-            context.go(AppRoute.location.name);
-            break;
-
-          // ログイン失敗 -> エラーメッセージを表示
-          case false:
-            errorMessage.value = "ユーザー名またはパスワードが間違っています。";
-
-            break;
-        }
-      }
-    }
 
     return Scaffold(
       body: Center(
@@ -138,7 +114,7 @@ class LoginPage extends HookConsumerWidget {
                 child: authState.when(
                   data: (_) => const Text('ログイン'),
                   error: (e, _) {
-                    errorMessage.value = e.toString();
+                    errorMessage.value = 'ログインに失敗しました。';
                     return const Text('ログイン');
                   },
                   loading: () => const CircularProgressIndicator(),

@@ -94,6 +94,46 @@ class AuthStateNotifier extends _$AuthStateNotifier {
     return true;
   }
 
+  // 新規登録処理
+  Future<bool> signUp({required String userName, required String password, required int studentID}) async {
+    state = const AsyncValue.loading(); // ローディング状態にする
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    final repository = ref.read(authRepositoryProvider);
+
+    // 成功した場合 -> userID, studentIDが保存されたUserオブジェクト
+    // 失敗した場合 -> null
+    final user = await repository.signUp(userName: userName, password: password, studentID: studentID);
+
+    // 新規登録処理が失敗した場合
+    if (user == null) {
+      state = const AsyncValue.data(AuthState.signUp);
+      return false;
+    }
+
+    // ユーザ情報を更新
+    // 新規登録処理が成功した場合は、ユーザ情報を更新
+    ref.read(userNotifierProvider.notifier).updateAll(
+          userName: userName,
+          password: password,
+          studentID: studentID,
+          userID: user.userID,
+        );
+
+    // ローカルの状態も更新
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', userName);
+    await prefs.setString('userID', user.userID);
+    await prefs.setString('password', password);
+    await prefs.setInt('studentID', studentID);
+    await prefs.setBool('loggedIn', true);
+
+    state = const AsyncValue.data(AuthState.loggedIn); // ログイン状態にする
+
+    return true;
+  }
+
   // ログアウト処理
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();

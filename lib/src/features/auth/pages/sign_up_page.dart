@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
-class SignUpPage extends HookWidget {
+class SignUpPage extends HookConsumerWidget {
   const SignUpPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // コントローラー
     final TextEditingController usernameController = useTextEditingController(); // ユーザー名
     final TextEditingController studentIDController = useTextEditingController(); // 学籍番号
     final TextEditingController passwordController = useTextEditingController(); // パスワード
     final TextEditingController confirmPasswordController = useTextEditingController(); // 確認用パスワード
 
+    // エラーメッセージ
+    final errorMessage = useState<String>(" ");
+
+    // AuthState
+    final authState = ref.watch(authStateNotifierProvider);
+
+    // Validation用のフォームキー
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
@@ -84,19 +93,62 @@ class SignUpPage extends HookWidget {
                 ),
 
                 const SizedBox(
-                  height: 60,
+                  height: 20,
+                ),
+
+                // エラーメッセージ表示部分
+                if (errorMessage.value.isNotEmpty)
+                  Text(
+                    errorMessage.value,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+
+                const SizedBox(
+                  height: 20,
                 ),
 
                 // 新規登録ボタン
                 MyButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
                       // 新規登録処理
+                      final username = usernameController.text;
+                      final password = passwordController.text;
+                      final studentID = studentIDController.text;
+
+                      final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
+
+                      final result = await authStateNotifier.signUp(
+                        userName: username,
+                        password: password,
+                        studentID: int.parse(studentID),
+                      );
 
                       // 画面遷移
+                      switch (result) {
+                        // 新規登録成功 -> ログイン画面に遷移
+                        case true:
+                          if (context.mounted) context.pushReplacementNamed(AppRoute.login.name);
+                          break;
+
+                        // ログイン失敗 -> エラーメッセージを表示
+                        case false:
+                          errorMessage.value = '新規登録に失敗しました。';
+                          break;
+                      }
                     }
                   },
-                  child: const Text("新規登録"),
+                  child: authState.when(
+                    data: (_) => const Text('新規登録'),
+                    error: (e, _) {
+                      errorMessage.value = '新規登録に失敗しました。';
+                      return const Text('新規登録');
+                    },
+                    loading: () => const CircularProgressIndicator(),
+                  ),
                 ),
 
                 const SizedBox(
