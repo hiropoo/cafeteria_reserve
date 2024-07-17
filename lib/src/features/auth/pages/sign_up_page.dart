@@ -28,6 +28,37 @@ class SignUpPage extends HookConsumerWidget {
     // Validation用のフォームキー
     final formKey = GlobalKey<FormState>();
 
+    // 新規登録処理
+    Future signUp() async {
+      if (formKey.currentState!.validate()) {
+        // 新規登録処理
+        final username = usernameController.text;
+        final password = passwordController.text;
+        final studentID = studentIDController.text;
+
+        final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
+
+        final result = await authStateNotifier.signUp(
+          userName: username,
+          password: password,
+          studentID: int.parse(studentID),
+        );
+
+        // 画面遷移
+        switch (result) {
+          // 新規登録成功 -> ログイン画面に遷移
+          case true:
+            if (context.mounted) context.pushReplacementNamed(AppRoute.login.name);
+            break;
+
+          // ログイン失敗 -> エラーメッセージを表示
+          case false:
+            errorMessage.value = '新規登録に失敗しました。';
+            break;
+        }
+      }
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 200, bottom: 20),
@@ -112,35 +143,7 @@ class SignUpPage extends HookConsumerWidget {
 
                 // 新規登録ボタン
                 MyButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      // 新規登録処理
-                      final username = usernameController.text;
-                      final password = passwordController.text;
-                      final studentID = studentIDController.text;
-
-                      final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
-
-                      final result = await authStateNotifier.signUp(
-                        userName: username,
-                        password: password,
-                        studentID: int.parse(studentID),
-                      );
-
-                      // 画面遷移
-                      switch (result) {
-                        // 新規登録成功 -> ログイン画面に遷移
-                        case true:
-                          if (context.mounted) context.pushReplacementNamed(AppRoute.login.name);
-                          break;
-
-                        // ログイン失敗 -> エラーメッセージを表示
-                        case false:
-                          errorMessage.value = '新規登録に失敗しました。';
-                          break;
-                      }
-                    }
-                  },
+                  onPressed: signUp,
                   child: authState.when(
                     data: (_) => const Text('新規登録'),
                     error: (e, _) {
@@ -172,7 +175,7 @@ class SignUpPage extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         // ログイン画面に遷移
-                        context.pop('/${AppRoute.login.name}');
+                        context.goNamed(AppRoute.login.name);
                       },
                       child: Text(
                         "ログイン",

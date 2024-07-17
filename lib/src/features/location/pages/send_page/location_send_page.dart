@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -7,8 +9,6 @@ import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/send_result_page.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
@@ -43,11 +43,8 @@ class LocationSendPage extends HookConsumerWidget {
             case LocationState.locationSent:
               errorMessage.value = " ";
 
-              // 予約情報を削除
-              ref.read(reservationNotifierProvider.notifier).clear();
-
               // ページ遷移
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SendResultPage()));
+              context.goNamed(AppRoute.sendResult.name);
               break;
             default:
               errorMessage.value = " ";
@@ -66,6 +63,33 @@ class LocationSendPage extends HookConsumerWidget {
       return const Scaffold(
         body: Center(child: Text('予約情報が見つかりません')),
       );
+    }
+
+    // ボタンが押された時の位置情報送信処理
+    Future sendArrived() async {
+      // 位置情報を更新
+      final result = await locationStateNotifier.updateArrived();
+      if (result && context.mounted) {
+        // 予約情報を削除
+        ref.read(reservationNotifierProvider.notifier).clear();
+
+        // 位置情報送信に成功したことを表示する画面へ遷移
+        context.pushReplacementNamed(AppRoute.sendResult.name);
+      }
+    }
+
+    // 座席確認画面へ遷移
+    void confirmSeat() {
+      switch (reservation.cafeNum) {
+        case 1:
+          context.goNamed(AppRoute.seat1.name, extra: reservation.seatNumbers.first);
+          break;
+        case 2:
+          context.goNamed(AppRoute.seat2.name, extra: reservation.seatNumbers.first);
+          break;
+        default:
+          break;
+      }
     }
 
     return Scaffold(
@@ -117,10 +141,7 @@ class LocationSendPage extends HookConsumerWidget {
 
                     // 座席を確認
                     GestureDetector(
-                      onTap: () {
-                        // 座席確認画面に遷移
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SeatPage()));
-                      },
+                      onTap: confirmSeat,
                       child: Row(
                         children: [
                           Icon(
@@ -163,14 +184,7 @@ class LocationSendPage extends HookConsumerWidget {
 
               // 位置情報を送信するボタン
               MyButton(
-                onPressed: () async {
-                  // 位置情報を更新
-                  final result = await locationStateNotifier.updateArrived();
-                  if (result && context.mounted) {
-                    // 位置情報送信に成功したことを表示する画面へ遷移
-                    context.pushReplacementNamed(AppRoute.sendResult.name);
-                  }
-                },
+                onPressed: sendArrived,
                 child: locationState.maybeWhen(
                   orElse: () => const Text('位置情報を送信'),
                   loading: () => const CircularProgressIndicator(),
