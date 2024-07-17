@@ -6,6 +6,7 @@ import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/sign_up_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/location_base_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/send_result_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
 import 'package:sit_in_the_cafeteria/src/main_page.dart';
@@ -22,6 +23,7 @@ enum AppRoute {
   login,
   reservation,
   location,
+  seat,
   sendResult,
   profile,
 }
@@ -49,53 +51,55 @@ GoRouter goRouter(GoRouterRef ref) {
             name: AppRoute.signUp.name,
             pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
           ),
-
-          // アプリのフレーム。永続化したbottomNavigationBarとDrawerを持つ
-          StatefulShellRoute.indexedStack(
-            parentNavigatorKey: _rootNavigatorKey,
-            pageBuilder: (context, state, shellWidget) => MaterialPage(
-                child: MainPage(
-              child: shellWidget,
-            )),
-            branches: [
-              StatefulShellBranch(
-                navigatorKey: _locationNavigatorKey,
-                routes: [
-                  GoRoute(
-                    path: 'reservation',
-                    name: AppRoute.reservation.name,
-                    pageBuilder: (context, state) => const NoTransitionPage(
-                      child: Center(child: ReservationPage()),
+        ],
+      ),
+      // アプリのフレーム。永続化したbottomNavigationBarとDrawerを持つ
+      StatefulShellRoute.indexedStack(
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state, shellWidget) => MaterialPage(
+            child: MainPage(
+          child: shellWidget,
+        )),
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _locationNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/reservation',
+                name: AppRoute.reservation.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: Center(child: ReservationPage()),
+                ),
+              ),
+              GoRoute(
+                  path: '/location',
+                  name: AppRoute.location.name,
+                  pageBuilder: (context, state) => const NoTransitionPage(
+                        child: Center(child: LocationBasePage()),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'sendResult',
+                      name: AppRoute.sendResult.name,
+                      builder: (context, state) => const SendResultPage(),
                     ),
-                  ),
-                  GoRoute(
-                      path: 'location',
-                      name: AppRoute.location.name,
-                      pageBuilder: (context, state) => const NoTransitionPage(
-                            child: Center(child: LocationBasePage()),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'sendResult',
-                          name: AppRoute.sendResult.name,
-                          pageBuilder: (context, state) => const NoTransitionPage(
-                            child: Center(child: SendResultPage()),
-                          ),
-                        ),
-                      ]),
-                  GoRoute(
-                    path: 'profile',
-                    name: AppRoute.profile.name,
-                    pageBuilder: (context, state) => const NoTransitionPage(
-                      child: Center(child: MyPage()),
+                    GoRoute(
+                      path: 'seat',
+                      name: AppRoute.seat.name,
+                      builder: (context, state) => const Center(child: SeatPage()),
                     ),
-                  ),
-                ],
-              )
+                  ]),
+              GoRoute(
+                path: '/profile',
+                name: AppRoute.profile.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: Center(child: MyPage()),
+                ),
+              ),
             ],
           )
         ],
-      ),
+      )
     ],
   );
 }
