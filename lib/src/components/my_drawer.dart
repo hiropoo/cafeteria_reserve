@@ -5,14 +5,12 @@ import 'package:sit_in_the_cafeteria/src/components/my_drawer_tile.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
-import 'package:sit_in_the_cafeteria/src/router/page_controller_provider.dart';
 
 class MyDrawer extends ConsumerWidget {
   const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = ref.watch(pageControllerProvider);
     final pageIndexNotifier = ref.watch(bottomNavIndexProvider.notifier);
 
     return Drawer(
@@ -54,7 +52,7 @@ class MyDrawer extends ConsumerWidget {
             onTap: () {
               Navigator.pop(context);
               pageIndexNotifier.changeIndex(1);
-              context.replace('/${AppRoute.location.name}');
+              context.replaceNamed(AppRoute.location.name);
             },
           ),
 
@@ -65,7 +63,7 @@ class MyDrawer extends ConsumerWidget {
             onTap: () {
               Navigator.pop(context);
               pageIndexNotifier.changeIndex(2);
-              context.replace('/${AppRoute.profile.name}');
+              context.replaceNamed(AppRoute.profile.name);
             },
           ),
 
@@ -96,7 +94,7 @@ class MyDrawer extends ConsumerWidget {
             onTap: () {
               final repositoryNotifier = ref.read(authStateNotifierProvider.notifier);
               repositoryNotifier.logout();
-              context.replace('/${AppRoute.login.name}');
+              context.pushReplacementNamed(AppRoute.login.name);
             },
           ),
 
