@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
-import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
 
@@ -31,8 +30,6 @@ class SendResultPage extends HookConsumerWidget {
               // ホームへ戻るボタン
               MyButton(
                 onPressed: () {
-                  
-
                   // ホームへ戻る
                   context.goNamed(AppRoute.reservation.name);
                   ref.read(bottomNavIndexProvider.notifier).changeIndex(0);

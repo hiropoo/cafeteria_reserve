@@ -6,7 +6,7 @@ import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/sign_up_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/location_base_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/send_result_page.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/seat_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/cafeteria2_seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
 import 'package:sit_in_the_cafeteria/src/main_page.dart';
@@ -87,7 +87,7 @@ GoRouter goRouter(GoRouterRef ref) {
                       path: 'seat',
                       name: AppRoute.seat.name,
                       builder: (context, state) => Center(
-                          child: SeatPage(
+                          child: Cafeteria2SeatPage(
                         seatNumber: state.extra as int,
                       )),
                     ),
