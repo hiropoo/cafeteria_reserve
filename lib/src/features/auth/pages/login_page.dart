@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -26,6 +28,29 @@ class LoginPage extends HookConsumerWidget {
     // AuthState
     final authState = ref.watch(authStateNotifierProvider);
 
+    // ログイン処理
+    Future login() async {
+      if (formKey.currentState!.validate()) {
+        final username = usernameController.text;
+        final password = passwordController.text;
+
+        final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
+
+        final bool result = await authStateNotifier.login(userName: username, password: password);
+
+        switch (result) {
+          // ログイン成功 -> メインページに遷移
+          case true:
+            if (context.mounted) context.pushReplacementNamed(AppRoute.location.name);
+            break;
+
+          // ログイン失敗 -> エラーメッセージを表示
+          case false:
+            errorMessage.value = "ユーザー名またはパスワードが間違っています。";
+            break;
+        }
+      }
+    }
 
     return Scaffold(
       body: Center(
@@ -87,30 +112,7 @@ class LoginPage extends HookConsumerWidget {
 
               // ログインボタン
               MyButton(
-                onPressed: () async {
-                  // ログイン処理
-                  if (formKey.currentState!.validate()) {
-                    final username = usernameController.text;
-                    final password = passwordController.text;
-
-                    final authStateNotifier = ref.read(authStateNotifierProvider.notifier);
-
-                    final bool result = await authStateNotifier.login(userName: username, password: password);
-
-                    switch (result) {
-                      // ログイン成功 -> メインページに遷移
-                      case true:
-                        if (context.mounted) context.pushReplacementNamed(AppRoute.location.name);
-                        break;
-
-                      // ログイン失敗 -> エラーメッセージを表示
-                      case false:
-                        errorMessage.value = "ユーザー名またはパスワードが間違っています。";
-
-                        break;
-                    }
-                  }
-                },
+                onPressed: login,
                 child: authState.when(
                   data: (_) => const Text('ログイン'),
                   error: (e, _) {
