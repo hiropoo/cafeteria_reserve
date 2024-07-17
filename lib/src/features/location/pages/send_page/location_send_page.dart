@@ -78,6 +78,20 @@ class LocationSendPage extends HookConsumerWidget {
       }
     }
 
+    // 座席確認画面へ遷移
+    void confirmSeat() {
+      switch (reservation.cafeNum) {
+        case 1:
+          context.goNamed(AppRoute.seat1.name, extra: reservation.seatNumbers.first);
+          break;
+        case 2:
+          context.goNamed(AppRoute.seat2.name, extra: reservation.seatNumbers.first);
+          break;
+        default:
+          break;
+      }
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -127,10 +141,7 @@ class LocationSendPage extends HookConsumerWidget {
 
                     // 座席を確認
                     GestureDetector(
-                      onTap: () {
-                        // 座席確認画面に遷移
-                        context.goNamed(AppRoute.seat.name, extra: reservation.seatNumbers.first);
-                      },
+                      onTap: confirmSeat,
                       child: Row(
                         children: [
                           Icon(

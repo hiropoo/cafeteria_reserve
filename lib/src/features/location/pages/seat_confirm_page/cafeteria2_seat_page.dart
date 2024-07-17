@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 
 class Cafeteria2SeatPage extends StatelessWidget {
+  static const int maxSeatNumber = 72;
+
+  
   final int seatNumber;
 
   const Cafeteria2SeatPage({super.key, required this.seatNumber});
@@ -11,13 +14,13 @@ class Cafeteria2SeatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 座席情報
-    final List<Seat> cafeteria2Seats = List.generate(
-      72,
+    final List<Cafeteria2Seat> cafeteria2Seats = List.generate(
+      maxSeatNumber,
       (index) {
         if (index == seatNumber - 1) {
-          return Seat(seatNumber: index + 1, isSelected: true);
+          return Cafeteria2Seat(seatNumber: index + 1, isSelected: true);
         }
-        return Seat(seatNumber: index + 1);
+        return Cafeteria2Seat(seatNumber: index + 1);
       },
     );
 
@@ -270,7 +273,7 @@ class Cafeteria2SeatPage extends StatelessWidget {
 }
 
 class _LeftSideTable extends StatelessWidget {
-  final List<Seat> seats;
+  final List<Cafeteria2Seat> seats;
 
   const _LeftSideTable({required this.seats});
 
@@ -310,7 +313,7 @@ class _LeftSideTable extends StatelessWidget {
 }
 
 class _RightSideTable extends StatelessWidget {
-  final List<Seat> seats;
+  final List<Cafeteria2Seat> seats;
 
   const _RightSideTable({required this.seats});
 
@@ -351,7 +354,7 @@ class _RightSideTable extends StatelessWidget {
 
 class _CenterTable extends StatelessWidget {
   const _CenterTable({required this.seats});
-  final List<Seat> seats;
+  final List<Cafeteria2Seat> seats;
 
   @override
   Widget build(BuildContext context) {
@@ -399,11 +402,11 @@ class _CenterTable extends StatelessWidget {
   }
 }
 
-class Seat extends HookWidget {
+class Cafeteria2Seat extends HookWidget {
   final int seatNumber; // 座席番号
   final bool isSelected; // 座席が選択されているか
 
-  const Seat({super.key, required this.seatNumber, this.isSelected = false});
+  const Cafeteria2Seat({super.key, required this.seatNumber, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {

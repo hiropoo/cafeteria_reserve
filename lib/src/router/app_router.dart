@@ -6,6 +6,7 @@ import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/sign_up_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/location_base_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/send_result_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/cafeteria1_seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/cafeteria2_seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
@@ -23,7 +24,8 @@ enum AppRoute {
   login,
   reservation,
   location,
-  seat,
+  seat1,
+  seat2,
   sendResult,
   profile,
 }
@@ -84,8 +86,16 @@ GoRouter goRouter(GoRouterRef ref) {
                       builder: (context, state) => const SendResultPage(),
                     ),
                     GoRoute(
-                      path: 'seat',
-                      name: AppRoute.seat.name,
+                      path: 'seat1',
+                      name: AppRoute.seat1.name,
+                      builder: (context, state) => Center(
+                          child: Cafeteria1SeatPage(
+                        seatNumber: state.extra as int,
+                      )),
+                    ),
+                    GoRoute(
+                      path: 'seat2',
+                      name: AppRoute.seat2.name,
                       builder: (context, state) => Center(
                           child: Cafeteria2SeatPage(
                         seatNumber: state.extra as int,
