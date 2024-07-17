@@ -11,8 +11,8 @@ class Cafeteria2SeatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 座席情報
-    final List<Seat> cafeteria1Seats = List.generate(
-      60,
+    final List<Seat> cafeteria2Seats = List.generate(
+      72,
       (index) {
         if (index == seatNumber - 1) {
           return Seat(seatNumber: index + 1, isSelected: true);
@@ -73,18 +73,18 @@ class Cafeteria2SeatPage extends StatelessWidget {
                       // 1 ~ 12
                       _LeftSideTable(
                         seats: [
-                          cafeteria1Seats[0],
-                          cafeteria1Seats[1],
-                          cafeteria1Seats[2],
-                          cafeteria1Seats[3],
-                          cafeteria1Seats[4],
-                          cafeteria1Seats[5],
-                          cafeteria1Seats[6],
-                          cafeteria1Seats[7],
-                          cafeteria1Seats[8],
-                          cafeteria1Seats[9],
-                          cafeteria1Seats[10],
-                          cafeteria1Seats[11],
+                          cafeteria2Seats[0],
+                          cafeteria2Seats[1],
+                          cafeteria2Seats[2],
+                          cafeteria2Seats[3],
+                          cafeteria2Seats[4],
+                          cafeteria2Seats[5],
+                          cafeteria2Seats[6],
+                          cafeteria2Seats[7],
+                          cafeteria2Seats[8],
+                          cafeteria2Seats[9],
+                          cafeteria2Seats[10],
+                          cafeteria2Seats[11],
                         ],
                       ),
 
@@ -98,24 +98,24 @@ class Cafeteria2SeatPage extends StatelessWidget {
                                 // 13 ~ 18
                                 _CenterTable(
                                   seats: [
-                                    cafeteria1Seats[12],
-                                    cafeteria1Seats[13],
-                                    cafeteria1Seats[14],
-                                    cafeteria1Seats[15],
-                                    cafeteria1Seats[16],
-                                    cafeteria1Seats[17],
+                                    cafeteria2Seats[12],
+                                    cafeteria2Seats[13],
+                                    cafeteria2Seats[14],
+                                    cafeteria2Seats[15],
+                                    cafeteria2Seats[16],
+                                    cafeteria2Seats[17],
                                   ],
                                 ),
 
-                                // 31 ~ 36
+                                // 37 ~ 42
                                 _CenterTable(
                                   seats: [
-                                    cafeteria1Seats[30],
-                                    cafeteria1Seats[31],
-                                    cafeteria1Seats[32],
-                                    cafeteria1Seats[33],
-                                    cafeteria1Seats[34],
-                                    cafeteria1Seats[35],
+                                    cafeteria2Seats[36],
+                                    cafeteria2Seats[37],
+                                    cafeteria2Seats[38],
+                                    cafeteria2Seats[39],
+                                    cafeteria2Seats[40],
+                                    cafeteria2Seats[41],
                                   ],
                                 ),
                               ],
@@ -128,23 +128,23 @@ class Cafeteria2SeatPage extends StatelessWidget {
                                 // 19 ~ 24
                                 _CenterTable(
                                   seats: [
-                                    cafeteria1Seats[18],
-                                    cafeteria1Seats[19],
-                                    cafeteria1Seats[20],
-                                    cafeteria1Seats[21],
-                                    cafeteria1Seats[22],
-                                    cafeteria1Seats[23],
+                                    cafeteria2Seats[18],
+                                    cafeteria2Seats[19],
+                                    cafeteria2Seats[20],
+                                    cafeteria2Seats[21],
+                                    cafeteria2Seats[22],
+                                    cafeteria2Seats[23],
                                   ],
                                 ),
 
-                                // 37 ~ 42
+                                // 43 ~ 48
                                 _CenterTable(seats: [
-                                  cafeteria1Seats[36],
-                                  cafeteria1Seats[37],
-                                  cafeteria1Seats[38],
-                                  cafeteria1Seats[39],
-                                  cafeteria1Seats[40],
-                                  cafeteria1Seats[41],
+                                  cafeteria2Seats[42],
+                                  cafeteria2Seats[43],
+                                  cafeteria2Seats[44],
+                                  cafeteria2Seats[45],
+                                  cafeteria2Seats[46],
+                                  cafeteria2Seats[47],
                                 ]),
                               ],
                             ),
@@ -156,24 +156,54 @@ class Cafeteria2SeatPage extends StatelessWidget {
                                 // 25 ~ 30
                                 _CenterTable(
                                   seats: [
-                                    cafeteria1Seats[24],
-                                    cafeteria1Seats[25],
-                                    cafeteria1Seats[26],
-                                    cafeteria1Seats[27],
-                                    cafeteria1Seats[28],
-                                    cafeteria1Seats[29],
+                                    cafeteria2Seats[24],
+                                    cafeteria2Seats[25],
+                                    cafeteria2Seats[26],
+                                    cafeteria2Seats[27],
+                                    cafeteria2Seats[28],
+                                    cafeteria2Seats[29],
                                   ],
                                 ),
 
-                                // 43 ~ 48
+                                // 49 ~ 54
                                 _CenterTable(
                                   seats: [
-                                    cafeteria1Seats[42],
-                                    cafeteria1Seats[43],
-                                    cafeteria1Seats[44],
-                                    cafeteria1Seats[45],
-                                    cafeteria1Seats[46],
-                                    cafeteria1Seats[47],
+                                    cafeteria2Seats[48],
+                                    cafeteria2Seats[49],
+                                    cafeteria2Seats[50],
+                                    cafeteria2Seats[51],
+                                    cafeteria2Seats[52],
+                                    cafeteria2Seats[53],
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Row(
+                              children: [
+                                // 31 ~ 36
+                                _CenterTable(
+                                  seats: [
+                                    cafeteria2Seats[30],
+                                    cafeteria2Seats[31],
+                                    cafeteria2Seats[32],
+                                    cafeteria2Seats[33],
+                                    cafeteria2Seats[34],
+                                    cafeteria2Seats[35],
+                                  ],
+                                ),
+
+                                // 55 ~ 60
+                                _CenterTable(
+                                  seats: [
+                                    cafeteria2Seats[54],
+                                    cafeteria2Seats[55],
+                                    cafeteria2Seats[56],
+                                    cafeteria2Seats[57],
+                                    cafeteria2Seats[58],
+                                    cafeteria2Seats[59],
                                   ],
                                 ),
                               ],
@@ -201,21 +231,21 @@ class Cafeteria2SeatPage extends StatelessWidget {
                       ),
 
                       // 右側のテーブル
-                      // 49 ~ 60
-                      const _RightSideTable(
+                      // 61 ~ 72
+                      _RightSideTable(
                         seats: [
-                          Seat(seatNumber: 48),
-                          Seat(seatNumber: 49),
-                          Seat(seatNumber: 50),
-                          Seat(seatNumber: 51),
-                          Seat(seatNumber: 52),
-                          Seat(seatNumber: 53),
-                          Seat(seatNumber: 54),
-                          Seat(seatNumber: 55),
-                          Seat(seatNumber: 56),
-                          Seat(seatNumber: 57),
-                          Seat(seatNumber: 58),
-                          Seat(seatNumber: 59),
+                          cafeteria2Seats[60],
+                          cafeteria2Seats[61],
+                          cafeteria2Seats[62],
+                          cafeteria2Seats[63],
+                          cafeteria2Seats[64],
+                          cafeteria2Seats[65],
+                          cafeteria2Seats[66],
+                          cafeteria2Seats[67],
+                          cafeteria2Seats[68],
+                          cafeteria2Seats[69],
+                          cafeteria2Seats[70],
+                          cafeteria2Seats[71],
                         ],
                       ),
                     ],
