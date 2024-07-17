@@ -9,7 +9,6 @@ import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
-import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
@@ -130,7 +129,7 @@ class LocationSendPage extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         // 座席確認画面に遷移
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SeatPage()));
+                        context.goNamed(AppRoute.seat.name, extra: reservation.seatNumbers.first);
                       },
                       child: Row(
                         children: [

@@ -86,7 +86,10 @@ GoRouter goRouter(GoRouterRef ref) {
                     GoRoute(
                       path: 'seat',
                       name: AppRoute.seat.name,
-                      builder: (context, state) => const Center(child: SeatPage()),
+                      builder: (context, state) => Center(
+                          child: SeatPage(
+                        seatNumber: state.extra as int,
+                      )),
                     ),
                   ]),
               GoRoute(

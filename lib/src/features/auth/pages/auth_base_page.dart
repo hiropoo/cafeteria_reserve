@@ -34,7 +34,7 @@ class AuthBasePage extends ConsumerWidget {
               return const SignUpPage();
             case AuthState.loggedIn:
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.goNamed(AppRoute.location.name);
+                context.pushReplacementNamed(AppRoute.location.name);
               });
               break;
           }
