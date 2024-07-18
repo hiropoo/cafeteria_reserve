@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
@@ -54,15 +55,15 @@ class SignUpPage extends HookConsumerWidget {
               showCupertinoDialog(
                 context: context,
                 builder: (context) => CupertinoAlertDialog(
-                  title: const Text('登録完了'),
-                  content: const Text('新規登録が完了しました。ログイン画面に遷移します。'),
+                  title: const Text(Strings.signUpCompleted),
+                  content: const Text(Strings.signUpCompletedMessage),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                         context.pushReplacementNamed(AppRoute.login.name);
                       },
-                      child: const Text('OK'),
+                      child: const Text(Strings.dialogConfirm),
                     ),
                   ],
                 ),
@@ -72,7 +73,7 @@ class SignUpPage extends HookConsumerWidget {
 
           // ログイン失敗 -> エラーメッセージを表示
           case false:
-            errorMessage.value = '新規登録に失敗しました。';
+            errorMessage.value = Strings.signUpFailed;
             break;
         }
       }
@@ -94,7 +95,7 @@ class SignUpPage extends HookConsumerWidget {
                 children: [
                   // タイトル
                   Text(
-                    "学食スワローズ",
+                    Strings.appName,
                     style: TextStyle(
                       fontSize: 34,
                       fontWeight: FontWeight.bold,
@@ -167,10 +168,10 @@ class SignUpPage extends HookConsumerWidget {
                   MyButton(
                     onPressed: signUp,
                     child: authState.when(
-                      data: (_) => const Text('新規登録'),
+                      data: (_) => const Text(Strings.signUp),
                       error: (e, _) {
-                        errorMessage.value = '新規登録に失敗しました。';
-                        return const Text('新規登録');
+                        errorMessage.value = Strings.signUpFailed;
+                        return const Text(Strings.signUp);
                       },
                       loading: () => const CircularProgressIndicator(),
                     ),
@@ -185,7 +186,7 @@ class SignUpPage extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "すでにアカウントをお持ちの方",
+                        Strings.alreadyHaveAccount,
                         style: TextStyle(
                           fontSize: 12,
                           color: Theme.of(context).colorScheme.secondary,
@@ -200,7 +201,7 @@ class SignUpPage extends HookConsumerWidget {
                           context.goNamed(AppRoute.login.name);
                         },
                         child: Text(
-                          "ログイン",
+                          Strings.login,
                           style: TextStyle(
                             fontSize: 12,
                             color: Theme.of(context).colorScheme.primary,

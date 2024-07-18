@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
@@ -46,7 +47,7 @@ class LoginPage extends HookConsumerWidget {
 
           // ログイン失敗 -> エラーメッセージを表示
           case false:
-            errorMessage.value = "ユーザー名またはパスワードが間違っています。";
+            errorMessage.value = Strings.loginFailed;
             break;
         }
       }
@@ -66,7 +67,7 @@ class LoginPage extends HookConsumerWidget {
               children: [
                 // タイトル
                 Text(
-                  "学食スワローズ",
+                  Strings.appName,
                   style: TextStyle(
                     fontSize: 34,
                     fontWeight: FontWeight.bold,
@@ -117,10 +118,10 @@ class LoginPage extends HookConsumerWidget {
                 MyButton(
                   onPressed: login,
                   child: authState.when(
-                    data: (_) => const Text('ログイン'),
+                    data: (_) => const Text(Strings.login),
                     error: (e, _) {
-                      errorMessage.value = 'ログインに失敗しました。';
-                      return const Text('ログイン');
+                      errorMessage.value = Strings.loginFailed;
+                      return const Text(Strings.login);
                     },
                     loading: () => const CircularProgressIndicator(),
                   ),
@@ -135,7 +136,7 @@ class LoginPage extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "アカウントを持っていない場合",
+                      Strings.noAccount,
                       style: TextStyle(
                         fontSize: 12,
                         color: Theme.of(context).colorScheme.secondary,
@@ -147,10 +148,10 @@ class LoginPage extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         // 新規作成画面に遷移
-                        context.push('/${AppRoute.signUp.name}');
+                        context.goNamed(AppRoute.signUp.name);
                       },
                       child: Text(
-                        "新規作成",
+                        Strings.signUp,
                         style: TextStyle(
                           fontSize: 12,
                           color: Theme.of(context).colorScheme.primary,
