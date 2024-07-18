@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
@@ -16,7 +17,6 @@ class Reservation with _$Reservation {
     required bool isArrived,
   }) = _Reservation;
 
-
   // responseからReservationオブジェクトを生成するシングルトンコンストラクタ
   // responseList: success userID:userName,userID:userName,... cafeNum seatNum,seatNum,... startTime endTime went
   factory Reservation.fromResponse(List<String> responseList) {
@@ -28,7 +28,7 @@ class Reservation with _$Reservation {
 
     final DateTime startTime = _formatter.parse(responseList[4]);
     final DateTime endTime = _formatter.parse(responseList[5]);
-    final bool isArrived = responseList[6] == 'true';
+    final bool isArrived = responseList[6] == 'true\n';
 
     return Reservation(
       startTime: startTime,
