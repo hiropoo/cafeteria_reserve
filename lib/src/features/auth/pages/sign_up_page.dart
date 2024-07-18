@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -46,9 +47,27 @@ class SignUpPage extends HookConsumerWidget {
 
         // 画面遷移
         switch (result) {
-          // 新規登録成功 -> ログイン画面に遷移
+          // 新規登録成功 -> ポップアップを表示 -> ログイン画面に遷移
           case true:
-            if (context.mounted) context.pushReplacementNamed(AppRoute.login.name);
+            if (context.mounted) {
+              errorMessage.value = '';
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: const Text('登録完了'),
+                  content: const Text('新規登録が完了しました。ログイン画面に遷移します。'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        context.pushReplacementNamed(AppRoute.login.name);
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            }
             break;
 
           // ログイン失敗 -> エラーメッセージを表示
