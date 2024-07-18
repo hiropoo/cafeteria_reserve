@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_app_bar.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
 
@@ -17,7 +18,13 @@ class MainPage extends ConsumerWidget {
     final notifier = ref.read(bottomNavIndexProvider.notifier);
     final List<MyAppBar> headers = <MyAppBar>[
       const MyAppBar(title: '予約'),
-      const MyAppBar(title: '位置情報を送信'),
+      MyAppBar(
+        title: '位置情報を送信',
+        hasRefresh: true,
+        onRefresh: () {
+          ref.read(reservationNotifierProvider.notifier).refresh();
+        },
+      ),
       const MyAppBar(title: 'マイページ'),
     ];
 
