@@ -23,6 +23,22 @@ class ReservationNotifier extends _$ReservationNotifier {
   void clear() {
     state = const AsyncData(null);
   }
+
+  // 予約情報をサーバから取得して更新
+  Future refresh() async {
+    debugPrint('refresh method called');
+    state = const AsyncLoading();
+
+    // サーバから予約情報を取得
+    final repository = ref.read(reservationRepositoryProvider);
+    final user = ref.watch(userNotifierProvider);
+
+    final reservation = await repository.fetchReservation(userID: user.userID);
+
+    state = AsyncData(reservation);
+
+    debugPrint('refresh method finished : $reservation');
+  }
 }
 
 @riverpod
