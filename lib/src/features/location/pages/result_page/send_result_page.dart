@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
 
@@ -20,9 +21,10 @@ class SendResultPage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                '位置情報を送信しました',
+                Strings.locationSendResult,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: 20,
                   color: Theme.of(context).primaryColor,
                 ),
               ),
@@ -31,8 +33,8 @@ class SendResultPage extends HookConsumerWidget {
               MyButton(
                 onPressed: () {
                   // ホームへ戻る
-                  context.goNamed(AppRoute.reservation.name);
-                  ref.read(bottomNavIndexProvider.notifier).changeIndex(0);
+                  context.goNamed(AppRoute.location.name);
+                  ref.read(bottomNavIndexProvider.notifier).changeIndex(1);
                 },
                 child: const Text('戻る'),
               ),

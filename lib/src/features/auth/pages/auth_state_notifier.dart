@@ -129,7 +129,7 @@ class AuthStateNotifier extends _$AuthStateNotifier {
     await prefs.setInt('studentID', studentID);
     await prefs.setBool('loggedIn', true);
 
-    state = const AsyncValue.data(AuthState.loggedIn); // ログイン状態にする
+    state = const AsyncValue.data(AuthState.loggedOut); // ログアウト状態にする
 
     return true;
   }

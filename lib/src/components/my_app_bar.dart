@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const MyAppBar({super.key, required this.title});
+  final bool hasRefresh; // リフレッシュボタンを表示するかどうか
+  final Function()? onRefresh; // リフレッシュボタンを押した時の処理
+  const MyAppBar({super.key, required this.title, this.hasRefresh = false, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,18 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           );
         },
       ),
+
+      actions: [
+        // リフレッシュボタン
+        if (hasRefresh)
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: IconButton(
+              icon: const Icon(Icons.refresh_rounded),
+              onPressed: onRefresh,
+            ),
+          ),
+      ],
     );
   }
 

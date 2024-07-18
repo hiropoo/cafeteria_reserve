@@ -23,6 +23,7 @@ class LocationSendPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final errorMessage = useState<String>(" ");
 
+    // 位置情報送信の状態を監視
     ref.listen<AsyncValue<LocationState>>(locationStateNotifierProvider, (prev, state) {
       state.when(
         data: (state) {
@@ -94,7 +95,12 @@ class LocationSendPage extends HookConsumerWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
+        padding: const EdgeInsets.fromLTRB(
+          50,
+          20,
+          50,
+          30,
+        ),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -186,7 +192,7 @@ class LocationSendPage extends HookConsumerWidget {
               MyButton(
                 onPressed: sendArrived,
                 child: locationState.maybeWhen(
-                  orElse: () => const Text('位置情報を送信'),
+                  orElse: () => const Text(Strings.locationSend),
                   loading: () => const CircularProgressIndicator(),
                 ),
               ),

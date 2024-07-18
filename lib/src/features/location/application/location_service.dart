@@ -42,8 +42,15 @@ class LocationService {
   }
 
   // 位置情報を送信することができる時間帯かどうかを確認する処理 (未実装)
-  Future<bool> _isTimeValid(DateTime? startTime, DateTime? endTime) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+  bool _isTimeValid(DateTime? startTime, DateTime? endTime) {
+    // 現在時刻を取得
+    final DateTime now = DateTime.now();
+
+    // 予約開始時間の5分前から予約終了時間の5分後までの間にいるかどうかをチェック
+    if (now.isBefore(startTime!.subtract(const Duration(minutes: 5))) || now.isAfter(endTime!.add(const Duration(minutes: 5)))) {
+      return false;
+    }
+
     return true;
   }
 

@@ -52,111 +52,115 @@ class LoginPage extends HookConsumerWidget {
       }
     }
 
-    return Scaffold(
-      body: Center(
-        child: Form(
-          key: formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // タイトル
-              Text(
-                "学食スワローズ",
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
+    return PopScope(
+      canPop: false, // ログイン画面から戻ることを禁止
 
-              const SizedBox(
-                height: 45,
-              ),
-
-              // ユーザー名入力欄
-              MyTextFormField(
-                controller: usernameController,
-                formCategory: FormCategory.username,
-              ),
-
-              const SizedBox(
-                height: 30,
-              ),
-
-              // パスワード入力欄
-              MyTextFormField(
-                controller: passwordController,
-                isPassword: true,
-                formCategory: FormCategory.password,
-              ),
-
-              const SizedBox(
-                height: 20,
-              ),
-
-              // エラーメッセージ表示部分
-              if (errorMessage.value.isNotEmpty)
+      child: Scaffold(
+        body: Center(
+          child: Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // タイトル
                 Text(
-                  errorMessage.value,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
+                  "学食スワローズ",
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
 
-              const SizedBox(
-                height: 20,
-              ),
-
-              // ログインボタン
-              MyButton(
-                onPressed: login,
-                child: authState.when(
-                  data: (_) => const Text('ログイン'),
-                  error: (e, _) {
-                    errorMessage.value = 'ログインに失敗しました。';
-                    return const Text('ログイン');
-                  },
-                  loading: () => const CircularProgressIndicator(),
+                const SizedBox(
+                  height: 45,
                 ),
-              ),
 
-              const SizedBox(
-                height: 30,
-              ),
+                // ユーザー名入力欄
+                MyTextFormField(
+                  controller: usernameController,
+                  formCategory: FormCategory.username,
+                ),
 
-              // アカウントを作成する場合の新規登録画面への遷移ボタン
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                const SizedBox(
+                  height: 30,
+                ),
+
+                // パスワード入力欄
+                MyTextFormField(
+                  controller: passwordController,
+                  isPassword: true,
+                  formCategory: FormCategory.password,
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                // エラーメッセージ表示部分
+                if (errorMessage.value.isNotEmpty)
                   Text(
-                    "アカウントを持っていない場合",
-                    style: TextStyle(
+                    errorMessage.value,
+                    style: const TextStyle(
+                      color: Colors.red,
                       fontSize: 12,
-                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // 新規作成画面に遷移
-                      context.push('/${AppRoute.signUp.name}');
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                // ログインボタン
+                MyButton(
+                  onPressed: login,
+                  child: authState.when(
+                    data: (_) => const Text('ログイン'),
+                    error: (e, _) {
+                      errorMessage.value = 'ログインに失敗しました。';
+                      return const Text('ログイン');
                     },
-                    child: Text(
-                      "新規作成",
+                    loading: () => const CircularProgressIndicator(),
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 30,
+                ),
+
+                // アカウントを作成する場合の新規登録画面への遷移ボタン
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "アカウントを持っていない場合",
                       style: TextStyle(
                         fontSize: 12,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // 新規作成画面に遷移
+                        context.push('/${AppRoute.signUp.name}');
+                      },
+                      child: Text(
+                        "新規作成",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
