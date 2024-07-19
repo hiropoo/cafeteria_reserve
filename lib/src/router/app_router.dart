@@ -69,15 +69,13 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/reservation',
                 name: AppRoute.reservation.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: Center(child: ReservationPage()),
-                ),
+                builder: (context, state) => const Center(child: ReservationPage()),
               ),
               GoRoute(
                   path: '/location',
                   name: AppRoute.location.name,
-                  pageBuilder: (context, state) => const NoTransitionPage(
-                        child: Center(child: LocationBasePage()),
+                  builder: (context, state) => const Center(
+                        child: LocationBasePage(),
                       ),
                   routes: [
                     GoRoute(
@@ -105,9 +103,7 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/profile',
                 name: AppRoute.profile.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: Center(child: MyPage()),
-                ),
+                builder: (context, state) => const Center(child: MyPage()),
               ),
             ],
           )
