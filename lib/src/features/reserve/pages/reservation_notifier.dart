@@ -27,6 +27,7 @@ class ReservationNotifier extends _$ReservationNotifier {
   // 予約情報をサーバから取得して更新
   Future refresh() async {
     state = const AsyncLoading();
+    await Future.delayed(const Duration(milliseconds: 200));
 
     // サーバから予約情報を取得
     final repository = ref.read(reservationRepositoryProvider);
@@ -40,32 +41,39 @@ class ReservationNotifier extends _$ReservationNotifier {
 
 @riverpod
 Reservation? reservation(ReservationRef ref) {
-  return ref.watch(reservationNotifierProvider).whenOrNull(
-        data: (reservation) => reservation,
-      );
+  return ref.watch(reservationNotifierProvider).maybeWhen(
+      data: (reservation) => reservation,
+      orElse: () => const Reservation(
+            startTime: null,
+            endTime: null,
+            cafeNum: 0,
+            seatNumbers: [],
+            members: [],
+            isArrived: false,
+            isLoading: true,
+          ));
 }
 
 @riverpod
-class ReservationStateNotifier extends _$ReservationStateNotifier {
-  @override
-  Future<ReservationState> build() async {
-    final reservation = ref.watch(reservationProvider);
+ReservationState reservationState(ReservationStateRef ref) {
+  final reservation = ref.watch(reservationProvider);
 
-    // 予約情報がない場合
-    if (reservation == null) {
-      return ReservationState.noReservation;
-    }
-    // 座席が-1の場合はペナルティあり
-    else if (reservation.seatNumbers.first == -1) {
-      return ReservationState.hasPenalty;
-    }
-    // すでにarrivedを送信している場合
-    else if (reservation.isArrived) {
-      return ReservationState.noReservation;
-    }
-    // 予約がある場合
-    else {
-      return ReservationState.hasReservation;
-    }
+  // 予約情報がない場合
+  if (reservation == null) {
+    return ReservationState.noReservation;
+  } else if (reservation.isLoading) {
+    return ReservationState.loading;
+  }
+  // 座席が-1の場合はペナルティあり
+  else if (reservation.seatNumbers.first == -1) {
+    return ReservationState.hasPenalty;
+  }
+  // すでにarrivedを送信している場合
+  else if (reservation.isArrived) {
+    return ReservationState.noReservation;
+  }
+  // 予約がある場合
+  else {
+    return ReservationState.hasReservation;
   }
 }

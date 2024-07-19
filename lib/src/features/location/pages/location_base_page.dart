@@ -12,7 +12,7 @@ class LocationBasePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final reservationState = ref.watch(reservationStateNotifierProvider);
+    final reservationState = ref.watch(reservationStateProvider);
     final reservationNotifier = ref.read(reservationNotifierProvider.notifier);
 
     // 予約情報を更新
@@ -22,42 +22,33 @@ class LocationBasePage extends HookConsumerWidget {
     }, []);
 
     return Scaffold(
-      // 位置情報送信画面
-      body: reservationState.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, stackTrace) {
-          debugPrint(e.toString());
-          return const Center(child: Text('エラーが発生しました'));
-        },
-        data: (locationState) {
-          switch (locationState) {
-            // 予約がない場合 -> 予約なし画面を表示
-            case ReservationState.noReservation:
-              return const NoReservationPage();
+        // 位置情報送信画面
+        body: switch (reservationState) {
+      // 予約がない場合 -> 予約なし画面を表示
+      ReservationState.noReservation => const NoReservationPage(),
 
-            // 予約があり、まだ位置情報を送信していない場合 -> 位置情報送信画面を表示
-            case ReservationState.hasReservation:
-              return const LocationSendPage();
+      // 予約があり、まだ位置情報を送信していない場合 -> 位置情報送信画面を表示
+      ReservationState.hasReservation => const LocationSendPage(),
 
-            // ペナルティがある場合 -> ペナルティ画面を表示
-            case ReservationState.hasPenalty:
-              return const PenaltyPage();
+      // ペナルティがある場合 -> ペナルティ画面を表示
+      ReservationState.hasPenalty => const PenaltyPage(),
 
-            // エラーが発生した場合
-            case ReservationState.error:
-              return Center(
-                child: Text(
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  'エラーが発生しました',
-                ),
-              );
-          }
-        },
-      ),
-    );
+      // ローディング中の場合
+      ReservationState.loading => const Center(
+          child: CircularProgressIndicator(),
+        ),
+
+      // エラーが発生した場合
+      ReservationState.error => Center(
+          child: Text(
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+            'エラーが発生しました',
+          ),
+        )
+    });
   }
 }

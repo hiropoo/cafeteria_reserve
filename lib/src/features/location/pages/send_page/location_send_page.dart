@@ -61,12 +61,6 @@ class LocationSendPage extends HookConsumerWidget {
     final locationStateNotifier = ref.read(locationStateNotifierProvider.notifier);
     final reservation = ref.watch(reservationProvider);
 
-    if (reservation == null) {
-      return const Scaffold(
-        body: Center(child: Text('予約情報が見つかりません')),
-      );
-    }
-
     // ボタンが押された時の位置情報送信処理
     Future sendArrived() async {
       // 位置情報を更新
@@ -82,7 +76,7 @@ class LocationSendPage extends HookConsumerWidget {
 
     // 座席確認画面へ遷移
     void confirmSeat() {
-      switch (reservation.cafeNum) {
+      switch (reservation!.cafeNum) {
         case 1:
           context.goNamed(AppRoute.seat1.name, extra: reservation.seatNumbers.first);
           break;
@@ -115,7 +109,7 @@ class LocationSendPage extends HookConsumerWidget {
                     // 予約した学食
                     LocationPageTile(
                       header: '予約した学食',
-                      content: reservation.cafeNum == 1 ? '第1食堂' : '第2食堂',
+                      content: reservation!.cafeNum == 1 ? '第1食堂' : '第2食堂',
                     ),
 
                     const SizedBox(height: 10),

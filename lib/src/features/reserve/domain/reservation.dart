@@ -15,6 +15,7 @@ class Reservation with _$Reservation {
     required List<int> seatNumbers,
     required List<List<String>> members,
     required bool isArrived,
+    @Default(false) bool isLoading,
   }) = _Reservation;
 
   // responseからReservationオブジェクトを生成するシングルトンコンストラクタ
