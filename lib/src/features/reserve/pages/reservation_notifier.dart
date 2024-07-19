@@ -25,9 +25,9 @@ class ReservationNotifier extends _$ReservationNotifier {
   }
 
   // 予約情報をサーバから取得して更新
-  Future refresh() async {
+  void refresh() async {
     state = const AsyncLoading();
-    await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 300));
 
     // サーバから予約情報を取得
     final repository = ref.read(reservationRepositoryProvider);

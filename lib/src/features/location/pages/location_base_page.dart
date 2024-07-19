@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/no_reservation_page/no_reservation_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/no_reservation_page/penalty_page.dart';
@@ -13,13 +12,6 @@ class LocationBasePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reservationState = ref.watch(reservationStateProvider);
-    final reservationNotifier = ref.read(reservationNotifierProvider.notifier);
-
-    // 予約情報を更新
-    useEffect(() {
-      Future(() => reservationNotifier.refresh());
-      return null;
-    }, []);
 
     return Scaffold(
         // 位置情報送信画面
