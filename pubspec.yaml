@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.5
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.1
   freezed_annotation: ^2.4.1
   go_router: ^14.2.1
   hooks_riverpod: ^2.5.1
@@ -35,3 +37,29 @@ flutter:
   uses-material-design: true
   assets:
     - lib/src/assets/images/
+
+# dart run flutter_native_splash:create
+# 768 x 768 以内の画像
+flutter_native_splash:
+  color: "#ffffff"
+  image: lib/src/assets/images/splash-icon.png
+  color_dark: "#121212"
+  image_dark: lib/src/assets/images/splash-icon.png
+  android_12:
+    image: lib/src/assets/images/splash-icon.png
+    icon_background_color: "#ffffff"
+    image_dark: lib/src/assets/images/splash-icon.png
+    icon_background_color_dark: "#121212"
+
+
+# flutter pub run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: 
+  # size: 512 x 512 くらい
+  image_path: "lib/src/assets/images/app-icon.png"
+  # size: 上のサイズの50%くらいの背景透過画像
+
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "lib/src/assets/images/adaptive-icon-foreground.png"
+  
