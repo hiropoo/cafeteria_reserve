@@ -12,7 +12,7 @@ class Strings {
   static const String loginFailed = 'ユーザー名またはパスワードが間違っています';
   static const String signUpFailed = '新規登録に失敗しました';
 
-  static const String noAccount = 'アカウントを持っていない場合';
+  static const String noAccount = 'アカウントをお持ちでない場合';
   static const String alreadyHaveAccount = 'すでにアカウントをお持ちの方';
 
   /* 新規登録時のダイアログ */
