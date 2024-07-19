@@ -5,7 +5,7 @@
     <!-- ここまで -->
 
     <application
-        android:label="sit_in_the_cafeteria"
+        android:label="学食スワローズ"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

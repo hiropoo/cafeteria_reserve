@@ -41,25 +41,25 @@ flutter:
 # dart run flutter_native_splash:create
 # 768 x 768 以内の画像
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#011345"
   image: lib/src/assets/images/splash-icon.png
-  color_dark: "#121212"
+  color_dark: "#011345"
   image_dark: lib/src/assets/images/splash-icon.png
   android_12:
-    image: lib/src/assets/images/splash-icon.png
-    icon_background_color: "#ffffff"
-    image_dark: lib/src/assets/images/splash-icon.png
-    icon_background_color_dark: "#121212"
+    image: lib/src/assets/images/adaptive-icon-foreground.png
+    icon_background_color: "#011345"
+    image_dark: lib/src/assets/images/adaptive-icon-foreground.png
+    icon_background_color_dark: "#011345"
 
 
 # flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
   android: true
-  ios: 
+  ios: true
   # size: 512 x 512 くらい
   image_path: "lib/src/assets/images/app-icon.png"
   # size: 上のサイズの50%くらいの背景透過画像
 
-  adaptive_icon_background: "#ffffff"
+  adaptive_icon_background: "#011345"
   adaptive_icon_foreground: "lib/src/assets/images/adaptive-icon-foreground.png"
   
