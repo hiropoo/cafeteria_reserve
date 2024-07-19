@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
@@ -106,18 +107,11 @@ class LocationSendPage extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.surface,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              MyContainer(
                 child: Column(
                   children: [
+                    const SizedBox(height: 10),
+
                     // 予約した学食
                     LocationPageTile(
                       header: '予約した学食',
@@ -144,6 +138,8 @@ class LocationSendPage extends HookConsumerWidget {
 
                     // 予約した座席
                     LocationPageTile(header: '予約した座席', content: reservation.seatNumbers.map((seatNum) => seatNum).join(', ')),
+
+                    const SizedBox(height: 5),
 
                     // 座席を確認
                     GestureDetector(
