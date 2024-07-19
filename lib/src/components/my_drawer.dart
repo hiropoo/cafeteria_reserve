@@ -34,10 +34,10 @@ class MyDrawer extends ConsumerWidget {
             ),
           ),
 
-          // ホーム
+          // 予約
           MyDrawerTile(
-            title: 'ホーム',
-            icon: Icons.home,
+            title: '予約',
+            icon: Icons.event_note,
             onTap: () {
               Navigator.pop(context);
               pageIndexNotifier.changeIndex(0);
@@ -67,15 +67,6 @@ class MyDrawer extends ConsumerWidget {
             },
           ),
 
-          // 予約
-          MyDrawerTile(
-            title: '予約情報',
-            icon: Icons.event_note,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-
           const Spacer(),
 
           // 設定
@@ -99,7 +90,7 @@ class MyDrawer extends ConsumerWidget {
           ),
 
           const SizedBox(
-            height: 20,
+            height: 40,
           )
         ],
       ),
