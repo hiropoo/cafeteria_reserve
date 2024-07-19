@@ -1,42 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
-import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
-import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
-import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 
 class SendResultPage extends HookConsumerWidget {
   const SendResultPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      // 位置情報送信後の画面
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
-        child: Center(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(40),
+        child: MyContainer(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                Strings.locationSendResult,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Theme.of(context).primaryColor,
-                ),
+              // タイトル
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.check_circle_rounded,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    '位置情報を送信しました',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                ],
               ),
 
-              // ホームへ戻るボタン
-              MyButton(
-                onPressed: () {
-                  // ホームへ戻る
-                  context.goNamed(AppRoute.location.name);
-                  ref.read(bottomNavIndexProvider.notifier).changeIndex(1);
-                },
-                child: const Text('戻る'),
+              const SizedBox(height: 20),
+
+              // 説明
+              const Text(
+                textAlign: TextAlign.center,
+                'ご予約の利用を確認しました。',
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                textAlign: TextAlign.center,
+                'ご利用ありがとうございました。',
+              ),
+
+              const SizedBox(height: 20),
+
+              // イラスト
+              SizedBox(
+                width: 100,
+                child: Image.asset(
+                  'lib/src/assets/images/send-result.png',
+                ),
               ),
             ],
           ),
