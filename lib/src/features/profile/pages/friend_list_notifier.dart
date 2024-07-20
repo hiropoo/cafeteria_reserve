@@ -29,4 +29,12 @@ class FriendListNotifier extends _$FriendListNotifier {
       state = AsyncData(friendList);
     }
   }
+
+  Future refresh() async {
+    state = const AsyncLoading();
+
+    final friendList = await ref.read(friendListRepositoryProvider).fetchFriendList(userID: ref.read(userNotifierProvider).userID);
+
+    state = AsyncData(friendList);
+  }
 }

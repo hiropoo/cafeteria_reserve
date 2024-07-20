@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_app_bar.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
@@ -25,7 +26,14 @@ class MainPage extends ConsumerWidget {
           ref.read(reservationNotifierProvider.notifier).refresh();
         },
       ),
-      const MyAppBar(title: 'マイページ'),
+      MyAppBar(
+        title: 'マイページ',
+        hasRefresh: true,
+        onRefresh: () {
+          ref.read(friendListNotifierProvider.notifier).refresh();
+          ref.read(reservationNotifierProvider.notifier).refresh();
+        },
+      ),
     ];
 
     return Scaffold(
