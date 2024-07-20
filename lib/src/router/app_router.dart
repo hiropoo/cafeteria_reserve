@@ -29,6 +29,8 @@ enum AppRoute {
   seat2,
   sendResult,
   profile,
+  profileSeat1,
+  profileSeat2,
   friendList,
 }
 
@@ -109,6 +111,20 @@ GoRouter goRouter(GoRouterRef ref) {
                         child: MyPage(),
                       ),
                   routes: [
+                    GoRoute(
+                      path: 'profileSeat1',
+                      name: AppRoute.profileSeat1.name,
+                      builder: (context, state) => Cafeteria1SeatPage(
+                        seatNumber: state.extra as int,
+                      ),
+                    ),
+                    GoRoute(
+                      path: 'profileSeat2',
+                      name: AppRoute.profileSeat2.name,
+                      builder: (context, state) => Cafeteria2SeatPage(
+                        seatNumber: state.extra as int,
+                      ),
+                    ),
                     GoRoute(
                       path: 'friendList',
                       name: AppRoute.friendList.name,

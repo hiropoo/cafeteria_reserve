@@ -5,12 +5,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
-import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_confirm_page/reservation_confirm_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
@@ -101,62 +100,7 @@ class LocationSendPage extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              MyContainer(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-
-                    // 予約した学食
-                    LocationPageTile(
-                      header: '予約した学食',
-                      content: reservation!.cafeNum == 1 ? '第1食堂' : '第2食堂',
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // 予約日
-                    LocationPageTile(
-                      header: '予約日',
-                      content: _dateFormatter.format(reservation.startTime!),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // 予約時間
-                    LocationPageTile(
-                      header: '予約時間',
-                      content: '${_timeFormatter.format(reservation.startTime!)} ~ ${_timeFormatter.format(reservation.endTime!)}',
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // 予約した座席
-                    LocationPageTile(header: '予約した座席', content: reservation.seatNumbers.map((seatNum) => seatNum).join(', ')),
-
-                    const SizedBox(height: 5),
-
-                    // 座席を確認
-                    GestureDetector(
-                      onTap: confirmSeat,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          Text(
-                            "座席の確認はこちら",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ReservationConfirmPage(),
 
               // 説明
               Text(
