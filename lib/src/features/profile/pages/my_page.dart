@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/user_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
@@ -14,9 +13,6 @@ import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_noti
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class MyPage extends ConsumerWidget {
-  static final _dateFormatter = DateFormat('yyyy/MM/dd');
-  static final _timeFormatter = DateFormat('HH:mm');
-
   const MyPage({super.key});
 
   @override
@@ -25,21 +21,6 @@ class MyPage extends ConsumerWidget {
     final friendList = ref.watch(friendListNotifierProvider);
 
     final reservationState = ref.watch(reservationStateProvider);
-    final reservation = ref.watch(reservationProvider);
-
-    // 座席確認画面へ遷移
-    void confirmSeat() {
-      switch (reservation!.cafeNum) {
-        case 1:
-          context.goNamed(AppRoute.seat1.name, extra: reservation.seatNumbers.first);
-          break;
-        case 2:
-          context.goNamed(AppRoute.seat2.name, extra: reservation.seatNumbers.first);
-          break;
-        default:
-          break;
-      }
-    }
 
     return friendList.when(
       // フレンドリスト取得失敗
@@ -227,7 +208,9 @@ class MyPage extends ConsumerWidget {
                           ReservationState.noReservation => const NoReservationPage(),
 
                           // 予約があり、まだ位置情報を送信していない場合 -> 位置情報送信画面を表示
-                          ReservationState.hasReservation =>  ReservationConfirmPage(fromMyPage: true,),
+                          ReservationState.hasReservation => const ReservationConfirmPage(
+                              fromMyPage: true,
+                            ),
 
                           // ペナルティがある場合 -> ペナルティ画面を表示
                           ReservationState.hasPenalty => const PenaltyPage(),

@@ -7,6 +7,7 @@ import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
+import 'package:sit_in_the_cafeteria/src/utils/dialog.dart';
 
 class ReservationConfirmPage extends ConsumerWidget {
   static final _dateFormatter = DateFormat('yyyy/MM/dd');
@@ -122,7 +123,38 @@ class ReservationConfirmPage extends ConsumerWidget {
           if (fromMyPage) const SizedBox(height: 40),
 
           // 予約をキャンセルするボタン
-          if (fromMyPage) MyButton(onPressed: () {}, child: Text('予約をキャンセルする')),
+          if (fromMyPage)
+            MyButton(
+              onPressed: () {
+                MyDialog.show(
+                  context: context,
+                  title: '予約のキャンセル',
+                  message: '予約をキャンセルしますか？',
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        context.pop();
+                      },
+                      child: const Text('いいえ'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.pop();
+                        // 予約のキャンセル
+                        ref.read(reservationNotifierProvider.notifier).clear();
+                      },
+                      child: const Text(
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                        'はい',
+                      ),
+                    ),
+                  ],
+                );
+              },
+              child: const Text('予約のキャンセル'),
+            ),
         ],
       ),
     );

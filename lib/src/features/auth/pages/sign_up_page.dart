@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,7 @@ import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
+import 'package:sit_in_the_cafeteria/src/utils/dialog.dart';
 
 class SignUpPage extends HookConsumerWidget {
   const SignUpPage({super.key});
@@ -52,22 +52,15 @@ class SignUpPage extends HookConsumerWidget {
           case true:
             if (context.mounted) {
               errorMessage.value = '';
-              showCupertinoDialog(
-                context: context,
-                builder: (context) => CupertinoAlertDialog(
-                  title: const Text(Strings.signUpCompleted),
-                  content: const Text(Strings.signUpCompletedMessage),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        context.pushReplacementNamed(AppRoute.login.name);
-                      },
-                      child: const Text(Strings.dialogConfirm),
-                    ),
-                  ],
+              MyDialog.show(context: context, title: Strings.signUpCompleted, message: Strings.signUpCompletedMessage, actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    context.pushReplacementNamed(AppRoute.login.name);
+                  },
+                  child: const Text(Strings.dialogConfirm),
                 ),
-              );
+              ]);
             }
             break;
 
