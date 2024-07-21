@@ -46,18 +46,16 @@ GoRouter goRouter(GoRouterRef ref) {
         path: '/',
         name: AppRoute.base.name,
         pageBuilder: (context, state) => const MaterialPage(child: AuthBasePage()),
-        routes: [
-          GoRoute(
-            path: 'login',
-            name: AppRoute.login.name,
-            pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
-          ),
-          GoRoute(
-            path: 'signUp',
-            name: AppRoute.signUp.name,
-            pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
-          ),
-        ],
+      ),
+      GoRoute(
+        path: '/login',
+        name: AppRoute.login.name,
+        pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
+      ),
+      GoRoute(
+        path: '/signUp',
+        name: AppRoute.signUp.name,
+        pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
       ),
       // アプリのフレーム。永続化したbottomNavigationBarとDrawerを持つ
       StatefulShellRoute.indexedStack(

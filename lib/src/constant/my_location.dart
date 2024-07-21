@@ -1,3 +1,5 @@
+import 'package:sit_in_the_cafeteria/src/utils/env.dart';
+
 class MyLocation {
   // 学食の座標
   static const Map<int, Map<String, double>> cafeLocations = {
@@ -6,5 +8,5 @@ class MyLocation {
   };
 
   // 学食を認識するための半径（メートル）
-  static const double radius = 83476580;
+  static double radius = environment['locationRadius'] as double;
 }

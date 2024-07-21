@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:sit_in_the_cafeteria/src/utils/env.dart';
 
 class Repository {
-  static const String _serverIP = 'localhost';
-  static const int _serverPort = 12345;
+  static final String _serverIP = environment['serverIP'].toString();
+  static final int _serverPort = int.parse(environment['port'].toString());
   static Socket? _socket;
 
   /* サーバとの接続メソッド */

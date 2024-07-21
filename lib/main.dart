@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/utils/theme_notifier.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: '.env');
+
   runApp(const ProviderScope(child: MainApp()));
 }
 
