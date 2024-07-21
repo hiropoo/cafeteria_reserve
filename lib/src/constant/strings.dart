@@ -9,6 +9,7 @@ class Strings {
 
   /* ログイン 新規登録メッセージ */
   static const String login = 'ログイン';
+  static const String logout = 'ログアウト';
   static const String signUp = '新規登録';
   static const String loginFailed = 'ユーザー名またはパスワードが間違っています';
   static const String signUpFailed = '新規登録に失敗しました';
@@ -41,4 +42,34 @@ class Strings {
   static const String locationError = '予約した学食の近くにいることを確認してください';
   static const String connectionError = '通信エラーが発生しました';
   static const String permissionError = '位置情報の利用が許可されていません';
+
+  /* 座席確認ページ */
+  static const String cafeteria1 = '第1食堂';
+  static const String cafeteria2 = '第2食堂';
+  static const String seatConfirm = '座席を確認してください';
+  static const String entrance = '入口';
+  static const String exit = '出口';
+  static const String returnButton = '戻る';
+
+  /* 位置情報送信結果を表示するページ */
+  static const String locationSendResultTitle = '位置情報を送信しました';
+  static const String locationSendResultDescription1 = 'ご予約のご利用を確認しました';
+  static const String locationSendResultDescription2 = 'ご利用ありがとうございました';
+
+  /* マイページ */
+  static const String myPage = 'マイページ';
+  static const String id = 'ID';
+  static const String copyID = 'IDをコピーしました';
+  static const String friend = '友だち';
+  static const String friendNumSuffix = '人';
+
+  /* 友達一覧ページ */
+  static const String friendList = 'すべての友だち';
+  static const String addFriend = '追加';
+
+  /* 予約画面 */
+  static const String reservation = '予約';
+
+  /* 設定画面 */
+  static const String settings = '設定';
 }

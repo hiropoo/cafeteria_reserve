@@ -6,6 +6,7 @@ import 'package:sit_in_the_cafeteria/src/components/friend_list_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/friend_text_field.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
 
 class FriendListPage extends HookConsumerWidget {
@@ -36,7 +37,7 @@ class FriendListPage extends HookConsumerWidget {
                 onPressed: () {
                   context.pop();
                 },
-                child: const Text('戻る'),
+                child: const Text(Strings.returnButton),
               ),
             ],
           ),
@@ -52,7 +53,7 @@ class FriendListPage extends HookConsumerWidget {
                 children: [
                   // タイトル
                   Text(
-                    'すべての友だち',
+                    Strings.friendList,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
@@ -80,7 +81,7 @@ class FriendListPage extends HookConsumerWidget {
                             friendListNotifier.addFriend(friendController.text);
                             friendController.clear();
                           },
-                          child: const Text('追加'),
+                          child: const Text(Strings.addFriend),
                         ),
                       ),
                     ],
@@ -110,7 +111,7 @@ class FriendListPage extends HookConsumerWidget {
                     onPressed: () {
                       context.pop();
                     },
-                    child: const Text('戻る'),
+                    child: const Text(Strings.returnButton),
                   ),
                 ],
               ),

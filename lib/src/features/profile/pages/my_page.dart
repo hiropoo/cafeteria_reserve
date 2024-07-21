@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/domains/user.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/user_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/domain/friend.dart';
@@ -175,7 +176,7 @@ class _UserIDCard extends StatelessWidget {
               ..removeCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: Text('IDをコピーしました'),
+                  content: Text(Strings.copyID),
                 ),
               );
           },
@@ -185,7 +186,7 @@ class _UserIDCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'ID',
+                  Strings.id,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontSize: 14,
@@ -231,8 +232,7 @@ class _FriendNumberCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            // 友達一覧へ
-            debugPrint('友達一覧へ');
+            // 友達一覧へ遷移
             context.pushNamed(AppRoute.friendList.name);
           },
           child: Container(
@@ -241,7 +241,7 @@ class _FriendNumberCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '友だち ',
+                  Strings.friend,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontSize: 14,
@@ -258,7 +258,7 @@ class _FriendNumberCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '人',
+                      Strings.friendNumSuffix,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 14,

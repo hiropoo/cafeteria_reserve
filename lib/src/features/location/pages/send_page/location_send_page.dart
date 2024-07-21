@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
@@ -14,14 +13,13 @@ import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_noti
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class LocationSendPage extends HookConsumerWidget {
-  static final _dateFormatter = DateFormat('yyyy/MM/dd');
-  static final _timeFormatter = DateFormat('HH:mm');
-
   const LocationSendPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final errorMessage = useState<String>(" ");
+    final locationState = ref.watch(locationStateNotifierProvider);
+    final locationStateNotifier = ref.read(locationStateNotifierProvider.notifier);
 
     // 位置情報送信の状態を監視
     ref.listen<AsyncValue<LocationState>>(locationStateNotifierProvider, (prev, state) {
@@ -56,10 +54,6 @@ class LocationSendPage extends HookConsumerWidget {
       );
     });
 
-    final locationState = ref.watch(locationStateNotifierProvider);
-    final locationStateNotifier = ref.read(locationStateNotifierProvider.notifier);
-    final reservation = ref.watch(reservationProvider);
-
     // ボタンが押された時の位置情報送信処理
     Future sendArrived() async {
       // 位置情報を更新
@@ -70,20 +64,6 @@ class LocationSendPage extends HookConsumerWidget {
 
         // 位置情報送信に成功したことを表示する画面へ遷移
         context.pushReplacementNamed(AppRoute.sendResult.name);
-      }
-    }
-
-    // 座席確認画面へ遷移
-    void confirmSeat() {
-      switch (reservation!.cafeNum) {
-        case 1:
-          context.goNamed(AppRoute.seat1.name, extra: reservation.seatNumbers.first);
-          break;
-        case 2:
-          context.goNamed(AppRoute.seat2.name, extra: reservation.seatNumbers.first);
-          break;
-        default:
-          break;
       }
     }
 
@@ -100,7 +80,7 @@ class LocationSendPage extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ReservationConfirmPage(),
+              const ReservationConfirmPage(),
 
               // 説明
               Text(

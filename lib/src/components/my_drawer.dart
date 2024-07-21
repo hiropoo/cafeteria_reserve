@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer_tile.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
@@ -25,7 +26,7 @@ class MyDrawer extends ConsumerWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             child: Text(
-              '学食スワローズ',
+              Strings.appName,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -36,7 +37,7 @@ class MyDrawer extends ConsumerWidget {
 
           // 予約
           MyDrawerTile(
-            title: '予約',
+            title: Strings.reservation,
             icon: Icons.event_note,
             onTap: () {
               Navigator.pop(context);
@@ -47,7 +48,7 @@ class MyDrawer extends ConsumerWidget {
 
           // 位置情報を送信
           MyDrawerTile(
-            title: '位置情報',
+            title: Strings.locationSend,
             icon: Icons.location_on,
             onTap: () {
               Navigator.pop(context);
@@ -58,7 +59,7 @@ class MyDrawer extends ConsumerWidget {
 
           // マイページ
           MyDrawerTile(
-            title: 'マイページ',
+            title: Strings.myPage,
             icon: Icons.person,
             onTap: () {
               Navigator.pop(context);
@@ -71,7 +72,7 @@ class MyDrawer extends ConsumerWidget {
 
           // 設定
           MyDrawerTile(
-            title: '設定',
+            title: Strings.settings,
             icon: Icons.settings,
             onTap: () {
               Navigator.pop(context);
@@ -80,7 +81,7 @@ class MyDrawer extends ConsumerWidget {
 
           // ログアウト
           MyDrawerTile(
-            title: 'ログアウト',
+            title: Strings.logout,
             icon: Icons.logout,
             onTap: () {
               final repositoryNotifier = ref.read(authStateNotifierProvider.notifier);
