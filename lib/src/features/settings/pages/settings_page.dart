@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_app_bar.dart';
 import 'package:sit_in_the_cafeteria/src/components/not_available_page.dart';
 
-class ReservationPage extends StatelessWidget {
-  const ReservationPage({super.key});
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      // 位置情報を送信する画面
+      appBar: MyAppBar(
+        title: '設定',
+      ),
       body: Center(
         child: NotAvailablePage(),
       ),

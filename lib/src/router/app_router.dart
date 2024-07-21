@@ -11,6 +11,7 @@ import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_pa
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/settings/pages/settings_page.dart';
 import 'package:sit_in_the_cafeteria/src/main_page.dart';
 
 part 'app_router.g.dart';
@@ -32,6 +33,7 @@ enum AppRoute {
   profileSeat1,
   profileSeat2,
   friendList,
+  settings,
 }
 
 @riverpod
@@ -57,6 +59,7 @@ GoRouter goRouter(GoRouterRef ref) {
         name: AppRoute.signUp.name,
         pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
       ),
+
       // アプリのフレーム。永続化したbottomNavigationBarとDrawerを持つ
       StatefulShellRoute.indexedStack(
         parentNavigatorKey: _rootNavigatorKey,
@@ -103,36 +106,43 @@ GoRouter goRouter(GoRouterRef ref) {
                     ),
                   ]),
               GoRoute(
-                  path: '/profile',
-                  name: AppRoute.profile.name,
-                  builder: (context, state) => const Center(
-                        child: MyPage(),
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'profileSeat1',
-                      name: AppRoute.profileSeat1.name,
-                      builder: (context, state) => Cafeteria1SeatPage(
-                        seatNumber: state.extra as int,
-                      ),
+                path: '/profile',
+                name: AppRoute.profile.name,
+                builder: (context, state) => const Center(
+                  child: MyPage(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'profileSeat1',
+                    name: AppRoute.profileSeat1.name,
+                    builder: (context, state) => Cafeteria1SeatPage(
+                      seatNumber: state.extra as int,
                     ),
-                    GoRoute(
-                      path: 'profileSeat2',
-                      name: AppRoute.profileSeat2.name,
-                      builder: (context, state) => Cafeteria2SeatPage(
-                        seatNumber: state.extra as int,
-                      ),
+                  ),
+                  GoRoute(
+                    path: 'profileSeat2',
+                    name: AppRoute.profileSeat2.name,
+                    builder: (context, state) => Cafeteria2SeatPage(
+                      seatNumber: state.extra as int,
                     ),
-                    GoRoute(
-                      path: 'friendList',
-                      name: AppRoute.friendList.name,
-                      builder: (context, state) => const FriendListPage(),
-                    ),
-                  ]),
+                  ),
+                  GoRoute(
+                    path: 'friendList',
+                    name: AppRoute.friendList.name,
+                    builder: (context, state) => const FriendListPage(),
+                  ),
+                ],
+              ),
             ],
           )
         ],
-      )
+      ),
+      GoRoute(
+        path: '/settings',
+        // parentNavigatorKey: _rootNavigatorKey,
+        name: AppRoute.settings.name,
+        builder: (context, state) => const SettingsPage(),
+      ),
     ],
   );
 }
