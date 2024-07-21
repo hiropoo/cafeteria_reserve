@@ -39,6 +39,8 @@ class FriendListNotifier extends _$FriendListNotifier {
 
   // フレンド追加
   void addFriend(String friendID) async {
+    final currentState = state;
+
     state = const AsyncLoading();
     final repository = ref.read(friendListRepositoryProvider);
     final user = ref.watch(userNotifierProvider);
@@ -49,7 +51,9 @@ class FriendListNotifier extends _$FriendListNotifier {
     if (result) {
       final friendList = await repository.fetchFriendList(userID: user.userID);
       state = AsyncData(friendList);
-    } else {}
+    } else {
+      state = currentState;
+    }
   }
 
   // リフレッシュ
