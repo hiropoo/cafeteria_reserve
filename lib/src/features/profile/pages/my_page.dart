@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/user.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/user_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/features/profile/domain/friend.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/domain/reservation_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_confirm_page/no_reservation_page.dart';
@@ -77,122 +79,17 @@ class MyPage extends ConsumerWidget {
                           ),
                         ),
 
+                        // ID, 友達の数
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // ID
-                            Material(
-                              color: Colors.transparent,
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(10),
-                                  onTap: () {
-                                    // クリップボードにコピー
-                                    Clipboard.setData(
-                                      ClipboardData(text: user.userID),
-                                    );
-
-                                    // スナックバー表示
-                                    ScaffoldMessenger.of(context)
-                                      ..removeCurrentSnackBar()
-                                      ..showSnackBar(
-                                        const SnackBar(
-                                          content: Text('IDをコピーしました'),
-                                        ),
-                                      );
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'ID',
-                                          style: TextStyle(
-                                            color: Theme.of(context).colorScheme.secondary,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          user.userID,
-                                          style: TextStyle(
-                                            color: Theme.of(context).colorScheme.secondary,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14,
-                                            height: 2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            _UserIDCard(user: user),
 
                             const Spacer(),
 
                             // 友達の数
-                            Material(
-                              color: Colors.transparent,
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(10),
-                                  onTap: () {
-                                    // 友達一覧へ
-                                    debugPrint('友達一覧へ');
-                                    context.pushNamed(AppRoute.friendList.name);
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '友だち ',
-                                          style: TextStyle(
-                                            color: Theme.of(context).colorScheme.secondary,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              friendList.length.toString(),
-                                              style: TextStyle(
-                                                color: Theme.of(context).colorScheme.secondary,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                            Text(
-                                              '人',
-                                              style: TextStyle(
-                                                color: Theme.of(context).colorScheme.secondary,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            _FriendNumberCard(friendList: friendList),
                           ],
                         ),
 
@@ -203,6 +100,7 @@ class MyPage extends ConsumerWidget {
                           ),
                         ),
 
+                        // 予約情報
                         switch (reservationState) {
                           // 予約がない場合 -> 予約なし画面を表示
                           ReservationState.noReservation => const NoReservationPage(),
@@ -241,6 +139,138 @@ class MyPage extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _UserIDCard extends StatelessWidget {
+  const _UserIDCard({
+    required this.user,
+  });
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Theme.of(context).colorScheme.onSurface,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            // クリップボードにコピー
+            Clipboard.setData(
+              ClipboardData(text: user.userID),
+            );
+
+            // スナックバー表示
+            ScaffoldMessenger.of(context)
+              ..removeCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text('IDをコピーしました'),
+                ),
+              );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'ID',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  user.userID,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    height: 2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FriendNumberCard extends StatelessWidget {
+  final List<Friend> friendList;
+
+  const _FriendNumberCard({
+    required this.friendList,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Theme.of(context).colorScheme.onSurface,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            // 友達一覧へ
+            debugPrint('友達一覧へ');
+            context.pushNamed(AppRoute.friendList.name);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '友だち ',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 14,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      friendList.length.toString(),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '人',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
