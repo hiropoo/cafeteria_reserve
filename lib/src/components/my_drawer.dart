@@ -40,9 +40,9 @@ class MyDrawer extends ConsumerWidget {
             title: Strings.reservation,
             icon: Icons.event_note,
             onTap: () {
-              Navigator.pop(context);
+              context.pop();
               pageIndexNotifier.changeIndex(0);
-              context.replace('/${AppRoute.reservation.name}');
+              context.replaceNamed(AppRoute.reservation.name);
             },
           ),
 
@@ -51,7 +51,7 @@ class MyDrawer extends ConsumerWidget {
             title: Strings.locationSend,
             icon: Icons.location_on,
             onTap: () {
-              Navigator.pop(context);
+              context.pop();
               pageIndexNotifier.changeIndex(1);
               context.replaceNamed(AppRoute.location.name);
             },
@@ -62,7 +62,7 @@ class MyDrawer extends ConsumerWidget {
             title: Strings.myPage,
             icon: Icons.person,
             onTap: () {
-              Navigator.pop(context);
+              context.pop();
               pageIndexNotifier.changeIndex(2);
               context.replaceNamed(AppRoute.profile.name);
             },
@@ -75,7 +75,8 @@ class MyDrawer extends ConsumerWidget {
             title: Strings.settings,
             icon: Icons.settings,
             onTap: () {
-              Navigator.pop(context);
+              context.pop();
+              context.replaceNamed(AppRoute.settings.name);
             },
           ),
 
