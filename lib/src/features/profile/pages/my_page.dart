@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
@@ -15,7 +16,7 @@ import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_conf
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
-class MyPage extends ConsumerWidget {
+class MyPage extends HookConsumerWidget {
   const MyPage({super.key});
 
   @override
@@ -24,6 +25,11 @@ class MyPage extends ConsumerWidget {
     final friendList = ref.watch(friendListNotifierProvider);
 
     final reservationState = ref.watch(reservationStateProvider);
+
+    useEffect(() {
+      Future(() => ref.read(reservationNotifierProvider.notifier).refresh());
+      return null;
+    }, const []);
 
     return friendList.when(
       // フレンドリスト取得失敗
