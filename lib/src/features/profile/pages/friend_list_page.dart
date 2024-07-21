@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/friend_list_tile.dart';
+import 'package:sit_in_the_cafeteria/src/components/friend_text_field.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
 
-class FriendListPage extends ConsumerWidget {
+class FriendListPage extends HookConsumerWidget {
   const FriendListPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final friendList = ref.watch(friendListNotifierProvider);
-    // final friendListNotifier = ref.read(friendListNotifierProvider.notifier);
+    final friendController = useTextEditingController();
+    final friendListNotifier = ref.read(friendListNotifierProvider.notifier);
 
     return friendList.when(
       loading: () {
@@ -41,6 +44,7 @@ class FriendListPage extends ConsumerWidget {
       ),
       data: (friendList) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10),
             child: MyContainer(
@@ -48,7 +52,7 @@ class FriendListPage extends ConsumerWidget {
                 children: [
                   // タイトル
                   Text(
-                    '友達一覧',
+                    'すべての友だち',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
@@ -59,6 +63,30 @@ class FriendListPage extends ConsumerWidget {
                   Divider(
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
+
+                  // 友達追加
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FriendTextField(
+                          controller: friendController,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 80,
+                        child: MyButton(
+                          onPressed: () {
+                            // 友達追加処理
+                            friendListNotifier.addFriend(friendController.text);
+                            friendController.clear();
+                          },
+                          child: const Text('追加'),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
 
                   // フレンドリスト
                   Expanded(
