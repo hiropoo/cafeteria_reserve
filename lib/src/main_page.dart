@@ -36,50 +36,53 @@ class MainPage extends ConsumerWidget {
       ),
     ];
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
 
-      appBar: headers[bottomNavIndex],
-      drawer: const MyDrawer(),
+        appBar: headers[bottomNavIndex],
+        drawer: const MyDrawer(),
 
-      body: child,
+        body: child,
 
-      // bottomNavigationBar
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          // 予約
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event_note),
-            label: '予約',
-          ),
+        // bottomNavigationBar
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            // 予約
+            BottomNavigationBarItem(
+              icon: Icon(Icons.event_note),
+              label: '予約',
+            ),
 
-          // 位置情報
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on),
-            label: '位置情報',
-          ),
+            // 位置情報
+            BottomNavigationBarItem(
+              icon: Icon(Icons.location_on),
+              label: '位置情報',
+            ),
 
-          // マイページ
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'マイページ',
-          ),
-        ],
-        currentIndex: bottomNavIndex,
-        onTap: (index) {
-          notifier.changeIndex(index);
-          switch (index) {
-            case 0:
-              context.replace('/${AppRoute.reservation.name}');
-              break;
-            case 1:
-              context.replace('/${AppRoute.location.name}');
-              break;
-            case 2:
-              context.replace('/${AppRoute.profile.name}');
-              break;
-          }
-        },
+            // マイページ
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'マイページ',
+            ),
+          ],
+          currentIndex: bottomNavIndex,
+          onTap: (index) {
+            notifier.changeIndex(index);
+            switch (index) {
+              case 0:
+                context.replace('/${AppRoute.reservation.name}');
+                break;
+              case 1:
+                context.replace('/${AppRoute.location.name}');
+                break;
+              case 2:
+                context.replace('/${AppRoute.profile.name}');
+                break;
+            }
+          },
+        ),
       ),
     );
   }
