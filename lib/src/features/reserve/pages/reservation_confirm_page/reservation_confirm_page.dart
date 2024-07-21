@@ -12,9 +12,9 @@ class ReservationConfirmPage extends ConsumerWidget {
   static final _dateFormatter = DateFormat('yyyy/MM/dd');
   static final _timeFormatter = DateFormat('HH:mm');
 
-  bool fromMyPage;
+  final bool fromMyPage;
 
-  ReservationConfirmPage({super.key, this.fromMyPage = false});
+  const ReservationConfirmPage({super.key, this.fromMyPage = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

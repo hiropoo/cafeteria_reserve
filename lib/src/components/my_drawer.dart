@@ -85,6 +85,7 @@ class MyDrawer extends ConsumerWidget {
             onTap: () {
               final repositoryNotifier = ref.read(authStateNotifierProvider.notifier);
               repositoryNotifier.logout();
+              context.pop();
               context.pushReplacementNamed(AppRoute.login.name);
             },
           ),

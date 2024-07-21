@@ -5,6 +5,7 @@ class Strings {
   static const String password = 'パスワード';
   static const String studentID = '学籍番号';
   static const String confirmPassword = 'パスワード (確認用)';
+  static const String friendID = '友だちのID';
 
   /* ログイン 新規登録メッセージ */
   static const String login = 'ログイン';
