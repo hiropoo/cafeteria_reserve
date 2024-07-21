@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 
 class SendResultPage extends HookConsumerWidget {
   const SendResultPage({super.key});
@@ -25,7 +26,7 @@ class SendResultPage extends HookConsumerWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    '位置情報を送信しました',
+                    Strings.locationSendResultTitle,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -40,14 +41,14 @@ class SendResultPage extends HookConsumerWidget {
               // 説明
               const Text(
                 textAlign: TextAlign.center,
-                'ご予約の利用を確認しました。',
+                Strings.locationSendResultDescription1,
               ),
 
               const SizedBox(height: 20),
 
               const Text(
                 textAlign: TextAlign.center,
-                'ご利用ありがとうございました。',
+                Strings.locationSendResultDescription2,
               ),
 
               const SizedBox(height: 20),

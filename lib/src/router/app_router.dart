@@ -8,6 +8,7 @@ import 'package:sit_in_the_cafeteria/src/features/location/pages/location_base_p
 import 'package:sit_in_the_cafeteria/src/features/location/pages/result_page/send_result_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/cafeteria1_seat_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_page/cafeteria2_seat_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
 import 'package:sit_in_the_cafeteria/src/main_page.dart';
@@ -28,6 +29,9 @@ enum AppRoute {
   seat2,
   sendResult,
   profile,
+  profileSeat1,
+  profileSeat2,
+  friendList,
 }
 
 @riverpod
@@ -101,10 +105,32 @@ GoRouter goRouter(GoRouterRef ref) {
                     ),
                   ]),
               GoRoute(
-                path: '/profile',
-                name: AppRoute.profile.name,
-                builder: (context, state) => const Center(child: MyPage()),
-              ),
+                  path: '/profile',
+                  name: AppRoute.profile.name,
+                  builder: (context, state) => const Center(
+                        child: MyPage(),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'profileSeat1',
+                      name: AppRoute.profileSeat1.name,
+                      builder: (context, state) => Cafeteria1SeatPage(
+                        seatNumber: state.extra as int,
+                      ),
+                    ),
+                    GoRoute(
+                      path: 'profileSeat2',
+                      name: AppRoute.profileSeat2.name,
+                      builder: (context, state) => Cafeteria2SeatPage(
+                        seatNumber: state.extra as int,
+                      ),
+                    ),
+                    GoRoute(
+                      path: 'friendList',
+                      name: AppRoute.friendList.name,
+                      builder: (context, state) => const FriendListPage(),
+                    ),
+                  ]),
             ],
           )
         ],

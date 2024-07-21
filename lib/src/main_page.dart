@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_app_bar.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/router/bottom_nav_index_notifier.dart';
@@ -25,51 +26,63 @@ class MainPage extends ConsumerWidget {
           ref.read(reservationNotifierProvider.notifier).refresh();
         },
       ),
-      const MyAppBar(title: 'マイページ'),
+      MyAppBar(
+        title: 'マイページ',
+        hasRefresh: true,
+        onRefresh: () {
+          ref.read(friendListNotifierProvider.notifier).refresh();
+          ref.read(reservationNotifierProvider.notifier).refresh();
+        },
+      ),
     ];
 
-    return Scaffold(
-      appBar: headers[bottomNavIndex],
-      drawer: const MyDrawer(),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
 
-      body: child,
+        appBar: headers[bottomNavIndex],
+        drawer: const MyDrawer(),
 
-      // bottomNavigationBar
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          // 予約
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event_note),
-            label: '予約',
-          ),
+        body: child,
 
-          // 位置情報
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on),
-            label: '位置情報',
-          ),
+        // bottomNavigationBar
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            // 予約
+            BottomNavigationBarItem(
+              icon: Icon(Icons.event_note),
+              label: '予約',
+            ),
 
-          // マイページ
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'マイページ',
-          ),
-        ],
-        currentIndex: bottomNavIndex,
-        onTap: (index) {
-          notifier.changeIndex(index);
-          switch (index) {
-            case 0:
-              context.replace('/${AppRoute.reservation.name}');
-              break;
-            case 1:
-              context.replace('/${AppRoute.location.name}');
-              break;
-            case 2:
-              context.replace('/${AppRoute.profile.name}');
-              break;
-          }
-        },
+            // 位置情報
+            BottomNavigationBarItem(
+              icon: Icon(Icons.location_on),
+              label: '位置情報',
+            ),
+
+            // マイページ
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'マイページ',
+            ),
+          ],
+          currentIndex: bottomNavIndex,
+          onTap: (index) {
+            notifier.changeIndex(index);
+            switch (index) {
+              case 0:
+                context.replace('/${AppRoute.reservation.name}');
+                break;
+              case 1:
+                context.replace('/${AppRoute.location.name}');
+                break;
+              case 2:
+                context.replace('/${AppRoute.profile.name}');
+                break;
+            }
+          },
+        ),
       ),
     );
   }

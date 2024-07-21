@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 
 class Cafeteria2SeatPage extends StatelessWidget {
   static const int maxSeatNumber = 72;
 
-  
   final int seatNumber;
 
   const Cafeteria2SeatPage({super.key, required this.seatNumber});
@@ -40,7 +40,7 @@ class Cafeteria2SeatPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    '第2食堂',
+                    Strings.cafeteria2,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.secondary,
@@ -50,7 +50,7 @@ class Cafeteria2SeatPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 30),
                 Text(
-                  '座席を確認してください',
+                  Strings.seatConfirm,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.bold,
@@ -222,7 +222,7 @@ class Cafeteria2SeatPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(0),
                             ),
                             child: Text(
-                              '入り口',
+                              Strings.entrance,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.secondary,
@@ -263,7 +263,7 @@ class Cafeteria2SeatPage extends StatelessWidget {
               onPressed: () {
                 context.pop();
               },
-              child: const Text('戻る'),
+              child: const Text(Strings.returnButton),
             ),
           ),
         ],

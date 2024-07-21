@@ -13,9 +13,10 @@ class Reservation with _$Reservation {
     required DateTime? endTime,
     required int cafeNum,
     required List<int> seatNumbers,
-    required List<List<String>> members,
+    required List<List<String>> members,  // [[userID, userName], [userID, userName], ...]
     required bool isArrived,
     @Default(false) bool isLoading,
+    @Default(false) bool isError,
   }) = _Reservation;
 
   // responseからReservationオブジェクトを生成するシングルトンコンストラクタ
