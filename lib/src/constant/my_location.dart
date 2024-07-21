@@ -8,5 +8,5 @@ class MyLocation {
   };
 
   // 学食を認識するための半径（メートル）
-  static double radius = environment['locationRadius'] as double;
+  static double radius = double.parse(environment['locationRadius'].toString());
 }
