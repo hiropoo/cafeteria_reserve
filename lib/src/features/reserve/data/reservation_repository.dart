@@ -17,20 +17,49 @@ class ReservationRepository extends Repository {
   Future<Reservation?> fetchReservation({required String userID}) async {
     debugPrint('fetchReservation method called');
 
-    // サーバから予約情報を取得
     await connect();
     final response = await request("fetchReservation $userID");
 
     final List<String> responseList = response.split(" ");
 
     if (responseList.first == "failure") {
-      if(responseList[1] == "noData") {
-        return const Reservation(startTime: null, endTime: null, cafeNum: 0, seatNumbers: [], members: [], isArrived: false,);
+      if (responseList[1] == "noData") {
+        return const Reservation(
+          startTime: null,
+          endTime: null,
+          cafeNum: 0,
+          seatNumbers: [],
+          members: [],
+          isArrived: false,
+        );
       }
       debugPrint('fetchReservation failed : ${responseList[1]}');
       return null;
     } else if (responseList.first == "success") {
       return Reservation.fromResponse(responseList);
+    } else {
+      return Future.error('unknown response from server');
+    }
+  }
+
+  /// 予約を削除する処理
+  /// request -> "removeReservation userID1,userID2..."
+  /// response -> "success" or "failure message"
+  Future<bool> removeReservation({required List<String> memberIDs}) async {
+    debugPrint('removeReservation method called');
+
+    await connect();
+
+    final userIDs = memberIDs.join(',');
+    final response = await request("removeReservation $userIDs");
+
+    final List<String> responseList = response.split(" ");
+
+    if (responseList.first == "failure") {
+      debugPrint('removeReservation failed : ${responseList[1]}');
+      return false;
+    } else if (responseList.first == "success") {
+      return true;
     } else {
       return Future.error('unknown response from server');
     }

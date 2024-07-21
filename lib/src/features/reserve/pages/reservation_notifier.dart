@@ -20,8 +20,24 @@ class ReservationNotifier extends _$ReservationNotifier {
   }
 
   // 予約情報を削除
-  void clear() {
-    state = const AsyncData(null);
+  void clear() async {
+    final currentState = state;
+
+    state = const AsyncLoading();
+
+    // サーバから予約情報を削除
+    final repository = ref.read(reservationRepositoryProvider);
+    final memberIDs = currentState.asData!.value!.members.map((member) => member[0]).toList();
+
+    final result = await repository.removeReservation(memberIDs: memberIDs);
+    await Future.delayed(const Duration(milliseconds: 600));
+
+    if (result) {
+      // 予約情報を削除
+      state = const AsyncData(null);
+    } else {
+      state = currentState;
+    }
   }
 
   // 予約情報をサーバから取得して更新
@@ -41,17 +57,27 @@ class ReservationNotifier extends _$ReservationNotifier {
 
 @riverpod
 Reservation? reservation(ReservationRef ref) {
-  return ref.watch(reservationNotifierProvider).maybeWhen(
-      data: (reservation) => reservation,
-      orElse: () => const Reservation(
-            startTime: null,
-            endTime: null,
-            cafeNum: 0,
-            seatNumbers: [],
-            members: [],
-            isArrived: false,
-            isLoading: true,
-          ));
+  return ref.watch(reservationNotifierProvider).when(
+        data: (reservation) => reservation,
+        loading: () => const Reservation(
+          startTime: null,
+          endTime: null,
+          cafeNum: 0,
+          seatNumbers: [],
+          members: [],
+          isArrived: false,
+          isLoading: true,
+        ),
+        error: (error, _) => const Reservation(
+          startTime: null,
+          endTime: null,
+          cafeNum: 0,
+          seatNumbers: [],
+          members: [],
+          isArrived: false,
+          isError: true,
+        ),
+      );
 }
 
 @riverpod
@@ -61,8 +87,14 @@ ReservationState reservationState(ReservationStateRef ref) {
   // 予約情報がない場合
   if (reservation == null) {
     return ReservationState.noReservation;
-  } else if (reservation.isLoading) {
+  }
+  // ローディング中
+  else if (reservation.isLoading) {
     return ReservationState.loading;
+  }
+  // エラーが発生している場合
+  else if (reservation.isError) {
+    return ReservationState.error;
   }
   // 座席が-1の場合はペナルティあり
   else if (reservation.seatNumbers.first == -1) {
