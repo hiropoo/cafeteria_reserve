@@ -37,6 +37,8 @@ class MainPage extends ConsumerWidget {
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
       appBar: headers[bottomNavIndex],
       drawer: const MyDrawer(),
 
