@@ -19,17 +19,38 @@ class FriendListNotifier extends _$FriendListNotifier {
 
   // フレンド削除
   void deleteFriend(String friendID) async {
+    List<Friend> friendList = state.asData!.value;
+
+    state = const AsyncLoading();
     final repository = ref.read(friendListRepositoryProvider);
     final user = ref.watch(userNotifierProvider);
 
     final result = await repository.removeFriend(userID: user.userID, friendID: friendID);
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (result) {
+      friendList = await repository.fetchFriendList(userID: user.userID);
+    }
+    state = AsyncData(friendList);
+  }
+
+  // フレンド追加
+  void addFriend(String friendID) async {
+    state = const AsyncLoading();
+    final repository = ref.read(friendListRepositoryProvider);
+    final user = ref.watch(userNotifierProvider);
+
+    final result = await repository.addFriend(userID: user.userID, friendID: friendID);
+    await Future.delayed(const Duration(seconds: 1));
 
     if (result) {
       final friendList = await repository.fetchFriendList(userID: user.userID);
       state = AsyncData(friendList);
+    } else {
     }
   }
 
+  // リフレッシュ
   Future refresh() async {
     state = const AsyncLoading();
 

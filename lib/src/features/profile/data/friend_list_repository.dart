@@ -41,7 +41,10 @@ class FriendListRepository extends Repository {
     else if (responseList.first == "success") {
       final friendList = responseList.sublist(1).map((friendString) {
         final friend = friendString.split(":");
-        return Friend(friendID: friend[0], friendName: friend[1]);
+        final friendID = friend[0];
+        // 名前に\nが含まれている場合は削除
+        final friendName = friend[1].replaceAll("\n", "");
+        return Friend(friendID: friendID, friendName: friendName);
       }).toList();
 
       debugPrint('fetchFriendList success');
@@ -51,6 +54,35 @@ class FriendListRepository extends Repository {
       debugPrint('unknown response from server');
       return Future.error('unknown response from server');
     }
+  }
+
+  /// フレンド追加処理
+  /// request -> "addFriend userID friendID"
+  /// response -> "success friendID:friendName" or "failure message"
+  Future<bool> addFriend({required String userID, required String friendID}) async {
+    bool isSuccess = false;
+    debugPrint('addFriend method called');
+
+    // サーバに通信してフレンド追加処理を行う
+    await connect();
+    final response = await request("addFriend $userID $friendID");
+
+    final List<String> responseList = response.split(" ");
+
+    // フレンド追加失敗時
+    if (responseList.first == "failure") {
+      final message = responseList[1];
+      debugPrint('addFriend failed : $message');
+    }
+    // フレンド追加成功時
+    else if (responseList.first == "success") {
+      isSuccess = true;
+      debugPrint('addFriend success');
+    } else {
+      debugPrint('unknown response from server');
+    }
+
+    return isSuccess;
   }
 
   /// フレンド削除処理
