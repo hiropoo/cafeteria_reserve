@@ -11,6 +11,7 @@ import 'package:sit_in_the_cafeteria/src/features/location/pages/seat_confirm_pa
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/my_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_page.dart';
+import 'package:sit_in_the_cafeteria/src/features/settings/pages/setting_list/server_ip_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/settings/pages/settings_page.dart';
 import 'package:sit_in_the_cafeteria/src/main_page.dart';
 
@@ -34,6 +35,7 @@ enum AppRoute {
   profileSeat2,
   friendList,
   settings,
+  network,
 }
 
 @riverpod
@@ -137,11 +139,13 @@ GoRouter goRouter(GoRouterRef ref) {
           )
         ],
       ),
-      GoRoute(
-        path: '/settings',
-        name: AppRoute.settings.name,
-        builder: (context, state) => const SettingsPage(),
-      ),
+      GoRoute(path: '/settings', name: AppRoute.settings.name, builder: (context, state) => const SettingsPage(), routes: [
+        GoRoute(
+          path: 'network',
+          name: AppRoute.network.name,
+          builder: (context, state) => const NetworkSettingPage(),
+        ),
+      ]),
     ],
   );
 }

@@ -13,6 +13,7 @@ class Strings {
   static const String signUp = '新規登録';
   static const String loginFailed = 'ユーザー名またはパスワードが間違っています';
   static const String signUpFailed = '新規登録に失敗しました';
+  static const String errorOccurred = '通信エラーが発生しました';
 
   static const String noAccount = 'アカウントをお持ちでない場合';
   static const String alreadyHaveAccount = 'すでにアカウントをお持ちの方';

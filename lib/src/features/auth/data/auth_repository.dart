@@ -20,35 +20,46 @@ class AuthRepository extends Repository {
     debugPrint('login method called');
 
     // サーバに通信してログイン処理を行う
-    await connect();
-    final response = await request("login $userName $password");
+    try {
+      await connect();
 
-    final List<String> responseList = response.split(" ");
+      final response = await request("login $userName $password");
 
-    // ログイン失敗時
-    if (responseList.first == "failure") {
-      final message = responseList[1];
-      debugPrint('login failed : $message');
-      return null;
-    }
-    // ログイン成功時
-    else if (responseList.first == "success") {
-      final userID = responseList[1];
-      final studentID = int.parse(responseList[2]);
+      final List<String> responseList = response.split(" ");
 
-      debugPrint('login success');
+      // ログイン失敗時
+      if (responseList.first == "failure") {
+        final message = responseList[1];
+        debugPrint('login failed : $message');
+        return null;
+      }
+      // ログイン成功時
+      else if (responseList.first == "success") {
+        final userID = responseList[1];
+        final studentID = int.parse(responseList[2]);
 
-      return User(
+        debugPrint('login success');
+
+        return User(
+          userName: '',
+          password: '',
+          studentID: studentID,
+          userID: userID,
+          friendList: [],
+        );
+      } else {
+        debugPrint('unknown response from server');
+        return Future.error('unknown response from server');
+      }
+    } catch (e) {
+      return const User(
+        isError: true,
         userName: '',
         password: '',
-        studentID: studentID,
-        userID: userID,
+        studentID: -1,
+        userID: '',
         friendList: [],
-        hasReservation: false,
       );
-    } else {
-      debugPrint('unknown response from server');
-      return Future.error('unknown response from server');
     }
   }
 
@@ -58,35 +69,45 @@ class AuthRepository extends Repository {
   Future<User?> signUp({required String userName, required String password, required int studentID}) async {
     debugPrint('signUp method called');
 
-    // サーバに通信して新規登録処理を行う
-    await connect();
-    final response = await request("signUp $userName $password $studentID");
+    try {
+      // サーバに通信して新規登録処理を行う
+      await connect();
+      final response = await request("signUp $userName $password $studentID");
 
-    final List<String> responseList = response.split(" ");
+      final List<String> responseList = response.split(" ");
 
-    // 新規登録失敗時
-    if (responseList.first == "failure") {
-      final message = responseList[1];
-      debugPrint('signUp failed : $message');
-      return null;
-    }
-    // 新規登録成功時
-    else if (responseList.first == "success") {
-      final userID = responseList[1];
+      // 新規登録失敗時
+      if (responseList.first == "failure") {
+        final message = responseList[1];
+        debugPrint('signUp failed : $message');
+        return null;
+      }
+      // 新規登録成功時
+      else if (responseList.first == "success") {
+        final userID = responseList[1];
 
-      debugPrint('signUp success');
+        debugPrint('signUp success');
 
-      return User(
+        return User(
+          userName: '',
+          password: '',
+          studentID: -1,
+          userID: userID,
+          friendList: [],
+        );
+      } else {
+        debugPrint('unknown response from server');
+        return Future.error('unknown response from server');
+      }
+    } catch (e) {
+      return const User(
+        isError: true,
         userName: '',
         password: '',
         studentID: -1,
-        userID: userID,
+        userID: '',
         friendList: [],
-        hasReservation: false,
       );
-    } else {
-      debugPrint('unknown response from server');
-      return Future.error('unknown response from server');
     }
   }
 }

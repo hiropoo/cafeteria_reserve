@@ -33,6 +33,7 @@ class MainApp extends HookConsumerWidget {
     final mobileTheme = MediaQuery.platformBrightnessOf(context) == Brightness.dark ? darkTheme : lightTheme;
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       theme: useMobileTheme ? mobileTheme : theme,
       routerConfig: goRouter,
     );

@@ -37,6 +37,8 @@ class AuthBasePage extends ConsumerWidget {
                 context.pushReplacementNamed(AppRoute.location.name);
               });
               break;
+            case AuthState.error:
+              return const Text('エラーが発生しました');
           }
           return null;
         },

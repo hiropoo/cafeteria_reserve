@@ -11,6 +11,6 @@ class User with _$User {
     required int studentID,
     required String userID,
     required List<Friend> friendList,
-    required bool hasReservation,
+    @Default(false) bool isError,
   }) = _User;
 }

@@ -7,6 +7,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
 import 'package:sit_in_the_cafeteria/src/features/settings/pages/theme_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/settings/pages/use_mobile_theme.dart';
+import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
@@ -26,67 +27,79 @@ class SettingsPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          title: Text(
-            '設定',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          centerTitle: true,
-          // ドロワーメニューを開くボタン
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.keyboard_double_arrow_left_sharp),
-                onPressed: () {
-                  context.pop();
-                },
-              );
-            },
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          '設定',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        drawer: const MyDrawer(),
-        body: SettingsList(
-          platform: DevicePlatform.iOS,
-          sections: [
-            SettingsSection(
-              title: const Text('テーマ'),
-              tiles: [
-                SettingsTile.switchTile(
-                  leading: const Icon(Icons.brightness_4),
-                  title: const Text('ダークモード'),
-                  initialValue: isDarkMode,
-                  onToggle: (value) {
-                    ref.read(myThemeProvider.notifier).toggleTheme();
-                  },
-                ),
-                SettingsTile.switchTile(
-                  leading: const Icon(Icons.mobile_friendly_rounded),
-                  title: const Text('端末の設定を使う'),
-                  initialValue: useDeviceSetting,
-                  onToggle: (value) {
-                    ref.read(useMobileThemeProvider.notifier).toggleUseMobileTheme();
-                  },
-                ),
-              ],
-            ),
+        centerTitle: true,
+        // ドロワーメニューを開くボタン
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.keyboard_double_arrow_left_sharp),
+              onPressed: () {
+                context.pop();
+              },
+            );
+          },
+        ),
+      ),
+      drawer: const MyDrawer(),
+      body: SettingsList(
+        platform: DevicePlatform.iOS,
+        sections: [
+          SettingsSection(
+            title: const Text('テーマ'),
+            tiles: [
+              SettingsTile.switchTile(
+                leading: const Icon(Icons.brightness_4),
+                title: const Text('ダークモード'),
+                initialValue: isDarkMode,
+                onToggle: (value) {
+                  ref.read(myThemeProvider.notifier).toggleTheme();
+                },
+              ),
+              SettingsTile.switchTile(
+                leading: const Icon(Icons.mobile_friendly_rounded),
+                title: const Text('端末の設定を使う'),
+                initialValue: useDeviceSetting,
+                onToggle: (value) {
+                  ref.read(useMobileThemeProvider.notifier).toggleUseMobileTheme();
+                },
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: const Text('ネットワーク'),
+            tiles: [
+              SettingsTile.navigation(
+                leading: const Icon(Icons.admin_panel_settings_rounded),
+                title: const Text('ネットワーク'),
+                trailing: const Icon(color: Colors.grey, Icons.keyboard_arrow_right),
+                onPressed: (context) => context.pushNamed(AppRoute.network.name),
+              ),
+            ],
+          ),
 
-            // アプリのバージョン
-            SettingsSection(
-              title: const Text('アプリについて'),
-              tiles: <SettingsTile>[
-                SettingsTile(
-                  leading: const Icon(Icons.info),
-                  title: const Text('アプリのバージョン'),
-                  value: Text("${snapshot.data?.version}"),
-                ),
-              ],
-            ),
-          ],
-        ));
+          // アプリのバージョン
+          SettingsSection(
+            title: const Text('アプリについて'),
+            tiles: <SettingsTile>[
+              SettingsTile(
+                leading: const Icon(Icons.info),
+                title: const Text('アプリのバージョン'),
+                value: Text("${snapshot.data?.version}"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

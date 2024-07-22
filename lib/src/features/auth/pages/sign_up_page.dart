@@ -6,6 +6,7 @@ import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/auth_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/utils/my_ui_feedback_manager.dart';
@@ -66,8 +67,25 @@ class SignUpPage extends HookConsumerWidget {
 
           // ログイン失敗 -> エラーメッセージを表示
           case false:
-            errorMessage.value = Strings.signUpFailed;
-            break;
+            switch (result) {
+              // ログイン成功 -> メインページに遷移
+              case true:
+                if (context.mounted) context.pushReplacementNamed(AppRoute.location.name);
+                break;
+
+              // ログイン失敗 -> エラーメッセージを表示
+              case false:
+                switch (authState.asData?.value) {
+                  case AuthState.loggedOut:
+                    errorMessage.value = Strings.loginFailed;
+                    break;
+                  case AuthState.error:
+                    errorMessage.value = Strings.errorOccurred;
+                    break;
+                  default:
+                }
+                break;
+            }
         }
       }
     }

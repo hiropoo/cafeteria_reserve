@@ -6,19 +6,31 @@ import 'package:flutter/foundation.dart';
 import 'package:sit_in_the_cafeteria/src/utils/env.dart';
 
 class Repository {
-  static final String _serverIP = environment['serverIP'].toString();
-  static final int _serverPort = int.parse(environment['port'].toString());
+  static String _serverIP = environment['serverIP'].toString();
+  static int _serverPort = int.parse(environment['port'].toString());
   static Socket? _socket;
 
+  // Getter と Setter を修正
+  static String get serverIP => _serverIP;
+  static set serverIP(String ip) {
+    _serverIP = ip;
+  }
+
+  static int get serverPort => _serverPort;
+  static set serverPort(int port) {
+    _serverPort = port;
+  }
+
   /* サーバとの接続メソッド */
-  Future connect() async {
+  Future<void> connect() async {
     try {
-      debugPrint('connecting to server');
+      debugPrint('Connecting to server');
       _socket = await Socket.connect(_serverIP, _serverPort);
-      debugPrint('connected to server');
+      debugPrint('Connected to server');
     } catch (e) {
-      debugPrint('failed to connect to server');
+      debugPrint('Failed to connect to server: $e');
       disconnect();
+      rethrow; // エラーを再スロー
     }
   }
 
@@ -27,36 +39,43 @@ class Repository {
     if (_socket != null) {
       _socket!.close();
       _socket = null;
+      debugPrint('Disconnected from server');
     }
   }
 
-  /* サーバにrequestを送信するメソッド */
+  /* サーバにリクエストを送信するメソッド */
   Future<String> request(String request) async {
     if (_socket == null) {
-      return Future.error('not connected to server');
+      return Future.error('Not connected to server');
     }
 
     try {
-      // サーバにrequestを送信
-      debugPrint('sending request: $request');
+      debugPrint('Sending request: $request');
       _socket!.add(utf8.encode("$request\n"));
 
-      // サーバからのresponseを受信
       final completer = Completer<String>();
-      String response = '';
-      _socket!.listen((data) {
-        response += utf8.decode(data);
-        if (response.endsWith('\n')) {
-          completer.complete(response);
-          debugPrint('received response: $response');
-        }
-      });
+      StringBuffer responseBuffer = StringBuffer();
+
+      _socket!.listen(
+        (data) {
+          responseBuffer.write(utf8.decode(data));
+          if (responseBuffer.toString().endsWith('\n')) {
+            completer.complete(responseBuffer.toString());
+            debugPrint('Received response: ${responseBuffer.toString()}');
+          }
+        },
+        onError: (error) {
+          completer.completeError('Failed to receive response: $error');
+        },
+        onDone: () {
+          disconnect(); // Ensure socket is closed on done
+        },
+        cancelOnError: true,
+      );
 
       return completer.future;
     } catch (e) {
-      return Future.error('failed to send request to server');
-    } finally {
-      disconnect();
+      throw Future.error('Failed to send request to server: $e');
     }
   }
 }

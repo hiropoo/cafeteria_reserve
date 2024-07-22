@@ -8,6 +8,7 @@ import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_textfield.dart';
 import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/src/features/auth/domains/auth_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
@@ -47,10 +48,34 @@ class LoginPage extends HookConsumerWidget {
 
           // ログイン失敗 -> エラーメッセージを表示
           case false:
-            errorMessage.value = Strings.loginFailed;
+            switch (authState.asData?.value) {
+              case AuthState.loggedOut:
+                errorMessage.value = Strings.loginFailed;
+                break;
+              case AuthState.error:
+                errorMessage.value = Strings.errorOccurred;
+                break;
+              default:
+            }
             break;
         }
       }
+    }
+
+    final longPressTimer = useState<Timer?>(null);
+
+    void startLongPressTimer() {
+      debugPrint('startLongPressTimer');
+      longPressTimer.value = Timer(const Duration(seconds: 5), () {
+        // 5秒経過した後に画面遷移を行う
+        context.pushNamed(AppRoute.network.name);
+      });
+    }
+
+    // 長押し終了時の処理
+    void cancelLongPressTimer() {
+      longPressTimer.value?.cancel();
+      longPressTimer.value = null;
     }
 
     return PopScope(
@@ -146,6 +171,10 @@ class LoginPage extends HookConsumerWidget {
                       width: 5,
                     ),
                     GestureDetector(
+                      onLongPress: startLongPressTimer,
+                      onLongPressEnd: (details) {
+                        cancelLongPressTimer();
+                      },
                       onTap: () {
                         // 新規作成画面に遷移
                         context.goNamed(AppRoute.signUp.name);

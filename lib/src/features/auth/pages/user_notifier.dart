@@ -13,7 +13,7 @@ class UserNotifier extends _$UserNotifier {
       studentID: -1,
       userID: '',
       friendList: [],
-      hasReservation: false,
+      
     );
   }
 

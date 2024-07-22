@@ -67,8 +67,13 @@ class AuthStateNotifier extends _$AuthStateNotifier {
 
     // ログイン処理が失敗した場合
     if (user == null) {
-      // エラー状態にする
+      // ログアウト状態にする
       state = const AsyncValue.data(AuthState.loggedOut);
+      return false;
+    }
+
+    if (user.isError) {
+      state = const AsyncValue.data(AuthState.error);
       return false;
     }
 
@@ -109,6 +114,11 @@ class AuthStateNotifier extends _$AuthStateNotifier {
     // 新規登録処理が失敗した場合
     if (user == null) {
       state = const AsyncValue.data(AuthState.signUp);
+      return false;
+    }
+
+    if (user.isError) {
+      state = const AsyncValue.data(AuthState.error);
       return false;
     }
 

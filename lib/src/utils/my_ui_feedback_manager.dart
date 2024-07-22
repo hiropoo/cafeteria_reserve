@@ -18,6 +18,38 @@ class MyUIFeedbackManager {
     );
   }
 
+  static Future<dynamic> showTextFieldDialog({
+    required BuildContext context,
+    required String title,
+    required String message,
+    required TextEditingController controller,
+    required List<Widget> actions,
+    bool isNumber = false,
+  }) {
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: Text(title),
+        content: Column(
+          children: [
+            Text(message),
+            const SizedBox(height: 10),
+            CupertinoTextField(
+              controller: controller,
+              placeholder: 'IPアドレス',
+              keyboardType: isNumber ? TextInputType.number : TextInputType.url,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.inversePrimary,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+        actions: actions,
+      ),
+    );
+  }
+
   static void showSnackBar({required context, required content}) {
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
