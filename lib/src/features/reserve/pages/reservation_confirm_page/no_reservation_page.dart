@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
@@ -69,6 +70,7 @@ class NoReservationPage extends ConsumerWidget {
             // 予約ページへ
             MyButton(
               onPressed: () {
+                HapticFeedback.lightImpact();
                 ref.read(bottomNavIndexProvider.notifier).changeIndex(0);
                 context.pushNamed(AppRoute.reservation.name);
               },

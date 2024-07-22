@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
+import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 
 class SendResultPage extends HookConsumerWidget {
   const SendResultPage({super.key});
@@ -59,6 +63,17 @@ class SendResultPage extends HookConsumerWidget {
                 child: Image.asset(
                   'lib/src/assets/images/send-result.png',
                 ),
+              ),
+
+              const SizedBox(height: 20),
+
+              MyButton(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  ref.read(reservationNotifierProvider.notifier).refresh();
+                  context.pop();
+                },
+                child: const Text(Strings.returnButton),
               ),
             ],
           ),

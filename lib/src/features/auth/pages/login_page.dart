@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,6 +33,8 @@ class LoginPage extends HookConsumerWidget {
 
     // ログイン処理
     Future login() async {
+      HapticFeedback.lightImpact();
+
       if (formKey.currentState!.validate()) {
         final username = usernameController.text;
         final password = passwordController.text;
@@ -67,6 +70,8 @@ class LoginPage extends HookConsumerWidget {
     void startLongPressTimer() {
       debugPrint('startLongPressTimer');
       longPressTimer.value = Timer(const Duration(seconds: 5), () {
+        HapticFeedback.vibrate();
+
         // 5秒経過した後に画面遷移を行う
         context.pushNamed(AppRoute.network.name);
       });
@@ -176,6 +181,7 @@ class LoginPage extends HookConsumerWidget {
                         cancelLongPressTimer();
                       },
                       onTap: () {
+                        HapticFeedback.selectionClick();
                         // 新規作成画面に遷移
                         context.goNamed(AppRoute.signUp.name);
                       },

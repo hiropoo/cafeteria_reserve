@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,8 @@ class ReservationConfirmPage extends ConsumerWidget {
 
     // 座席確認画面へ遷移
     void confirmSeat() {
+      HapticFeedback.selectionClick();
+
       switch (reservation!.cafeNum) {
         case 1:
           if (fromMyPage) {
@@ -126,6 +129,7 @@ class ReservationConfirmPage extends ConsumerWidget {
           if (fromMyPage)
             MyButton(
               onPressed: () {
+                HapticFeedback.lightImpact();
                 MyUIFeedbackManager.showDialog(
                   context: context,
                   title: '予約のキャンセル',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
@@ -48,6 +49,8 @@ class NotAvailablePage extends ConsumerWidget {
               ),
               MyButton(
                 onPressed: () {
+                  HapticFeedback.lightImpact();
+
                   ref.read(bottomNavIndexProvider.notifier).changeIndex(1);
                   context.pushReplacementNamed(AppRoute.location.name);
                 },

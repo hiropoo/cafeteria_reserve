@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
@@ -261,6 +262,7 @@ class Cafeteria2SeatPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: MyButton(
               onPressed: () {
+                HapticFeedback.lightImpact();
                 context.pop();
               },
               child: const Text(Strings.returnButton),

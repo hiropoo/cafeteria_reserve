@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_app_bar.dart';
@@ -23,6 +24,8 @@ class MainPage extends ConsumerWidget {
         title: '位置情報を送信',
         hasRefresh: true,
         onRefresh: () {
+          HapticFeedback.lightImpact();
+
           ref.read(reservationNotifierProvider.notifier).refresh();
         },
       ),
@@ -30,6 +33,8 @@ class MainPage extends ConsumerWidget {
         title: 'マイページ',
         hasRefresh: true,
         onRefresh: () {
+          HapticFeedback.lightImpact();
+
           ref.read(friendListNotifierProvider.notifier).refresh();
           ref.read(reservationNotifierProvider.notifier).refresh();
         },

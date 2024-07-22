@@ -173,6 +173,8 @@ class _UserIDCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
+            HapticFeedback.lightImpact();
+
             // クリップボードにコピー
             Clipboard.setData(
               ClipboardData(text: user.userID),
@@ -236,6 +238,8 @@ class _FriendNumberCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
+            HapticFeedback.lightImpact();
+
             // 友達一覧へ遷移
             context.pushNamed(AppRoute.friendList.name);
           },

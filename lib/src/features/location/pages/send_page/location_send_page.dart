@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +10,6 @@ import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/domains/location_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/location/pages/send_page/location_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_confirm_page/reservation_confirm_page.dart';
-import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 
 class LocationSendPage extends HookConsumerWidget {
@@ -43,7 +43,7 @@ class LocationSendPage extends HookConsumerWidget {
               errorMessage.value = " ";
 
               // ページ遷移
-              context.goNamed(AppRoute.sendResult.name);
+              context.pushNamed(AppRoute.sendResult.name);
               break;
             default:
               errorMessage.value = " ";
@@ -56,6 +56,8 @@ class LocationSendPage extends HookConsumerWidget {
 
     // ボタンが押された時の位置情報送信処理
     Future sendArrived() async {
+      HapticFeedback.lightImpact();
+
       // 位置情報を更新
       final result = await locationStateNotifier.updateArrived();
       if (result && context.mounted) {

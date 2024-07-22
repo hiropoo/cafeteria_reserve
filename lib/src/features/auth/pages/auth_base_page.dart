@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/domains/auth_state.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/login_page.dart';
@@ -38,7 +39,19 @@ class AuthBasePage extends ConsumerWidget {
               });
               break;
             case AuthState.error:
-              return const Text('エラーが発生しました');
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('エラーが発生しました'),
+                    const SizedBox(height: 30),
+                    MyButton(
+                      onPressed: () => context.goNamed(AppRoute.login.name),
+                      child: const Text('戻る'),
+                    ),
+                  ],
+                ),
+              );
           }
           return null;
         },

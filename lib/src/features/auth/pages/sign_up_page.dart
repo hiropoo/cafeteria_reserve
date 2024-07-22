@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,6 +34,8 @@ class SignUpPage extends HookConsumerWidget {
 
     // 新規登録処理
     Future signUp() async {
+      HapticFeedback.lightImpact();
+
       if (formKey.currentState!.validate()) {
         // 新規登録処理
         final username = usernameController.text;
@@ -208,6 +211,8 @@ class SignUpPage extends HookConsumerWidget {
                       ),
                       GestureDetector(
                         onTap: () {
+                          HapticFeedback.selectionClick();
+
                           // ログイン画面に遷移
                           context.goNamed(AppRoute.login.name);
                         },
