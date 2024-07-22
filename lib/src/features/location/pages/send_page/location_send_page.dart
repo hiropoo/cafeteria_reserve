@@ -59,9 +59,6 @@ class LocationSendPage extends HookConsumerWidget {
       // 位置情報を更新
       final result = await locationStateNotifier.updateArrived();
       if (result && context.mounted) {
-        // 予約情報を削除
-        ref.read(reservationNotifierProvider.notifier).clear();
-
         // 位置情報送信に成功したことを表示する画面へ遷移
         context.pushReplacementNamed(AppRoute.sendResult.name);
       }
