@@ -16,29 +16,40 @@ class ReservationRepository extends Repository {
   /// response -> "success userID:userName,userID:userName,... cafeNum seatNum startTime endTime went"
   Future<Reservation?> fetchReservation({required String userID}) async {
     debugPrint('fetchReservation method called');
+    try {
+      await connect();
+      final response = await request("fetchReservation $userID");
 
-    await connect();
-    final response = await request("fetchReservation $userID");
+      final List<String> responseList = response.split(" ");
 
-    final List<String> responseList = response.split(" ");
-
-    if (responseList.first == "failure") {
-      if (responseList[1] == "noData") {
-        return const Reservation(
-          startTime: null,
-          endTime: null,
-          cafeNum: 0,
-          seatNumbers: [],
-          members: [],
-          isArrived: false,
-        );
+      if (responseList.first == "failure") {
+        if (responseList[1] == "noData") {
+          return const Reservation(
+            startTime: null,
+            endTime: null,
+            cafeNum: 0,
+            seatNumbers: [],
+            members: [],
+            isArrived: false,
+          );
+        }
+        debugPrint('fetchReservation failed : ${responseList[1]}');
+        return null;
+      } else if (responseList.first == "success") {
+        return Reservation.fromResponse(responseList);
+      } else {
+        return Future.error('unknown response from server');
       }
-      debugPrint('fetchReservation failed : ${responseList[1]}');
-      return null;
-    } else if (responseList.first == "success") {
-      return Reservation.fromResponse(responseList);
-    } else {
-      return Future.error('unknown response from server');
+    } catch (e) {
+      return const Reservation(
+        startTime: null,
+        endTime: null,
+        cafeNum: 0,
+        seatNumbers: [],
+        members: [],
+        isArrived: false,
+        isError: true,
+      );
     }
   }
 
