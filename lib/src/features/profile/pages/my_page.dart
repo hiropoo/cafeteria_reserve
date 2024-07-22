@@ -15,6 +15,7 @@ import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_conf
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_confirm_page/reservation_confirm_page.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
+import 'package:sit_in_the_cafeteria/src/utils/my_ui_feedback_manager.dart';
 
 class MyPage extends HookConsumerWidget {
   const MyPage({super.key});
@@ -178,13 +179,10 @@ class _UserIDCard extends StatelessWidget {
             );
 
             // スナックバー表示
-            ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  content: Text(Strings.copyID),
-                ),
-              );
+            MyUIFeedbackManager.showSnackBar(
+              context: context,
+              content: const Text('IDをコピーしました'),
+            );
           },
           child: Container(
             padding: const EdgeInsets.all(5),

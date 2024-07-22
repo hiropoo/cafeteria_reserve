@@ -8,7 +8,7 @@ import 'package:sit_in_the_cafeteria/src/constant/form_category.dart';
 import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/auth/pages/auth_state_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
-import 'package:sit_in_the_cafeteria/src/utils/dialog.dart';
+import 'package:sit_in_the_cafeteria/src/utils/my_ui_feedback_manager.dart';
 
 class SignUpPage extends HookConsumerWidget {
   const SignUpPage({super.key});
@@ -52,7 +52,7 @@ class SignUpPage extends HookConsumerWidget {
           case true:
             if (context.mounted) {
               errorMessage.value = '';
-              MyDialog.show(context: context, title: Strings.signUpCompleted, message: Strings.signUpCompletedMessage, actions: [
+              MyUIFeedbackManager.showDialog(context: context, title: Strings.signUpCompleted, message: Strings.signUpCompletedMessage, actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();

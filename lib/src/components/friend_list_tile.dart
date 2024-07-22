@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sit_in_the_cafeteria/src/features/profile/pages/friend_list_notifier.dart';
+import 'package:sit_in_the_cafeteria/src/utils/my_ui_feedback_manager.dart';
 
 class FriendListTile extends ConsumerWidget {
   const FriendListTile({super.key, required this.friendID, required this.friendName});
@@ -63,13 +64,10 @@ class FriendListTile extends ConsumerWidget {
           Clipboard.setData(ClipboardData(text: friendID));
 
           // スナックバー表示
-          ScaffoldMessenger.of(context)
-            ..removeCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text('$friendNameのユーザーIDをコピーしました'),
-              ),
-            );
+          MyUIFeedbackManager.showSnackBar(
+            context: context,
+            content: const Text('IDをコピーしました'),
+          );
         },
         child: Container(
           decoration: const BoxDecoration(
