@@ -139,7 +139,6 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
       GoRoute(
         path: '/settings',
-        // parentNavigatorKey: _rootNavigatorKey,
         name: AppRoute.settings.name,
         builder: (context, state) => const SettingsPage(),
       ),

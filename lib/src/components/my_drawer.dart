@@ -25,12 +25,12 @@ class MyDrawer extends ConsumerWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
-            child: Text(
+            child: const Text(
               Strings.appName,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Colors.black,
               ),
             ),
           ),
@@ -76,7 +76,7 @@ class MyDrawer extends ConsumerWidget {
             icon: Icons.settings,
             onTap: () {
               context.pop();
-              context.replaceNamed(AppRoute.settings.name);
+              context.pushNamed(AppRoute.settings.name);
             },
           ),
 

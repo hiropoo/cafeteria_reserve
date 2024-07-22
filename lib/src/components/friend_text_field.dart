@@ -28,7 +28,7 @@ class FriendTextField extends HookWidget {
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Theme.of(context).colorScheme.surfaceTint,
 
           // 通常時のデザイン
           enabledBorder: const OutlineInputBorder(
