@@ -77,6 +77,9 @@ class FriendListPage extends HookConsumerWidget {
                         width: 80,
                         child: MyButton(
                           onPressed: () {
+                            if (friendController.text.isEmpty) {
+                              return;
+                            }
                             // 友達追加処理
                             friendListNotifier.addFriend(friendController.text);
                             friendController.clear();

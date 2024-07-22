@@ -17,9 +17,7 @@ final prodVariables = {
 Map<String, dynamic> get environment {
   if (flavor == 'dev') {
     return devVariables;
-  }
-  if (flavor == 'prod') {
+  } else {
     return prodVariables;
   }
-  throw UnimplementedError('baseUrl: $flavor is unknown value');
 }
