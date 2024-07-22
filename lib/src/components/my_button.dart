@@ -22,7 +22,7 @@ class MyButton extends StatelessWidget {
         // ボタンのデザイン
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+          foregroundColor: Theme.of(context).colorScheme.surface,
           textStyle: const TextStyle(fontSize: 16),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),

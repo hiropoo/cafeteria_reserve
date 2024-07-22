@@ -8,7 +8,7 @@ ThemeData lightTheme = ThemeData(
     primary: Color(0xFF70C1CC), // メインカラー
     secondary: Color(0xFF3D3D3D), // ボタン
     tertiary: Color(0xFF81D762), // アクセント
-    inversePrimary: Color(0xFFF4F4F4),
+    inversePrimary: Color.fromARGB(255, 51, 51, 51),
     surfaceTint: Color(0xFFFFFFFF), // フレンドテキストフィールド
   ),
 );
@@ -21,7 +21,7 @@ ThemeData darkTheme = ThemeData(
     primary: Color(0xFF70C1CC), // メインカラー
     secondary: Color.fromARGB(255, 211, 211, 211), // ボタン
     tertiary: Color(0xFF81D762), // アクセント
-    inversePrimary: Color(0xFF1E1E1E), // 逆のメインカラー
+    inversePrimary: Color(0xFFF4F4F4), // 逆のメインカラー
     surfaceTint: Color.fromARGB(255, 0, 0, 0), // フレンドテキストフィールド
   ),
 );
