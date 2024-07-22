@@ -48,6 +48,10 @@ class MainPage extends ConsumerWidget {
 
         // bottomNavigationBar
         bottomNavigationBar: BottomNavigationBar(
+          selectedIconTheme: const IconThemeData(
+            size: 30,
+          ),
+          selectedItemColor: Theme.of(context).colorScheme.primary,
           items: const [
             // 予約
             BottomNavigationBarItem(

@@ -13,10 +13,10 @@ ThemeData lightTheme = ThemeData(
   ),
 );
 
-// ダークテーマ (未定義)
+// ダークテーマ
 ThemeData darkTheme = ThemeData(
   colorScheme: const ColorScheme.dark(
-    surface: Color(0xFF1E1E1E), // 領域
+    surface: Color.fromARGB(255, 51, 51, 51), // 領域
     onSurface: Color(0xFFE0E0E0), // 領域の上の領域
     primary: Color(0xFF70C1CC), // メインカラー
     secondary: Color.fromARGB(255, 211, 211, 211), // ボタン
