@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/utils/my_ui_feedback_manager.dart';
 import 'package:sit_in_the_cafeteria/src/utils/repository.dart';
 
@@ -20,7 +21,7 @@ class NetworkSettingPage extends HookConsumerWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
-          'ネットワーク設定',
+          Strings.networkSetting,
           style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 20,
@@ -42,24 +43,24 @@ class NetworkSettingPage extends HookConsumerWidget {
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: const Text('サーバ設定'),
+            title: const Text(Strings.serverSetting),
             tiles: [
               SettingsTile(
-                title: const Text('IPアドレス'),
+                title: const Text(Strings.ip),
                 value: Text(ip.value),
                 onPressed: (context) {
                   MyUIFeedbackManager.showTextFieldDialog(
                     controller: ipTextController,
                     context: context,
-                    title: 'IPアドレス',
-                    message: 'IPアドレスを入力してください',
+                    title: Strings.ip,
+                    message: Strings.ipMessage,
                     actions: [
                       TextButton(
                         onPressed: () {
                           context.pop();
                         },
                         child: Text(
-                          'キャンセル',
+                          Strings.cancel,
                           style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                         ),
                       ),
@@ -70,29 +71,29 @@ class NetworkSettingPage extends HookConsumerWidget {
                           ip.value = ipTextController.text;
                           ipTextController.clear();
                         },
-                        child: const Text('保存'),
+                        child: const Text(Strings.save),
                       ),
                     ],
                   );
                 },
               ),
               SettingsTile(
-                title: const Text('ポート番号'),
+                title: const Text(Strings.port),
                 value: Text(port.value),
                 onPressed: (context) {
                   MyUIFeedbackManager.showTextFieldDialog(
                     isNumber: true,
                     controller: portTextController,
                     context: context,
-                    title: 'ポート番号',
-                    message: 'ポート番号を入力してください',
+                    title: Strings.port,
+                    message: Strings.portMessage,
                     actions: [
                       TextButton(
                         onPressed: () {
                           context.pop();
                         },
                         child: Text(
-                          'キャンセル',
+                          Strings.cancel,
                           style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                         ),
                       ),
@@ -103,7 +104,7 @@ class NetworkSettingPage extends HookConsumerWidget {
                           port.value = portTextController.text;
                           portTextController.clear();
                         },
-                        child: const Text('保存'),
+                        child: const Text(Strings.save),
                       ),
                     ],
                   );

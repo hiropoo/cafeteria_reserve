@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/location_page_tile.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_button.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
 import 'package:sit_in_the_cafeteria/src/utils/my_ui_feedback_manager.dart';
@@ -62,7 +63,7 @@ class ReservationConfirmPage extends ConsumerWidget {
               ),
               const SizedBox(width: 10),
               Text(
-                '予約内容',
+               Strings.reservationContent,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -76,15 +77,15 @@ class ReservationConfirmPage extends ConsumerWidget {
 
           // 予約した学食
           LocationPageTile(
-            header: '予約した学食',
-            content: reservation!.cafeNum == 1 ? '第1食堂' : '第2食堂',
+            header: Strings.reservationCafe,
+            content: reservation!.cafeNum == 1 ? Strings.cafeteria1 : Strings.cafeteria2,
           ),
 
           const SizedBox(height: 10),
 
           // 予約日
           LocationPageTile(
-            header: '予約日',
+            header: Strings.reservationDate,
             content: _dateFormatter.format(reservation.startTime!),
           ),
 
@@ -92,14 +93,14 @@ class ReservationConfirmPage extends ConsumerWidget {
 
           // 予約時間
           LocationPageTile(
-            header: '予約時間',
+            header: Strings.reservationTime,
             content: '${_timeFormatter.format(reservation.startTime!)} ~ ${_timeFormatter.format(reservation.endTime!)}',
           ),
 
           const SizedBox(height: 10),
 
           // 予約した座席
-          LocationPageTile(header: '予約した座席', content: reservation.seatNumbers.map((seatNum) => seatNum).join(', ')),
+          LocationPageTile(header: Strings.reservationSeat, content: reservation.seatNumbers.map((seatNum) => seatNum).join(', ')),
 
           const SizedBox(height: 5),
 
@@ -113,7 +114,7 @@ class ReservationConfirmPage extends ConsumerWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 Text(
-                  "座席の確認はこちら",
+                  Strings.confirmSeat,
                   style: TextStyle(
                     fontSize: 12,
                     color: Theme.of(context).colorScheme.primary,
@@ -132,14 +133,14 @@ class ReservationConfirmPage extends ConsumerWidget {
                 HapticFeedback.lightImpact();
                 MyUIFeedbackManager.showDialog(
                   context: context,
-                  title: '予約のキャンセル',
-                  message: '予約をキャンセルしますか？',
+                  title: Strings.reservationCancel,
+                  message: Strings.reservationCancelMessage,
                   actions: [
                     TextButton(
                       onPressed: () {
                         context.pop();
                       },
-                      child: const Text('いいえ'),
+                      child: const Text(Strings.no),
                     ),
                     TextButton(
                       onPressed: () {
@@ -151,13 +152,13 @@ class ReservationConfirmPage extends ConsumerWidget {
                         style: TextStyle(
                           color: Colors.red,
                         ),
-                        'はい',
+                        Strings.yes,
                       ),
                     ),
                   ],
                 );
               },
-              child: const Text('予約のキャンセル'),
+              child: const Text(Strings.reservationCancel),
             ),
         ],
       ),

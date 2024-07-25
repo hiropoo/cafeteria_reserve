@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_drawer.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/settings/pages/theme_notifier.dart';
 import 'package:sit_in_the_cafeteria/src/features/settings/pages/use_mobile_theme.dart';
 import 'package:sit_in_the_cafeteria/src/router/app_router.dart';
@@ -30,7 +31,7 @@ class SettingsPage extends HookConsumerWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
-          '設定',
+          Strings.settings,
           style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 20,
@@ -55,11 +56,11 @@ class SettingsPage extends HookConsumerWidget {
         platform: DevicePlatform.iOS,
         sections: [
           SettingsSection(
-            title: const Text('テーマ'),
+            title: const Text(Strings.theme),
             tiles: [
               SettingsTile.switchTile(
                 leading: const Icon(Icons.brightness_4),
-                title: const Text('ダークモード'),
+                title: const Text(Strings.darkMode),
                 initialValue: isDarkMode,
                 onToggle: (value) {
                   ref.read(myThemeProvider.notifier).toggleTheme();
@@ -67,7 +68,7 @@ class SettingsPage extends HookConsumerWidget {
               ),
               SettingsTile.switchTile(
                 leading: const Icon(Icons.mobile_friendly_rounded),
-                title: const Text('端末の設定を使う'),
+                title: const Text(Strings.useMobileMode),
                 initialValue: useDeviceSetting,
                 onToggle: (value) {
                   ref.read(useMobileThemeProvider.notifier).toggleUseMobileTheme();
@@ -76,11 +77,11 @@ class SettingsPage extends HookConsumerWidget {
             ],
           ),
           SettingsSection(
-            title: const Text('ネットワーク'),
+            title: const Text(Strings.network),
             tiles: [
               SettingsTile.navigation(
                 leading: const Icon(Icons.admin_panel_settings_rounded),
-                title: const Text('ネットワーク'),
+                title: const Text(Strings.networkSetting),
                 trailing: const Icon(color: Colors.grey, Icons.keyboard_arrow_right),
                 onPressed: (context) => context.pushNamed(AppRoute.network.name),
               ),
@@ -89,11 +90,11 @@ class SettingsPage extends HookConsumerWidget {
 
           // アプリのバージョン
           SettingsSection(
-            title: const Text('アプリについて'),
+            title: const Text(Strings.aboutApp),
             tiles: <SettingsTile>[
               SettingsTile(
                 leading: const Icon(Icons.info),
-                title: const Text('アプリのバージョン'),
+                title: const Text(Strings.appVersion),
                 value: Text("${snapshot.data?.version}"),
               ),
             ],

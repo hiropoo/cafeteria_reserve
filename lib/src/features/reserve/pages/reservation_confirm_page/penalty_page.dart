@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sit_in_the_cafeteria/src/components/my_container.dart';
+import 'package:sit_in_the_cafeteria/src/constant/strings.dart';
 import 'package:sit_in_the_cafeteria/src/features/reserve/pages/reservation_notifier.dart';
 
 class PenaltyPage extends ConsumerWidget {
@@ -28,7 +29,7 @@ class PenaltyPage extends ConsumerWidget {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  '利用停止中',
+                  Strings.currentlySuspension,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -43,7 +44,7 @@ class PenaltyPage extends ConsumerWidget {
             // 説明
             const Text(
               textAlign: TextAlign.center,
-              '前回の予約のご利用を確認できなかったため、このアカウントは利用停止中です。',
+              Strings.currentlySuspensionMessage,
             ),
 
             const SizedBox(height: 20),
@@ -53,9 +54,9 @@ class PenaltyPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('利用停止期間：'),
+                const Text(Strings.suspensionPeriod),
                 Text(
-                  '2週間',
+                  Strings.suspensionPeriodTime,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.secondary,

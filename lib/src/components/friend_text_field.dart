@@ -17,7 +17,7 @@ class FriendTextField extends HookWidget {
       child: TextFormField(
         controller: controller,
         style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.secondary),
-        onEditingComplete: () => FocusManager.instance.primaryFocus?.unfocus(),
+        // onEditingComplete: () => FocusManager.instance.primaryFocus?.unfocus(),
         onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
 
         // テキストフィールドのデザイン

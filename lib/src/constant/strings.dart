@@ -22,6 +22,10 @@ class Strings {
   static const String signUpCompleted = '新規登録';
   static const String signUpCompletedMessage = '新規登録が完了しました';
   static const String dialogConfirm = 'OK';
+  static const String yes = 'はい';
+  static const String no = 'いいえ';
+  static const String cancel = 'キャンセル';
+  static const String save = '保存';
 
   /* バリデーションメッセージ */
   static const String usernameEmpty = 'ユーザー名を入力してください';
@@ -71,6 +75,40 @@ class Strings {
   /* 予約画面 */
   static const String reservation = '予約';
 
+  static const String noReservation = '予約がありません';
+  static const String noReservationMessage1 = '現在、利用可能な予約がありません。';
+  static const String noReservationMessage2 = 'PCアプリ または 予約ページから\n予約を行ってください。';
+  static const String reservationPage = '予約ページへ';
+
+  static const String currentlySuspension = '利用停止中';
+  static const String currentlySuspensionMessage = '前回の予約のご利用を確認できなかったため、このアカウントは利用停止中です。';
+  static const String suspensionPeriod = '利用停止期間：';
+  static const String suspensionPeriodTime = '2週間';
+
+  static const String reservationContent = '予約内容';
+  static const String reservationCafe = '予約した学食';
+  static const String reservationDate = '予約日';
+  static const String reservationTime = '予約時間';
+  static const String reservationSeat = '予約した座席';
+  static const String confirmSeat = '座席の確認はこちら';
+
+  static const String reservationCancel = '予約をキャンセル';
+  static const String reservationCancelMessage = '予約をキャンセルしますか？';
+
   /* 設定画面 */
   static const String settings = '設定';
+  static const String theme = 'テーマ';
+  static const String darkMode = 'ダークモード';
+  static const String useMobileMode = '端末の設定を使う';
+
+  static const String network = 'ネットワーク';
+  static const String networkSetting = 'ネットワーク設定';
+  static const String serverSetting = 'サーバー設定';
+  static const String ip = 'IPアドレス';
+  static const String ipMessage = 'IPアドレスを入力してください';
+  static const String port = 'ポート番号';
+  static const String portMessage = 'ポート番号を入力してください';
+
+  static const String aboutApp = 'アプリについて';
+  static const String appVersion = 'アプリのバージョン';
 }
