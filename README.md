@@ -163,7 +163,7 @@ lib
 |        カテゴリ        |          技術           |
 | :--------------------: | :---------------------: |
 |     フロントエンド     |         Flutter         |
-| サーバサイドプログラム |          Java           |
+| [サーバサイドプログラム](https://github.com/hiropoo/CafeteriaReserveServer) |          Java           |
 |        デザイン        |          Figma          |
 
 
