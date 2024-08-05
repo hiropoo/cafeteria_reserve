@@ -6,6 +6,8 @@
 
 ### アプリの画面
 
+デモ動画は[こちら](images/demo.mp4)からご覧いただけます。
+
 - 新規登録 -> 新規登録実行 -> ログイン
 
 <img src="images/signup-page.png" width="33%" alt=""><img src="images/sinup_execute.png" width="33%" alt=""><img src="images/login-page.png" width="33%" alt="">
@@ -36,7 +38,7 @@
 
 </summary>
 
-``` bash
+```bash
 lib
 ├── main.dart
 └── src
@@ -160,22 +162,22 @@ lib
 
 ### 使用した技術
 
-|        カテゴリ        |          技術           |
-| :--------------------: | :---------------------: |
-|     フロントエンド     |         Flutter         |
-| [サーバサイドプログラム](https://github.com/hiropoo/CafeteriaReserveServer) |          Java           |
-|        デザイン        |          Figma          |
+|                                  カテゴリ                                   |  技術   |
+| :-------------------------------------------------------------------------: | :-----: |
+|                               フロントエンド                                | Flutter |
+| [サーバサイドプログラム](https://github.com/hiropoo/CafeteriaReserveServer) |  Java   |
+|                                  デザイン                                   |  Figma  |
 
+#### 主に使用した Flutter パッケージ
 
-#### 主に使用したFlutterパッケージ
-* [flutter_hooks](https://pub.dev/packages/flutter_hooks)
-* [flutter_riverpod](https://pub.dev/packages/flutter_riverpod)
-* [riverpod_generator](https://pub.dev/packages/riverpod_generator)
-* [build_runner](https://pub.dev/packages/build_runner)
-* [freezed](https://pub.dev/packages/freezed)
-* [shared_preferences](https://pub.dev/packages/shared_preferences)
-* [go_router](https://pub.dev/packages/go_router)
-* [location](https://pub.dev/packages/location)
+- [flutter_hooks](https://pub.dev/packages/flutter_hooks)
+- [flutter_riverpod](https://pub.dev/packages/flutter_riverpod)
+- [riverpod_generator](https://pub.dev/packages/riverpod_generator)
+- [build_runner](https://pub.dev/packages/build_runner)
+- [freezed](https://pub.dev/packages/freezed)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+- [go_router](https://pub.dev/packages/go_router)
+- [location](https://pub.dev/packages/location)
 
 ---
 
